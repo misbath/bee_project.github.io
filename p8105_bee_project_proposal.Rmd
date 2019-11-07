@@ -31,4 +31,17 @@ Bee colony decline has made headlines in recent news reports. The decrease in be
 
 ### Analyses/Visualizations/Coding Challenges 
 
+In our initial descriptive analyses we will report counties (aggregated into regions) that have seen the largest changes in bee population during the time period where data are available. We will also describe pesticide use. 
+
+We propose to study the association between pesticide use and change in bee population over time in a county to identify the pesticides most strongly related to bee decline. We intend to produce maps of pesticide use and change in bee populations, across various years and for various identified pesticides of concern. 
+
+Given that the publically available data focus on agricultural pesticide use, we will not be considering residential pesticide use and acknowledge that represents a potentially important limitation. Additionally, we anticipate that there will be variability in the extent and quality of pesticide use reporting across the US. The first coding challenge that we expect is merging county and zip code information to use as a common identifier across the datasets. 
+
 ### Planned Timeline 
+November 13: Clean dataset to help with data exploration
+November 15: Decide on specific analyses after further data exploration and divide work accordingly. 
+November 22: Complete all analyses and incorporate into one website repository. 
+November 27: Record video outlining results to incorporate into website
+December 5: Submit final project
+December 10: Present project
+
