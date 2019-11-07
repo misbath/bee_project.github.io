@@ -49,7 +49,7 @@ We propose to study the association between pesticide use and change in
 bee population over time in a county to identify the pesticides most
 strongly related to bee decline. We intend to produce vizualizations of
 pesticide use and change in bee populations, across various years and
-for various identified pesticides of concern.
+for various identified pesticides of concern by county.
 
 Given that the publicly available data focus on agricultural pesticide
 use, we will not be considering residential pesticide use and
