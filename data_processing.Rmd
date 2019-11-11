@@ -32,8 +32,21 @@ county_fips = read_csv("./data/all-geocodes-v2016.csv", skip = 4) %>%
 ```
 
 ```{r, county-level bee data}
-bee_county = read.csv("./data/Bee_Colony_Census_Data_by_County.csv") %>% 
-  janitor::clean_names() 
+bee_county = read_csv("./data/bee_county/Bee_Colony_Census_Data_by_County 2.csv") %>% 
+  janitor::clean_names() %>% 
+  select(year, 
+         state, 
+         state_ansi, 
+         ag_district, 
+         ag_district_code, 
+         county, 
+         county_ansi, 
+         value, 
+         cv_percent)
 
+   
+  
+  
+head(bee_county)
 ```
 
