@@ -21,6 +21,7 @@ scale_colour_discrete = scale_colour_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
 theme_set(theme_bw() + theme(legend.position = "bottom"))
 ```
+
 ```{r, county FIPS data}
 county_fips = read_csv("./data/all-geocodes-v2016.csv", skip = 4) %>%
   janitor::clean_names() %>%
@@ -28,5 +29,11 @@ county_fips = read_csv("./data/all-geocodes-v2016.csv", skip = 4) %>%
   filter(county_code_fips != "000") %>%
   mutate(state_county_fips = paste0(state_code_fips, county_code_fips)) %>%
   select (state_code_fips, county_code_fips, state_county_fips, county_name)
+```
+
+```{r, county-level bee data}
+bee_county = read.csv("./data/Bee_Colony_Census_Data_by_County.csv") %>% 
+  janitor::clean_names() 
+
 ```
 
