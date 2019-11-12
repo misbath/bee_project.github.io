@@ -50,3 +50,49 @@ bee_county = read_csv("./data/bee_county/Bee_Colony_Census_Data_by_County 2.csv"
 head(bee_county)
 ```
 
+```{r, state-level bee data}
+## bee_state_data contains unzipped files that contain all of the information gathered in a year
+
+## bee_state_2 contains 1 table per file, unzipped, that has summary table of honey producing colonies
+
+## NONE OF THE CODE BELOW IS CORRECT
+
+# option 1
+file_name <- list.files(path = "./data/bee_state_2/") 
+
+import_data = function(x) {
+  df = read_csv(file = str_c("./data/bee_state_2/", x)) %>% 
+    mutate(filename = x) %>% 
+  df
+}
+
+#option 2, load all datasets into R individually
+bee2002 = read_csv("./data/bee_state_2/hony_002_2002.csv", skip = 9)
+
+bee2019 = read_csv("./data/bee_state_2/hony_all_tables_2019.csv", skip = 9)
+
+bee_state_load_and_tidy = function(path, range, year) {
+  df = read_csv(path, range = range) %>%
+    janitor::clean_names() %>%
+    df
+}
+
+#creates merged dataframe but this is not correct. data columns are all shifted and wrong
+bee_state = list.files(path = "./data/bee_state_2/", pattern = "*.csv", full.names = TRUE) %>%
+  map_df(~read_csv(., col_types = cols(.default = "c"))) 
+
+data_bee_state = plyr::ldply(bee_state, read_csv)
+
+#similar to option above
+load_data <- function(path) { 
+  files <- dir(path, pattern = '*.csv', full.names = TRUE)
+  tables <- lapply(files, read_csv)
+  bind_rows(rbind, tables)
+}
+
+bee_state <- load_data("bee_state_data")
+
+```
+
+
+
