@@ -1,0 +1,16 @@
+4,"t","Honey: Released March 30, 2012, by the National Agricultural Statistics Service (NASS), Agricultural Statistics Board, United States Department of Agriculture (USDA)."
+4,"t","Reliability of Honey Estimates"
+4,"t","[Based on data for the past 10 years]"
+4,"h","","","","","","","",""
+4,"h","","Root mean","90 percent","Difference between first and latest estimate","Difference between first and latest estimate","Difference between first and latest estimate","Difference between first and latest estimate","Difference between first and latest estimate"
+4,"h","","square error","confidence","","","","",""
+4,"h","","","level","","","","",""
+4,"h","Item","","","","","","Years","Years"
+4,"h","","","","","","","",""
+4,"h","","","","Average","Smallest","Largest","Below latest","Above latest"
+4,"h","","","","","","","",""
+4,"u","","(percent)","(percent)","(1,000)","(1,000)","(1,000)","(number)","(number)"
+4,"d","Honey producing colonies",1.1,2.0,19,1,50,8,2
+4,"d","",,,,,,,
+4,"d","Honey production",0.8,1.5,784,64,2928,7,3
+4,"c",""
