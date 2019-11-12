@@ -50,7 +50,7 @@ bee_county = read_csv("./data/bee_county/Bee_Colony_Census_Data_by_County 2.csv"
 head(bee_county)
 ```
 
-```{r, state-level bee data}
+```{r, state-level bee data, eval=FALSE}
 ## bee_state_data contains unzipped files that contain all of the information gathered in a year
 
 ## bee_state_2 contains 1 table per file, unzipped, that has summary table of honey producing colonies
@@ -94,5 +94,24 @@ bee_state <- load_data("bee_state_data")
 
 ```
 
+```{r, pesticide data, eval = FALSE}
+
+#Converting txt files to csv 
+
+directory <- "./data/pesticides"
+ndirectory <- "./data/pesticides_csv"
+
+file_name <- list.files(directory, pattern = ".txt")
+
+files.to.read <- paste(directory, file_name, sep="/") 
+files.to.write <- paste(ndirectory, paste0(sub(".txt","", file_name),".csv"), sep="/")
+
+for (i in 1:length(files.to.read)) {
+  temp <- (read.csv(files.to.read[i]))
+  write.csv(temp, file = files.to.write[i])
+}
+
+#Only worked for 2002 to 2012 - need to check why I am getting an error message for 2013+
+```
 
 
