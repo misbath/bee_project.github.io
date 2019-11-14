@@ -6,6 +6,12 @@ output: github_document
 ---
 
 This document is to check to see if our pesticides of interest are in the dataset. 
+
+
+#FINDINGS: 
+All 6 pesticides, "CHLOROTHALONIL","CHLORPYRIFOS"   "CLOTHIANIDIN", "FIPRONIL","IMIDACLOPRID",and "THIACLOPRID" have data from 2004-2016. 
+Only 4 pesticides, "CHLOROTHALONIL","CHLORPYRIFOS", "FIPRONIL","IMIDACLOPRID" had data from 2002-2003.
+
 ```{r setup}
 library(tidyverse)
 library(viridis)
