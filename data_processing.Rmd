@@ -61,11 +61,32 @@ head(bee_county)
 file_name <- list.files(path = "./data/bee_state_2/") 
 
 import_data = function(x) {
-  df = read_csv(file = str_c("./data/bee_state_2/", x)) %>% 
-    mutate(filename = x) %>% 
+  df = read_csv(file = str_c("./data/bee_state_2/", x)) %>%
+  mutate(file = x)
   df
 }
 
+  df = read_csv(file = str_c("./data/bee_state_2/", file_name[1])) %>%
+  mutate(file = file_name[1])
+  df
+  
+  my_read_csv = function(x){
+    df = read_csv(x, skip = 9,col_names  = F)
+  }
+  
+  test_df = my_read_csv("./data/bee_state_2/hony_002_2002.csv")
+  
+
+bee_data = 
+  tibble(
+    file_names = file_name,
+    path = str_c("./data/bee_state_2/", file_names)
+  ) %>% 
+  mutate(data = map(path, my_read_csv))%>% 
+  unnest()
+
+
+do.call(rbind.data.frame, bee_data)
 #option 2, load all datasets into R individually
 bee2002 = read_csv("./data/bee_state_2/hony_002_2002.csv", skip = 9)
 
