@@ -52,33 +52,18 @@ bee_county = read_csv("./data/bee_county/Bee_Colony_Census_Data_by_County 2.csv"
 head(bee_county)
 ```
 
-```{r, state-level bee data, eval=FALSE}
-## bee_state_data contains unzipped files that contain all of the information gathered in a year
-
-## bee_state_2 contains 1 table per file, unzipped, that has summary table of honey producing colonies
-
-## NONE OF THE CODE BELOW IS CORRECT
-
-# option 1
+```{r, state bee colonies}
+#create function to import data
 file_name <- list.files(path = "./data/bee_state_2/") 
 
-import_data = function(x) {
-  df = read_csv(file = str_c("./data/bee_state_2/", x)) %>%
-  mutate(file = x)
-  df
-}
-
-  df = read_csv(file = str_c("./data/bee_state_2/", file_name[1])) %>%
+df = read_csv(file = str_c("./data/bee_state_2/", file_name[1])) %>%
   mutate(file = file_name[1])
   df
   
-  my_read_csv = function(x){
-    df = read_csv(x, skip = 9,col_names  = F)
+my_read_csv = function(x){
+    df = read_csv(x, skip = 9, col_names  = F)
   }
   
-  test_df = my_read_csv("./data/bee_state_2/hony_002_2002.csv")
-  
-
 bee_data = 
   tibble(
     file_names = file_name,
@@ -87,34 +72,21 @@ bee_data =
   mutate(data = map(path, my_read_csv))%>% 
   unnest()
 
+#clean data set
+clean_bee_data =
+  bee_data %>%
+ separate(file_names, into = c("year", "remove"), sep = ".c") %>%
+  select(-remove, -X1, -X2, -path) %>%
+  rename(state = X3, honey_producing_colonies = X4, yield_per_colony = X5, production = X6, stocks = X7, price_per_pound = X8, production_value = X9) %>%
+  drop_na(state) %>%
+  remove(state = "Oth")
+  
 
-do.call(rbind.data.frame, bee_data)
-#option 2, load all datasets into R individually
-bee2002 = read_csv("./data/bee_state_2/hony_002_2002.csv", skip = 9)
-
-bee2019 = read_csv("./data/bee_state_2/hony_all_tables_2019.csv", skip = 9)
-
-bee_state_load_and_tidy = function(path, range, year) {
-  df = read_csv(path, range = range) %>%
-    janitor::clean_names() %>%
-    df
-}
-
-#creates merged dataframe but this is not correct. data columns are all shifted and wrong
-bee_state = list.files(path = "./data/bee_state_2/", pattern = "*.csv", full.names = TRUE) %>%
-  map_df(~read_csv(., col_types = cols(.default = "c"))) 
-
-data_bee_state = plyr::ldply(bee_state, read_csv)
-
-#similar to option above
-load_data <- function(path) { 
-  files <- dir(path, pattern = '*.csv', full.names = TRUE)
-  tables <- lapply(files, read_csv)
-  bind_rows(rbind, tables)
-}
-
-bee_state <- load_data("bee_state_data")
-
+pivot_wider(
+    bee_data,
+    names_from = "state", 
+    values_from = "honey_producing_colonies"
+  )
 ```
 
 ```{r, eval = FALSE}
