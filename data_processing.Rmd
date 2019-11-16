@@ -6,6 +6,8 @@ output: html_document
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(viridis)
+library(readxl)
+
 knitr::opts_chunk$set(
 	echo = TRUE,
 	warning = FALSE,
@@ -50,7 +52,7 @@ bee_county = read_csv("./data/bee_county/Bee_Colony_Census_Data_by_County 2.csv"
 head(bee_county)
 ```
 
-```{r, state-level bee data}
+```{r, state-level bee data, eval=FALSE}
 ## bee_state_data contains unzipped files that contain all of the information gathered in a year
 
 ## bee_state_2 contains 1 table per file, unzipped, that has summary table of honey producing colonies
@@ -115,5 +117,46 @@ bee_state <- load_data("bee_state_data")
 
 ```
 
+```{r, eval = FALSE}
+
+#Converting txt files to csv 
+
+directory <- "./data/pesticides"
+ndirectory <- "./data/pesticides_csv"
+
+file_name <- list.files(directory, pattern = ".txt")
+
+files.to.read <- paste(directory, file_name, sep="/")
+files.to.write <- paste(ndirectory, paste0(sub(".txt","", file_name),".csv"), sep="/")
+
+for (i in 1:length(files.to.read)) {
+  temp <- (read.csv(files.to.read[i], header = TRUE))
+  write.csv(temp, file = files.to.write[i])
+}
+
+#Only worked for 2002 to 2012 - need to check why I am getting an error message for 2013+
+```
+
+```{r, pesticide data}
+
+pest_2002 = read_excel("./data/pesticides_csv/EPest.county.estimates.2002.xlsx") %>% 
+  janitor::clean_names() %>% 
+  mutate(
+    state_fips = state_fips_code,
+    county_fips = county_fips_code,
+    state_county_fips = paste0(state_fips, county_fips),
+    epest_low_kg = round(epest_low_kg),
+    epest_high_kg = round(epest_high_kg)) %>%
+  select(-state_fips_code, -county_fips_code)
+    
+pest_2002 %>% 
+  group_by(year, state_county_fips, compound) %>% 
+  ggplot(aes(x = compound, y = epest_high_kg)) + 
+  geom_col() 
+
+unique(pull(pest_2002, compound))
+  
+  
+```
 
 

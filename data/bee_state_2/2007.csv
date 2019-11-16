@@ -1,0 +1,62 @@
+2,"t","Honey: Released February 28, 2007, by the National Agricultural Statistics Service (NASS), Agricultural Statistics Board, U.S. Department of Agriculture."
+2,"t","Honey:  Number of Colonies, Yield, Production, Stocks, Price,"
+2,"t","and Value by State and United States, 2005 1/ 2/"
+2,"h","","","","","","",""
+2,"h","","Honey","Yield","","","Average","Value"
+2,"h","State","Producing","per","Production","Stocks","Price per","of"
+2,"h","","Colonies","Colony","","Dec 15 3/","Pound 4/","Production"
+2,"h","","","","","","",""
+2,"u","","1,000","Pounds","1,000 Pounds","1,000 Pounds","Cents","1,000 Dollars"
+2,"d","AL",13,66,858,266,110,944
+2,"d","AZ",36,50,1800,720,105,1890
+2,"d","AR",36,69,2484,571,83,2062
+2,"d","CA",400,75,30000,9300,84,25200
+2,"d","CO",28,70,1960,902,97,1901
+2,"d","FL",160,86,13760,2477,86,11834
+2,"d","GA",59,49,2891,434,89,2573
+2,"d","HI",9,131,1179,283,143,1686
+2,"d","ID",95,37,3515,1793,80,2812
+2,"d","IL",8,85,680,408,186,1265
+2,"d","IN",8,64,512,189,122,625
+2,"d","IA",28,88,2464,1232,122,3006
+2,"d","KS",16,50,800,328,109,872
+2,"d","KY",5,50,250,40,208,520
+2,"d","LA",35,97,3395,611,72,2444
+2,"d","ME",8,26,208,193,166,345
+2,"d","MI",65,68,4420,2519,96,4243
+2,"d","MN",120,74,8880,1598,79,7015
+2,"d","MS",16,80,1280,346,67,858
+2,"d","MO",15,50,750,180,122,915
+2,"d","MT",130,67,8710,3136,83,7229
+2,"d","NE",40,68,2720,2530,82,2230
+2,"d","NV",12,46,552,442,311,1717
+2,"d","NJ",12,32,384,104,121,465
+2,"d","NM",7,49,343,113,103,353
+2,"d","NY",60,73,4380,2321,138,6044
+2,"d","NC",10,54,540,146,188,1015
+2,"d","ND",370,91,33670,8418,82,27609
+2,"d","OH",15,69,1035,580,142,1470
+2,"d","OR",39,42,1638,557,107,1753
+2,"d","PA",28,56,1568,800,113,1772
+2,"d","SD",220,79,17380,11818,79,13730
+2,"d","TN",7,55,385,92,170,655
+2,"d","TX",84,71,5964,954,87,5189
+2,"d","UT",23,45,1035,331,102,1056
+2,"d","VT",6,91,546,169,112,612
+2,"d","VA",8,37,296,59,222,657
+2,"d","WA",51,55,2805,1935,102,2861
+2,"d","WV",8,51,408,102,130,530
+2,"d","WI",64,83,5312,2922,119,6321
+2,"d","WY",40,56,2240,291,85,1904
+2,"d","",,,,,,
+2,"d","Oth",,,,,,
+2,"d"," Sts 5/ 6/",19,43,821,268,274,2246
+2,"d","",,,,,,
+2,"d","US 6/",2413,72.4,174818,62478,91.8,160428
+2,"c",""
+2,"f","1/  For producers with 5 or more colonies.  Colonies which produced honey in more than one State were counted in each State."
+2,"f","2/  Revised."
+2,"f","3/  Stocks held by producers."
+2,"f","4/  Prices weighted by sales."
+2,"f","5/  CT, DE, MD, MA, NH, OK, RI, and SC not published separately to avoid disclosing data for individual operations."
+2,"f","6/  Due to rounding, total colonies multiplied by total yield may not exactly equal production."
