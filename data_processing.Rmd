@@ -62,7 +62,7 @@ df = read_csv(file = str_c("./data/bee_state_2/", file_name[1])) %>%
   
 my_read_csv = function(x){
     df = read_csv(x, skip = 9, col_names  = F)
-  }
+}
   
 bee_data = 
   tibble(
@@ -79,6 +79,9 @@ clean_bee_data =
   select(-remove, -X1, -X2, -path) %>%
   rename(state = X3, honey_producing_colonies = X4, yield_per_colony = X5, production = X6, stocks = X7, price_per_pound = X8, production_value = X9) %>%
   drop_na(state) 
+
+#%>%
+ # mutate(state = if_else(state != "Oth" & state != "Sts 4/ 5/", state, NA) & state != "US 5/" & state != "1/ Honey producing colonies are the maximum number of colonies from which honey was harvested during the year. It is possible to harvest honey from colonies which did not survive the entire year.", state, NA))
 
 ```
 
