@@ -78,15 +78,8 @@ clean_bee_data =
  separate(file_names, into = c("year", "remove"), sep = ".c") %>%
   select(-remove, -X1, -X2, -path) %>%
   rename(state = X3, honey_producing_colonies = X4, yield_per_colony = X5, production = X6, stocks = X7, price_per_pound = X8, production_value = X9) %>%
-  drop_na(state) %>%
-  remove(state = "Oth")
-  
+  drop_na(state) 
 
-pivot_wider(
-    bee_data,
-    names_from = "state", 
-    values_from = "honey_producing_colonies"
-  )
 ```
 
 ```{r, eval = FALSE}
