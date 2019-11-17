@@ -109,4 +109,4 @@ pest_2015
     ## 5 IMIDACLOPRID    2923
     ## 6 THIACLOPRID      464
 
-Bind rows
+Bind rows \#needs to be done
