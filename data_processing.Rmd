@@ -42,11 +42,12 @@ bee_county = read_csv("./data/bee_county/Bee_Colony_Census_Data_by_County 2.csv"
          county, 
          county_ansi, 
          value, 
-         cv_percent)
-
-   
-  
-  
-head(bee_county)
+         cv_percent) %>% 
+  mutate(
+  (state_fips = state_ansi * 1000), 
+  (FIPS = state_fips + county_ansi)
+) %>% janitor::clean_names() %>% 
+  rename(FIPS = fips_state_fips_county_ansi) %>% 
+  mutate(FIPS = paste0(FIPS))
 ```
 

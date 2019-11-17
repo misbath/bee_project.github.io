@@ -392,7 +392,13 @@ summary {
          county, 
          county_ansi, 
          value, 
-         cv_percent)</code></pre>
+         cv_percent) %&gt;% 
+  mutate(
+  (state_fips = state_ansi * 1000), 
+  (FIPS = state_fips + county_ansi)
+) %&gt;% janitor::clean_names() %&gt;% 
+  rename(FIPS = fips_state_fips_county_ansi) %&gt;% 
+  mutate(FIPS = paste0(FIPS))</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   Year = col_double(),
@@ -406,17 +412,6 @@ summary {
 ##   Value = col_character(),
 ##   `CV (%)` = col_character()
 ## )</code></pre>
-<pre class="r"><code>head(bee_county)</code></pre>
-<pre><code>## # A tibble: 6 x 9
-##    year state state_ansi ag_district ag_district_code county county_ansi
-##   &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;                  &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;
-## 1  2012 ALAB…          1 BLACK BELT                40 AUTAU…           1
-## 2  2012 ALAB…          1 BLACK BELT                40 DALLAS          47
-## 3  2012 ALAB…          1 BLACK BELT                40 ELMORE          51
-## 4  2012 ALAB…          1 BLACK BELT                40 GREENE          63
-## 5  2012 ALAB…          1 BLACK BELT                40 HALE            65
-## 6  2012 ALAB…          1 BLACK BELT                40 LOWND…          85
-## # … with 2 more variables: value &lt;chr&gt;, cv_percent &lt;chr&gt;</code></pre>
 
 
 
