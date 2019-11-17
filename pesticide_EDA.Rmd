@@ -16,6 +16,7 @@ Only 4 pesticides, "CHLOROTHALONIL","CHLORPYRIFOS", "FIPRONIL","IMIDACLOPRID" ha
 library(tidyverse)
 library(viridis)
 library(readxl)
+library(ggplot2)
 ```
 
 copied from data_processing document:
@@ -33,42 +34,57 @@ pest_2002 = read_excel("./data/pesticides_csv/EPest.county.estimates.2002.xlsx")
     epest_high_kg = round(epest_high_kg)) %>%
   select(-state_fips_code, -county_fips_code)
     
-
-unique(pull(pest_2002, compound))
   
 ```
 
 
-
-Identifying if pesticides are in the datasets: 
+Counting the data - sample for 2002
 
 ```{r 2002}
 pest_2002 = read_excel("./data/pesticides_csv/EPest.county.estimates.2003.xlsx") %>%
   janitor::clean_names() %>% 
-  filter(compound == "CHLOROTHALONIL" | compound == "CLOTHIANIDIN"| compound == "CHLORPYRIFOS" | compound == "FIPRONIL" | compound == "IMIDACLOPRID"| compound ==  "THIACLOPRID")
+  filter(compound == "CHLOROTHALONIL" | compound == "CLOTHIANIDIN"| compound == "CHLORPYRIFOS" | compound == "FIPRONIL" | compound == "IMIDACLOPRID"| compound ==  "THIACLOPRID") %>%
+  group_by(compound) %>%
+  summarize(n = n()) %>%
+  select(compound, n)
 
-unique(pull(pest_2002, compound))
+pest_2002
 
 ```
+
+Vizualing the data - sample plot for 2003
 
 ```{r 2003}
 pest_2003 = read_excel("./data/pesticides_csv/EPest.county.estimates.2003.xlsx") %>%
   janitor::clean_names() %>% 
-  filter(compound == "CHLOROTHALONIL" | compound == "CLOTHIANIDIN"| compound == "CHLORPYRIFOS" | compound == "FIPRONIL" | compound == "IMIDACLOPRID"| compound ==  "THIACLOPRID")
+  filter(compound == "CHLOROTHALONIL" | compound == "CLOTHIANIDIN"| compound == "CHLORPYRIFOS" | compound == "FIPRONIL" | compound == "IMIDACLOPRID"| compound ==  "THIACLOPRID") %>%
+  ggplot(aes(x = compound, fill = compound)) + geom_bar()
 
-unique(pull(pest_2003, compound))
+
+pest_2003
+
 
 ```
 
+Counting the data for 2015
 
-
-#just change the file name to change the year
-
-```{r 2004}
-pest_ = read_excel("./data/pesticides_csv/EPest.county.estimates.2015.xlsx") %>%
+```{r 2015}
+pest_2015 = read_excel("./data/pesticides_csv/EPest.county.estimates.2015.xlsx") %>%
   janitor::clean_names() %>% 
-  filter(compound == "CHLOROTHALONIL" | compound == "CLOTHIANIDIN"| compound == "CHLORPYRIFOS" | compound == "FIPRONIL" | compound == "IMIDACLOPRID"| compound ==  "THIACLOPRID")
+  filter(compound == "CHLOROTHALONIL" | compound == "CLOTHIANIDIN"| compound == "CHLORPYRIFOS" | compound == "FIPRONIL" | compound == "IMIDACLOPRID"| compound ==  "THIACLOPRID")  %>%
+  group_by(compound) %>%
+  summarize(n = n()) %>%
+  select(compound, n)
 
-unique(pull(pest_, compound))
+pest_2015
 
 ```
+
+
+
+Bind rows
+
+```{r}
+
+```
+
