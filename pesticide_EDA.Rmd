@@ -1,0 +1,74 @@
+---
+title: "Pesticides_Data"
+author: "Maya Spaur"
+date: "11/14/2019"
+output: github_document
+---
+
+This document is to check to see if our pesticides of interest are in the dataset. 
+
+
+#FINDINGS: 
+All 6 pesticides, "CHLOROTHALONIL","CHLORPYRIFOS"   "CLOTHIANIDIN", "FIPRONIL","IMIDACLOPRID",and "THIACLOPRID" have data from 2004-2016. 
+Only 4 pesticides, "CHLOROTHALONIL","CHLORPYRIFOS", "FIPRONIL","IMIDACLOPRID" had data from 2002-2003.
+
+```{r setup}
+library(tidyverse)
+library(viridis)
+library(readxl)
+```
+
+copied from data_processing document:
+
+
+```{r, pesticide data 2002}
+
+pest_2002 = read_excel("./data/pesticides_csv/EPest.county.estimates.2002.xlsx") %>% 
+  janitor::clean_names() %>% 
+  mutate(
+    state_fips = state_fips_code,
+    county_fips = county_fips_code,
+    state_county_fips = paste0(state_fips, county_fips),
+    epest_low_kg = round(epest_low_kg),
+    epest_high_kg = round(epest_high_kg)) %>%
+  select(-state_fips_code, -county_fips_code)
+    
+
+unique(pull(pest_2002, compound))
+  
+```
+
+
+
+Identifying if pesticides are in the datasets: 
+
+```{r 2002}
+pest_2002 = read_excel("./data/pesticides_csv/EPest.county.estimates.2003.xlsx") %>%
+  janitor::clean_names() %>% 
+  filter(compound == "CHLOROTHALONIL" | compound == "CLOTHIANIDIN"| compound == "CHLORPYRIFOS" | compound == "FIPRONIL" | compound == "IMIDACLOPRID"| compound ==  "THIACLOPRID")
+
+unique(pull(pest_2002, compound))
+
+```
+
+```{r 2003}
+pest_2003 = read_excel("./data/pesticides_csv/EPest.county.estimates.2003.xlsx") %>%
+  janitor::clean_names() %>% 
+  filter(compound == "CHLOROTHALONIL" | compound == "CLOTHIANIDIN"| compound == "CHLORPYRIFOS" | compound == "FIPRONIL" | compound == "IMIDACLOPRID"| compound ==  "THIACLOPRID")
+
+unique(pull(pest_2003, compound))
+
+```
+
+
+
+#just change the file name to change the year
+
+```{r 2004}
+pest_ = read_excel("./data/pesticides_csv/EPest.county.estimates.2015.xlsx") %>%
+  janitor::clean_names() %>% 
+  filter(compound == "CHLOROTHALONIL" | compound == "CLOTHIANIDIN"| compound == "CHLORPYRIFOS" | compound == "FIPRONIL" | compound == "IMIDACLOPRID"| compound ==  "THIACLOPRID")
+
+unique(pull(pest_, compound))
+
+```
