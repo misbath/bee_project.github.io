@@ -1,64 +1,1 @@
-2,"t","Honey: Released March 30, 2012, by the National Agricultural Statistics Service (NASS), Agricultural Statistics Board, United States Department of Agriculture (USDA)."
-2,"t","Number of Colonies, Yield, Production, Stocks, Price, and Value – States and United States: 2010"
-2,"t","[Producers with 5 or more colonies. Colonies which produced honey in more than one State were counted in each State]"
-2,"h","","","","","","",""
-2,"h","","Honey","Yield","","","Average","Value"
-2,"h","State","producing","per","Production","Stocks","price per","of"
-2,"h","","colonies 1/","colony","","December 15 2/","pound 3/","production 4/"
-2,"h","","","","","","",""
-2,"u","","(1,000)","(pounds)","(1,000 pounds)","(1,000 pounds)","(cents)","(1,000 dollars)"
-2,"d","Alabama",9,54,486,73,240,1166
-2,"d","Arizona",24,77,1848,665,152,2809
-2,"d","Arkansas",25,60,1500,360,147,2205
-2,"d","California",410,67,27470,6318,155,42579
-2,"d","Colorado",34,56,1904,533,152,2894
-2,"d","Florida",200,69,13800,1794,156,21528
-2,"d","Georgia",55,46,2530,152,167,4225
-2,"d","Hawaii",10,77,770,239,275,2118
-2,"d","Idaho",97,27,2619,1179,161,4217
-2,"d","Illinois",9,41,369,92,278,1026
-2,"d","",,,,,,
-2,"d","Indiana",10,43,430,151,223,959
-2,"d","Iowa",27,49,1323,463,192,2540
-2,"d","Kansas",9,52,468,103,202,945
-2,"d","Kentucky",5,67,335,67,272,911
-2,"d","Louisiana",36,80,2880,288,150,4320
-2,"d","Maine",5,41,205,33,205,420
-2,"d","Michigan",71,58,4118,1524,167,6877
-2,"d","Minnesota",128,66,8448,1774,155,13094
-2,"d","Mississippi",16,98,1568,78,144,2258
-2,"d","Missouri",11,52,572,92,180,1030
-2,"d","",,,,,,
-2,"d","Montana",157,74,11618,2905,158,18356
-2,"d","Nebraska",41,55,2255,902,151,3405
-2,"d","New Jersey",13,35,455,73,190,865
-2,"d","New Mexico",7,66,462,157,158,730
-2,"d","New York",45,64,2880,1123,196,5645
-2,"d","North Carolina",13,46,598,144,266,1591
-2,"d","North Dakota",510,91,46410,12995,150,69615
-2,"d","Ohio",18,62,1116,346,228,2544
-2,"d","Oregon",59,39,2301,874,163,3751
-2,"d","Pennsylvania",30,37,1110,377,213,2364
-2,"d","",,,,,,
-2,"d","South Dakota",265,58,15370,4765,151,23209
-2,"d","Tennessee",8,63,504,106,250,1260
-2,"d","Texas",100,72,7200,792,151,10872
-2,"d","Utah",26,30,780,195,153,1193
-2,"d","Vermont",4,65,260,73,310,806
-2,"d","Virginia",5,37,185,37,332,614
-2,"d","Washington",71,37,2627,1077,157,4124
-2,"d","West Virginia",5,40,200,40,239,478
-2,"d","Wisconsin",64,64,4096,1556,168,6881
-2,"d","Wyoming",34,36,1224,282,159,1946
-2,"d","",,,,,,
-2,"d","Other States 5/ 6/",26,45,1168,221,281,3282
-2,"d","",,,,,,
-2,"d","United States 6/ 7/",2692,65.6,176462,45018,161.9,285692
-2,"c",""
-2,"f","1/  Honey producing colonies are the maximum number of colonies from which honey was taken during the year. It is possible to take honey from colonies which did not survive the entire year."
-2,"f","2/  Stocks held by producers."
-2,"f","3/  Average price per pound based on expanded sales."
-2,"f","4/  Value of production is equal to production multiplied by average price per pound."
-2,"f","5/  Alaska, Connecticut, Delaware, Maryland, Massachusetts, Nevada, New Hampshire, Oklahoma, Rhode Island, and South Carolina not published separately to avoid disclosing data for individual operations."
-2,"f","6/  Due to rounding, total colonies multiplied by total yield may not exactly equal production."
-2,"f","7/  United States value of production will not equal summation of States."
+2,t,"Honey: Released March 30, 2012, by the National Agricultural Statistics Service (NASS), Agricultural Statistics Board, United States Department of Agriculture (USDA).",,,,,,2,t,"Number of Colonies, Yield, Production, Stocks, Price, and Value – States and United States: 2010",,,,,,2,t,[Producers with 5 or more colonies. Colonies which produced honey in more than one State were counted in each State],,,,,,2,h,,,,,,,2,h,,Honey,Yield,,,Average,Value2,h,State,producing,per,Production,Stocks,price per,of2,h,,colonies 1/,colony,,December 15 2/,pound 3/,production 4/2,h,,,,,,,2,u,,"-1,000",(pounds),"(1,000 pounds)","(1,000 pounds)",(cents),"(1,000 dollars)"2,d,Alabama,9,54,486,73,240,11662,d,Arizona,24,77,1848,665,152,28092,d,Arkansas,25,60,1500,360,147,22052,d,California,410,67,27470,6318,155,425792,d,Colorado,34,56,1904,533,152,28942,d,Florida,200,69,13800,1794,156,215282,d,Georgia,55,46,2530,152,167,42252,d,Hawaii,10,77,770,239,275,21182,d,Idaho,97,27,2619,1179,161,42172,d,Illinois,9,41,369,92,278,10262,d,,,,,,,2,d,Indiana,10,43,430,151,223,9592,d,Iowa,27,49,1323,463,192,25402,d,Kansas,9,52,468,103,202,9452,d,Kentucky,5,67,335,67,272,9112,d,Louisiana,36,80,2880,288,150,43202,d,Maine,5,41,205,33,205,4202,d,Michigan,71,58,4118,1524,167,68772,d,Minnesota,128,66,8448,1774,155,130942,d,Mississippi,16,98,1568,78,144,22582,d,Missouri,11,52,572,92,180,10302,d,,,,,,,2,d,Montana,157,74,11618,2905,158,183562,d,Nebraska,41,55,2255,902,151,34052,d,New Jersey,13,35,455,73,190,8652,d,New Mexico,7,66,462,157,158,7302,d,New York,45,64,2880,1123,196,56452,d,North Carolina,13,46,598,144,266,15912,d,North Dakota,510,91,46410,12995,150,696152,d,Ohio,18,62,1116,346,228,25442,d,Oregon,59,39,2301,874,163,37512,d,Pennsylvania,30,37,1110,377,213,23642,d,,,,,,,2,d,South Dakota,265,58,15370,4765,151,232092,d,Tennessee,8,63,504,106,250,12602,d,Texas,100,72,7200,792,151,108722,d,Utah,26,30,780,195,153,11932,d,Vermont,4,65,260,73,310,8062,d,Virginia,5,37,185,37,332,6142,d,Washington,71,37,2627,1077,157,41242,d,West Virginia,5,40,200,40,239,4782,d,Wisconsin,64,64,4096,1556,168,68812,d,Wyoming,34,36,1224,282,159,1946
