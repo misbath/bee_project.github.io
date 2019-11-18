@@ -63,10 +63,6 @@ df = read_csv(file = str_c("./data/bee_state_2/", file_name[1])) %>%
 my_read_csv = function(x){
     df = read_csv(x, skip = 9, col_names  = F)
 }
-
-my_read_csv = function(x){
-    df = read_csv(x, skip = 9, col_names  = F)
-}
   
 bee_data = 
   tibble(
