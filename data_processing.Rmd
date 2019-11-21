@@ -44,13 +44,19 @@ bee_county = read_csv("./data/bee_county/Bee_Colony_Census_Data_by_County 2.csv"
          county, 
          county_ansi, 
          value, 
-         cv_percent) %>% 
-  mutate(state_ansi =as.double(state_ansi)) %>% 
-  mutate(
-  (state_fips = state_ansi * 1000), 
-  (FIPS = state_fips + county_ansi)
-) %>% janitor::clean_names() %>% 
-  rename(FIPS = fips_state_fips_county_ansi)  
+         cv_percent) 
+
+ bee_county$state_ansi = stringr::str_pad(bee_county$state_ansi,2 , pad = "0")
+bee_county$county_ansi = stringr::str_pad(bee_county$county_ansi,3 , pad = "0")
+
+bee_county = bee_county%>% 
+  mutate(state_county_fips = paste0(state_ansi, county_ansi),
+    value = replace(value, value == "(D)", "NA"),
+    cv_percent = replace(cv_percent, cv_percent == "(D)", "NA"))
+
+
+
+
   
 ```
 
