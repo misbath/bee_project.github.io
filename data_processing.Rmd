@@ -38,7 +38,6 @@ state_fips = read_csv("./data/state-geocodes-v2016.csv", skip = 5) %>%
   select(state_fips, name) %>%
   mutate(state_fips = as.numeric(state_fips)) %>%
   rename(state = name)
-         
 ```
 
 ```{r, county-level bee data}
@@ -60,7 +59,8 @@ bee_county$county_ansi = stringr::str_pad(bee_county$county_ansi,3 , pad = "0")
 bee_county = bee_county%>% 
   mutate(state_county_fips = paste0(state_ansi, county_ansi),
     value = replace(value, value == "(D)", "NA"),
-    cv_percent = replace(cv_percent, cv_percent == "(D)", "NA"))
+    cv_percent = replace(cv_percent, cv_percent == "(D)", "NA"),
+    colony_count = value)
 
 
 ```
@@ -153,7 +153,7 @@ top_pesticides = read_csv("./data/top_pesticides.csv") %>%
 
 state_pest_data = 
   top_pesticides %>%
-  group_by(state_fips, year) %>%
+  group_by(state_fips, year, compound) %>%
   summarize(low = sum(epest_low_kg), high = sum(epest_high_kg)) 
   
 ```
@@ -167,7 +167,10 @@ state_pest_yrfips =
   state_pest_data %>%
   mutate(yearfips = paste0(year, state_fips))
 
-merged_state_data = full_join(state_bee_yrfips, state_pest_yrfips, by = "yearfips")
+merged_state_data = full_join(state_bee_yrfips, state_pest_yrfips, by = "yearfips") %>%
+  select(year.x, state, state_fips.x, honey_producing_colonies, yield_per_colony, production, compound, low, high) %>%
+  drop_na(year.x, state, compound, high)
+
 ```
 
 ```{r merge county level pest and bee data}
@@ -180,7 +183,10 @@ county_pest_yrfips =
   mutate(state_county_fips = as.numeric(state_county_fips) ,
          yearfips = paste0(year, state_county_fips))
 
-merged_county_data = full_join(county_bee_yrfips, county_pest_yrfips, by = "yearfips")
+merged_county_data = full_join(county_bee_yrfips, county_pest_yrfips, by = "yearfips") %>%
+  select(year.x, state, county, county_fips, colony_count, compound, epest_low_kg, epest_high_kg) %>%
+  drop_na(year.x, state, county, colony_count, compound, epest_high_kg)
+
 ```
 
 
