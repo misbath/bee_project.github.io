@@ -24,13 +24,21 @@ scale_fill_discrete = scale_fill_viridis_d
 theme_set(theme_bw() + theme(legend.position = "bottom"))
 ```
 
-```{r, county FIPS data}
+```{r, FIPS data}
 county_fips = read_csv("./data/all-geocodes-v2016.csv", skip = 4) %>%
   janitor::clean_names() %>%
   rename(county_name = area_name_including_legal_statistical_area_description) %>%
   filter(county_code_fips != "000") %>%
   mutate(state_county_fips = paste0(state_code_fips, county_code_fips)) %>%
   select (state_code_fips, county_code_fips, state_county_fips, county_name)
+
+state_fips = read_csv("./data/state-geocodes-v2016.csv", skip = 5) %>%
+  janitor::clean_names() %>%
+  filter(state_fips != "00") %>%
+  select(state_fips, name) %>%
+  mutate(state_fips = as.numeric(state_fips)) %>%
+  rename(state = name)
+         
 ```
 
 ```{r, county-level bee data}
@@ -55,9 +63,6 @@ bee_county = bee_county%>%
     cv_percent = replace(cv_percent, cv_percent == "(D)", "NA"))
 
 
-
-
-  
 ```
 
 ```{r, state bee colonies}
@@ -137,8 +142,45 @@ pest_2002 %>%
   geom_col() 
 
 unique(pull(pest_2002, compound))
+
+```
+
+```{r Aggregate county data to state}
+state_bee_fips = full_join(clean_bee_data, state_fips, by = "state")
+
+top_pesticides = read_csv("./data/top_pesticides.csv") %>%
+    mutate(state_fips = as.numeric(state_fips))
+
+state_pest_data = 
+  top_pesticides %>%
+  group_by(state_fips, year) %>%
+  summarize(low = sum(epest_low_kg), high = sum(epest_high_kg)) 
   
-  
+```
+
+```{r merge state level pest and bee data}
+state_bee_yrfips = 
+  state_bee_fips %>%
+  mutate(yearfips = paste0(year, state_fips))
+
+state_pest_yrfips = 
+  state_pest_data %>%
+  mutate(yearfips = paste0(year, state_fips))
+
+merged_state_data = full_join(state_bee_yrfips, state_pest_yrfips, by = "yearfips")
+```
+
+```{r merge county level pest and bee data}
+county_bee_yrfips = 
+  bee_county %>%
+  mutate(yearfips = paste0(year, state_county_fips))
+         
+county_pest_yrfips = 
+  top_pesticides %>%
+  mutate(state_county_fips = as.numeric(state_county_fips) ,
+         yearfips = paste0(year, state_county_fips))
+
+merged_county_data = full_join(county_bee_yrfips, county_pest_yrfips, by = "yearfips")
 ```
 
 
