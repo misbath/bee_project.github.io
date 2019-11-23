@@ -105,26 +105,7 @@ clean_bee_data %>%
 ```
 
 
-
-<<<<<<< HEAD
-=======
-directory <- "./data/pesticides"
-ndirectory <- "./data/pesticides_csv"
-
-file_name <- list.files(directory, pattern = ".txt")
-
-files.to.read <- paste(directory, file_name, sep="/")
-files.to.write <- paste(ndirectory, paste0(sub(".txt","", file_name),".csv"), sep="/")
-
-for (i in 1:length(files.to.read)) {
-  temp <- (read.csv(files.to.read[i], header = TRUE))
-  write.csv(temp, file = files.to.write[i])
-}
-
-#Only worked for 2002 to 2012 - need to check why I am getting an error message for 2013+
-```
-
-```{r, pesticide data}
+```{r, pesticide data, eval=FALSE}
 
 pest_2002 = read_excel("./data/pesticides_csv/EPest.county.estimates.2002.xlsx") %>% 
   janitor::clean_names() %>% 
@@ -189,5 +170,22 @@ merged_county_data = full_join(county_bee_yrfips, county_pest_yrfips, by = "year
 
 ```
 >>>>>>> 577258fd9b1fc9fa12e0acd2c93aaeec368444b1
+
+```{r, correlation pesticides}
+
+corr_2004 = read_csv("./data/top_pesticides.csv") %>% 
+  group_by(year, compound) %>% 
+  summarise(tot_pest_high = sum(epest_high_kg)) %>% 
+  filter(year == 2004) %>% 
+  select(compound, tot_pest_high) %>%
+  pivot_wider(
+    names_from = "compound",
+    values_from = "tot_pest_high",
+  )
+
+cor(corr_2004, use = "everything", method = c("pearson"))
+
+
+```
 
 
