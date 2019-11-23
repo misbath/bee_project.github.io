@@ -1,0 +1,17 @@
+---
+title: "Landing"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: journal
+---
+
+### Project Title
+Pesticide Use and Bee Colonies in the United States
+
+### Motivation 
+Bee colony decline has made headlines in recent news reports. The decrease in bee survival has been linked to a decrease in crop diversity, loss of habitat, poor beekeeping practices, and widespread and intensive use of pesticides such as neonicotinoids. As a group we are interested in trends between pesticide use and bee populations. If the bee population continues to decline, biodiversity of plants across the country will continue to decline, with potentially catastrophic implications to our food supply.
+
+### Intended Final Project 
+We propose to examine county level data on pesticide use and county level data on bee colonies to see if there are any trends between certain chemical compounds and bee colony decline. We plan to include information on the relationship between bee population over time as well as pesticide use over time controlling for seasonality. Additionally, we will examine bee population in the counties with the highest and lowest pesticide use. Based on these trends, we will investigate pesticides that have stronger associations with bee colony population over time. We aim to identify pesticides that are associated with changes in bee populations, specifically those that might contribute to the recent decline in bee populations nationally. 
