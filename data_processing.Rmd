@@ -249,7 +249,8 @@ merged_state_data %>%
   group_by(compound, year.x) %>%
   summarize(mean_colony_count = mean(honey_producing_colonies),
          mean_pest_high_kg = mean(high)) %>%
-  select(year.x, compound, mean_colony_count, mean_pest_high_kg) 
+  select(year.x, compound, mean_colony_count, mean_pest_high_kg) %>%
+  knitr::kable(digits=2)
 
 merged_state_data %>%
   group_by(compound, year.x) %>%
@@ -270,7 +271,8 @@ merged_county_data %>%
   group_by(compound, year.x) %>%
   summarize(mean_colony_count = mean(colony_count),
          mean_pest_high_kg = mean(epest_high_kg)) %>%
-  select(year.x, compound, mean_colony_count, mean_pest_high_kg)
+  select(year.x, compound, mean_colony_count, mean_pest_high_kg) %>%
+  knitr::kable(digits=2)
 
 ```
 
