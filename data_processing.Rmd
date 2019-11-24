@@ -219,4 +219,25 @@ corrplot(matrix_state_2, order = "hclust", type = "full")
 corrplot(matrix_country_2, order = "hclust", type = "full")
 ```
 
+```{r trends pesticides}
+
+pest_country = read_csv("./data/top_pesticides.csv") %>% 
+  group_by(compound, year) %>%
+  summarise(mean_pest_high = mean(epest_high_kg, na.rm = TRUE)) %>% 
+  ggplot(aes(x = year, y = mean_pest_high, color = compound)) + 
+  geom_line() 
+
+pest_country
+
+pest_state = read_csv("./data/top_pesticides.csv") %>% 
+  group_by(year, compound, state_fips) %>%
+  summarise(mean_pest_high = mean(epest_high_kg, na.rm = TRUE)) %>% 
+  ggplot(aes(x = year, y = mean_pest_high, color = compound)) + 
+  geom_line() + 
+  facet_grid(~state_fips)
+
+pest_state
+
+```
+
 
