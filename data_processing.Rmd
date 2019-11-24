@@ -7,6 +7,7 @@ output: github_document
 library(tidyverse)
 library(viridis)
 library(readxl)
+library(corrplot)
 
 knitr::opts_chunk$set(
 	echo = TRUE,
@@ -169,23 +170,53 @@ merged_county_data = full_join(county_bee_yrfips, county_pest_yrfips, by = "year
   drop_na(year.x, state, county, colony_count, compound, epest_high_kg)
 
 ```
->>>>>>> 577258fd9b1fc9fa12e0acd2c93aaeec368444b1
+
 
 ```{r, correlation pesticides}
 
-corr_2004 = read_csv("./data/top_pesticides.csv") %>% 
-  group_by(year, compound) %>% 
-  summarise(tot_pest_high = sum(epest_high_kg)) %>% 
-  filter(year == 2004) %>% 
-  select(compound, tot_pest_high) %>%
+#correlation of state level means across all years
+
+corr_state = read_csv("./data/top_pesticides.csv") %>% 
+  group_by(compound, state_fips) %>%
+  summarise(mean_pest_high = mean(epest_high_kg, na.rm = TRUE)) %>% 
   pivot_wider(
     names_from = "compound",
-    values_from = "tot_pest_high",
-  )
+    values_from = "mean_pest_high",
+  ) %>% 
+  select(-state_fips)
 
-cor(corr_2004, use = "everything", method = c("pearson"))
+corr_state %>%
+  view()
 
+matrix_state_1 = cor(corr_state, use = "everything", method = c("pearson"))
+matrix_state_1
 
+matrix_state_2 = cor(corr_state, use = "complete.obs", method = c("pearson"))
+matrix_state_2
+
+#correlation of country level mean by year 
+
+corr_country = read_csv("./data/top_pesticides.csv") %>% 
+  group_by(compound, year) %>%
+  summarise(mean_pest_high = mean(epest_high_kg, na.rm = TRUE)) %>% 
+  pivot_wider(
+    names_from = "compound",
+    values_from = "mean_pest_high",
+  ) %>%
+  ungroup() %>%
+  select(-year)
+
+matrix_country_1 = cor(corr_country, use = "everything", method = c("pearson"))
+matrix_country_1
+
+matrix_country_2 = cor(corr_country, use = "complete.obs", method = c("pearson"))
+matrix_country_2
+
+#visualization 
+
+corrplot(matrix_state_2, order = "hclust", type = "full")
+
+corrplot(matrix_country_2, order = "hclust", type = "full")
 ```
 
 
