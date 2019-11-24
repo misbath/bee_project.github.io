@@ -3,28 +3,37 @@ Pesticides\_Data
 Maya Spaur
 11/14/2019
 
-This document is to check to see if our pesticides of interest are in
-the dataset.
+This document is to: 1-Check to see if our pesticides of interest are in the dataset. 2-Filter each dataset to the pesticides of interest. 3-Merge all the years together.
 
-\#FINDINGS: All 6 pesticides, “CHLOROTHALONIL”,“CHLORPYRIFOS”
-“CLOTHIANIDIN”, “FIPRONIL”,“IMIDACLOPRID”,and “THIACLOPRID” have data
-from 2004-2016. Only 4 pesticides, “CHLOROTHALONIL”,“CHLORPYRIFOS”,
-“FIPRONIL”,“IMIDACLOPRID” had data from 2002-2003.
+FINDINGS:
+=========
+
+All 6 pesticides, "CHLOROTHALONIL","CHLORPYRIFOS" "CLOTHIANIDIN", "FIPRONIL","IMIDACLOPRID",and "THIACLOPRID" have data from 2004-2016. Only 4 pesticides, "CHLOROTHALONIL","CHLORPYRIFOS", "FIPRONIL","IMIDACLOPRID" had data from 2002-2003.
 
 ``` r
 library(tidyverse)
 ```
 
+<<<<<<< HEAD
     ## -- Attaching packages --------------------------------------------- tidyverse 1.2.1 --
+=======
+    ## ── Attaching packages ────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+>>>>>>> 97a872195c11316a4970832c93a594edde5dc44d
 
-    ## v ggplot2 3.2.1     v purrr   0.3.3
-    ## v tibble  2.1.3     v dplyr   0.8.3
-    ## v tidyr   1.0.0     v stringr 1.4.0
-    ## v readr   1.3.1     v forcats 0.4.0
+    ## ✔ ggplot2 3.2.0     ✔ purrr   0.3.2
+    ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
+    ## ✔ tidyr   1.0.0     ✔ stringr 1.4.0
+    ## ✔ readr   1.3.1     ✔ forcats 0.4.0
 
+<<<<<<< HEAD
     ## -- Conflicts ------------------------------------------------ tidyverse_conflicts() --
     ## x dplyr::filter() masks stats::filter()
     ## x dplyr::lag()    masks stats::lag()
+=======
+    ## ── Conflicts ───────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ✖ dplyr::filter() masks stats::filter()
+    ## ✖ dplyr::lag()    masks stats::lag()
+>>>>>>> 97a872195c11316a4970832c93a594edde5dc44d
 
 ``` r
 library(viridis)
@@ -37,18 +46,32 @@ library(readxl)
 library(ggplot2)
 ```
 
-copied from data\_processing document:
-
 ``` r
-pest_2002 = read_excel("./data/pesticides_csv/EPest.county.estimates.2002.xlsx") %>% 
-  janitor::clean_names() %>% 
+file_path = "./data/pesticides_csv/"
+file_names = file_path %>% 
+  list.files()
+
+top_pesticides_df = 
+  file_names %>%
+  map_dfr(function(file_name){
+  read_excel(paste0(file_path, file_name))
+}) 
+
+top_pesticides = top_pesticides_df %>% 
+  janitor::clean_names() %>%
+  filter(compound %in% c("CHLOROTHALONIL", "CLOTHIANIDIN", "CHLORPYRIFOS","FIPRONIL", "IMIDACLOPRID",      "THIACLOPRID"),
+         year >= 2004) %>% 
   mutate(
     state_fips = state_fips_code,
     county_fips = county_fips_code,
     state_county_fips = paste0(state_fips, county_fips),
     epest_low_kg = round(epest_low_kg),
     epest_high_kg = round(epest_high_kg)) %>%
-  select(-state_fips_code, -county_fips_code)
+  select(-state_fips_code, -county_fips_code) 
+
+write.csv(top_pesticides, "./data/top_pesticides.csv")
+
+view(top_pesticides)
 ```
 
 Counting the data - sample for 2002
@@ -84,7 +107,7 @@ pest_2003 = read_excel("./data/pesticides_csv/EPest.county.estimates.2003.xlsx")
 pest_2003
 ```
 
-![](pesticide_EDA_files/figure-gfm/2003-1.png)<!-- -->
+![](pesticide_EDA_files/figure-markdown_github/2003-1.png)
 
 Counting the data for 2015
 
@@ -108,5 +131,3 @@ pest_2015
     ## 4 FIPRONIL         347
     ## 5 IMIDACLOPRID    2923
     ## 6 THIACLOPRID      464
-
-Bind rows \#needs to be done

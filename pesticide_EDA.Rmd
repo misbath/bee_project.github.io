@@ -5,7 +5,10 @@ date: "11/14/2019"
 output: github_document
 ---
 
-This document is to check to see if our pesticides of interest are in the dataset. 
+This document is to:
+1-Check to see if our pesticides of interest are in the dataset. 
+2-Filter each dataset to the pesticides of interest. 
+3-Merge all the years together. 
 
 
 #FINDINGS: 
@@ -19,22 +22,32 @@ library(readxl)
 library(ggplot2)
 ```
 
-copied from data_processing document:
+```{r merging, filtering, and cleaning pesticide data}
+file_path = "./data/pesticides_csv/"
+file_names = file_path %>% 
+  list.files()
 
+top_pesticides_df = 
+  file_names %>%
+  map_dfr(function(file_name){
+  read_excel(paste0(file_path, file_name))
+}) 
 
-```{r, pesticide data 2002}
-
-pest_2002 = read_excel("./data/pesticides_csv/EPest.county.estimates.2002.xlsx") %>% 
-  janitor::clean_names() %>% 
+top_pesticides = top_pesticides_df %>% 
+  janitor::clean_names() %>%
+  filter(compound %in% c("CHLOROTHALONIL", "CLOTHIANIDIN", "CHLORPYRIFOS","FIPRONIL", "IMIDACLOPRID",      "THIACLOPRID"),
+         year >= 2004) %>% 
   mutate(
     state_fips = state_fips_code,
     county_fips = county_fips_code,
     state_county_fips = paste0(state_fips, county_fips),
     epest_low_kg = round(epest_low_kg),
     epest_high_kg = round(epest_high_kg)) %>%
-  select(-state_fips_code, -county_fips_code)
-    
-  
+  select(-state_fips_code, -county_fips_code) 
+
+write.csv(top_pesticides, "./data/top_pesticides.csv")
+
+view(top_pesticides)
 ```
 
 
@@ -80,12 +93,4 @@ pest_2015
 
 ```
 
-
-
-Bind rows
-#needs to be done
-
-```{r}
-
-```
 
