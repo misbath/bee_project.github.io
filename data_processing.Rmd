@@ -1,12 +1,13 @@
 ---
 title: "Data Processing"
-output: html_document
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(viridis)
 library(readxl)
+library(corrplot)
 
 knitr::opts_chunk$set(
 	echo = TRUE,
@@ -24,13 +25,20 @@ scale_fill_discrete = scale_fill_viridis_d
 theme_set(theme_bw() + theme(legend.position = "bottom"))
 ```
 
-```{r, county FIPS data}
+```{r, FIPS data}
 county_fips = read_csv("./data/all-geocodes-v2016.csv", skip = 4) %>%
   janitor::clean_names() %>%
   rename(county_name = area_name_including_legal_statistical_area_description) %>%
   filter(county_code_fips != "000") %>%
   mutate(state_county_fips = paste0(state_code_fips, county_code_fips)) %>%
   select (state_code_fips, county_code_fips, state_county_fips, county_name)
+
+state_fips = read_csv("./data/state-geocodes-v2016.csv", skip = 5) %>%
+  janitor::clean_names() %>%
+  filter(state_fips != "00") %>%
+  select(state_fips, name) %>%
+  mutate(state_fips = as.numeric(state_fips)) %>%
+  rename(state = name)
 ```
 
 ```{r, county-level bee data}
@@ -44,12 +52,18 @@ bee_county = read_csv("./data/bee_county/Bee_Colony_Census_Data_by_County 2.csv"
          county, 
          county_ansi, 
          value, 
-         cv_percent)
+         cv_percent) 
 
-   
-  
-  
-head(bee_county)
+ bee_county$state_ansi = stringr::str_pad(bee_county$state_ansi,2 , pad = "0")
+bee_county$county_ansi = stringr::str_pad(bee_county$county_ansi,3 , pad = "0")
+
+bee_county = bee_county%>% 
+  mutate(state_county_fips = paste0(state_ansi, county_ansi),
+    value = replace(value, value == "(D)", "NA"),
+    cv_percent = replace(cv_percent, cv_percent == "(D)", "NA"),
+    colony_count = value)
+
+
 ```
 
 ```{r, state bee colonies}
@@ -87,27 +101,8 @@ clean_bee_data %>%
 
 ```
 
-```{r, eval = FALSE}
 
-#Converting txt files to csv 
-
-directory <- "./data/pesticides"
-ndirectory <- "./data/pesticides_csv"
-
-file_name <- list.files(directory, pattern = ".txt")
-
-files.to.read <- paste(directory, file_name, sep="/")
-files.to.write <- paste(ndirectory, paste0(sub(".txt","", file_name),".csv"), sep="/")
-
-for (i in 1:length(files.to.read)) {
-  temp <- (read.csv(files.to.read[i], header = TRUE))
-  write.csv(temp, file = files.to.write[i])
-}
-
-#Only worked for 2002 to 2012 - need to check why I am getting an error message for 2013+
-```
-
-```{r, pesticide data}
+```{r, pesticide data, eval=FALSE}
 
 pest_2002 = read_excel("./data/pesticides_csv/EPest.county.estimates.2002.xlsx") %>% 
   janitor::clean_names() %>% 
@@ -125,8 +120,155 @@ pest_2002 %>%
   geom_col() 
 
 unique(pull(pest_2002, compound))
-  
+
+```
+
+```{r Aggregate county data to state}
+state_bee_fips = full_join(clean_bee_data, state_fips, by = "state")
+
+top_pesticides = read_csv("./data/top_pesticides.csv") %>%
+    mutate(state_fips = as.numeric(state_fips))
+
+state_pest_data = 
+  top_pesticides %>%
+  group_by(state_fips, year, compound) %>%
+  summarize(low = sum(epest_low_kg), high = sum(epest_high_kg)) 
   
 ```
 
+```{r merge state level pest and bee data}
+state_bee_yrfips = 
+  state_bee_fips %>%
+  mutate(yearfips = paste0(year, state_fips))
+
+state_pest_yrfips = 
+  state_pest_data %>%
+  mutate(yearfips = paste0(year, state_fips))
+
+merged_state_data = full_join(state_bee_yrfips, state_pest_yrfips, by = "yearfips") %>%
+  select(year.x, state, state_fips.x, honey_producing_colonies, yield_per_colony, production, compound, low, high) %>%
+  drop_na(year.x, state, compound, high)
+
+```
+
+```{r merge county level pest and bee data}
+county_bee_yrfips = 
+  bee_county %>%
+  mutate(yearfips = paste0(year, state_county_fips))
+         
+county_pest_yrfips = 
+  top_pesticides %>%
+  mutate(state_county_fips = as.numeric(state_county_fips) ,
+         yearfips = paste0(year, state_county_fips))
+
+merged_county_data = full_join(county_bee_yrfips, county_pest_yrfips, by = "yearfips") %>%
+  select(year.x, state, county, county_fips, colony_count, compound, epest_low_kg, epest_high_kg) %>%
+  drop_na(year.x, state, county, colony_count, compound, epest_high_kg)
+
+```
+
+
+```{r, correlation pesticides}
+
+#correlation of state level means across all years
+
+corr_state = read_csv("./data/top_pesticides.csv") %>% 
+  group_by(compound, state_fips) %>%
+  summarise(mean_pest_high = mean(epest_high_kg, na.rm = TRUE)) %>% 
+  pivot_wider(
+    names_from = "compound",
+    values_from = "mean_pest_high",
+  ) %>% 
+  select(-state_fips)
+
+corr_state %>%
+  view()
+
+matrix_state_1 = cor(corr_state, use = "everything", method = c("pearson"))
+matrix_state_1
+
+matrix_state_2 = cor(corr_state, use = "complete.obs", method = c("pearson"))
+matrix_state_2
+
+#correlation of country level mean by year 
+
+corr_country = read_csv("./data/top_pesticides.csv") %>% 
+  group_by(compound, year) %>%
+  summarise(mean_pest_high = mean(epest_high_kg, na.rm = TRUE)) %>% 
+  pivot_wider(
+    names_from = "compound",
+    values_from = "mean_pest_high",
+  ) %>%
+  ungroup() %>%
+  select(-year)
+
+matrix_country_1 = cor(corr_country, use = "everything", method = c("pearson"))
+matrix_country_1
+
+matrix_country_2 = cor(corr_country, use = "complete.obs", method = c("pearson"))
+matrix_country_2
+
+#visualization 
+
+corrplot(matrix_state_2, order = "hclust", type = "full")
+
+corrplot(matrix_country_2, order = "hclust", type = "full")
+```
+
+```{r trends pesticides}
+
+pest_country = read_csv("./data/top_pesticides.csv") %>% 
+  group_by(compound, year) %>%
+  summarise(mean_pest_high = mean(epest_high_kg, na.rm = TRUE)) %>% 
+  ggplot(aes(x = year, y = mean_pest_high, color = compound)) + 
+  geom_line() 
+
+pest_country
+
+pest_state = read_csv("./data/top_pesticides.csv") %>% 
+  group_by(year, compound, state_fips) %>%
+  summarise(mean_pest_high = mean(epest_high_kg, na.rm = TRUE)) %>% 
+  ggplot(aes(x = year, y = mean_pest_high, color = compound)) + 
+  geom_line() + 
+  facet_grid(~state_fips)
+
+pest_state
+
+```
+
+Looking at merged state data
+
+```{r}
+summary(merged_state_data)
+
+merged_state_data %>%
+  group_by(compound, year.x) %>%
+  summarize(mean_colony_count = mean(honey_producing_colonies),
+         mean_pest_high_kg = mean(high)) %>%
+  select(year.x, compound, mean_colony_count, mean_pest_high_kg) %>%
+  knitr::kable(digits=2)
+
+merged_state_data %>%
+  group_by(compound, year.x) %>%
+  summarize(mean_colony_count = mean(honey_producing_colonies),
+         mean_pest_high_kg = mean(high)) %>%
+  ggplot(aes(x = mean_pest_high_kg, y = mean_colony_count, color = year.x)) + geom_smooth() + facet_grid(~compound)
+
+```
+
+Looking at merged county data
+#there appear to be problems with the colony count data, it is missing
+
+```{r}
+summary(merged_county_data)
+
+merged_county_data %>%
+  mutate(colony_count = as.numeric(colony_count)) %>%
+  group_by(compound, year.x) %>%
+  summarize(mean_colony_count = mean(colony_count),
+         mean_pest_high_kg = mean(epest_high_kg)) %>%
+  select(year.x, compound, mean_colony_count, mean_pest_high_kg) %>%
+  knitr::kable(digits=2)
+
+```
 
