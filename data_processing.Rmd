@@ -194,29 +194,12 @@ matrix_state_1
 matrix_state_2 = cor(corr_state, use = "complete.obs", method = c("pearson"))
 matrix_state_2
 
-#correlation of country level mean by year 
 
-corr_country = read_csv("./data/top_pesticides.csv") %>% 
-  group_by(compound, year) %>%
-  summarise(mean_pest_high = mean(epest_high_kg, na.rm = TRUE)) %>% 
-  pivot_wider(
-    names_from = "compound",
-    values_from = "mean_pest_high",
-  ) %>%
-  ungroup() %>%
-  select(-year)
-
-matrix_country_1 = cor(corr_country, use = "everything", method = c("pearson"))
-matrix_country_1
-
-matrix_country_2 = cor(corr_country, use = "complete.obs", method = c("pearson"))
-matrix_country_2
 
 #visualization 
 
 corrplot(matrix_state_2, order = "hclust", type = "full")
 
-corrplot(matrix_country_2, order = "hclust", type = "full")
 ```
 
 ```{r trends pesticides}
