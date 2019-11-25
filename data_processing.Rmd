@@ -60,8 +60,8 @@ bee_county$county_ansi = stringr::str_pad(bee_county$county_ansi,3 , pad = "0")
 bee_county = bee_county%>% 
   mutate(state_county_fips = paste0(state_ansi, county_ansi),
     value = replace(value, value == "(D)", "NA"),
-    cv_percent = replace(cv_percent, cv_percent == "(D)", "NA"),
-    colony_count = value)
+    cv_percent = replace(cv_percent, cv_percent == "(D)", "NA")) %>% 
+  rename (colony_count = value)
 
 
 ```
