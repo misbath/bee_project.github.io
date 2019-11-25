@@ -171,6 +171,16 @@ merged_county_data = full_join(county_bee_yrfips, county_pest_yrfips, by = "year
 
 ```
 
+```{r, missing data analysis}
+
+pest = read_csv("./data/top_pesticides.csv") %>% 
+  group_by(compound) %>% 
+  summarise(missing = sum(is.na(epest_high_kg))) 
+            
+
+
+```
+
 
 ```{r, correlation pesticides}
 
@@ -193,7 +203,6 @@ matrix_state_1
 
 matrix_state_2 = cor(corr_state, use = "complete.obs", method = c("pearson"))
 matrix_state_2
-
 
 
 #visualization 
