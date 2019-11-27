@@ -25,7 +25,45 @@ theme_set(theme_bw() + theme(legend.position = "bottom"))
 ```
 
 ```{r}
+# bee population for country by year
+year_state_bee = 
+clean_bee_data %>%
+  group_by(year) %>%
+  mutate(colony_per_year = sum(honey_producing_colonies))
+
+year_state_bee %>%
+  ggplot(aes(x = year, y = colony_per_year)) + 
+  geom_line() 
+```
+
+
+```{r}
 #shiny dashboard
+===================================== 
+
+Column {.sidebar}
+-----------------------------------------------------------------------
+
+
+```{r for_sidebar}
+
+# entries to select from
+type_variable <- (merged_data %>% distinct(type_variable) %>% pull())
+year <- c(2001:2016)
+
+# year select box 
+selectInput("year_1", label = h3("Choose year"),
+						choices = as.list(year),
+						selected = 2016)
+
+# law strength select box
+selectInput("variable_type", label = h3("Choose variable"),
+						choices = type_variable, selected = "Crude Rate")
+```
+
+
+
+(See description page for more information.)
 
 
 ```

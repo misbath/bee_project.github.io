@@ -1,0 +1,116 @@
+---
+title: "Bee and Pesticide Change Over the Years"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    source_code: embed
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(shiny)
+library(plotly)
+library(tidyverse)
+```
+
+```{r}
+#create function to import data
+file_name <- list.files(path = "./data/bee_state_2/") 
+
+df = read_csv(file = str_c("./data/bee_state_2/", file_name[1])) %>%
+  mutate(file = file_name[1])
+  df
+  
+my_read_csv = function(x){
+    df = read_csv(x, skip = 9, col_names  = F)
+}
+  
+bee_data = 
+  tibble(
+    file_names = file_name,
+    path = str_c("./data/bee_state_2/", file_names)
+  ) %>% 
+  mutate(data = map(path, my_read_csv))%>% 
+  unnest()
+
+#clean data set
+clean_bee_data =
+  bee_data %>%
+ separate(file_names, into = c("year", "remove"), sep = ".c") %>%
+  select(-remove, -X1, -X2, -path) %>%
+  rename(state = X3, honey_producing_colonies = X4, yield_per_colony = X5, production = X6, stocks = X7, price_per_pound = X8, production_value = X9) %>%
+  drop_na(state) %>%
+  mutate(state = recode(state, AL = "Alabama", AR = "Arkansas", AZ = "Arizona", CA = "California", CO = "Colorado", FL = "Florida", GA = "Georgia", HI = "Hawaii", IA = "Iowa", IL = "Illinois", ID = "Idaho", IN = "Indiana", KS = "Kansas", KY = "Kentucky", LA = "Louisiana", ME = "Maine", MD = "Maryland", MI = "Michigan", MN = "Minnesota", MO = "Missouri", MT = "Montana", MS = "Mississippi", NC = "North Carolina", ND = "North Dakota", NE = "Nebraska", NJ = "New Jersey", NM = "New Mexico", NV = "Nevada", NY = "New York", OH = "Ohio", OK = "Oklahoma", OR = "Oregon", PA = "Pennsylvania", SC = "South Carolina", SD = "South Dakota", TN = "Tennessee", TX = "Texas", UT = "Utah", VA = "Virginia", VT = "Vermont", WA = "Washington", WV = "West Virginia", WI = "Wisconsin", WY = "Wyoming"))
+
+year_state_bee = 
+clean_bee_data %>%
+  group_by(year) %>%
+  mutate(colony_per_year = sum(honey_producing_colonies))
+```
+
+
+Bee Population Map
+===================================== 
+
+Column {.sidebar}
+-----------------------------------------------------------------------
+
+```{r}
+# entries to select from
+# type_variable <- (year_state_bee %>% distinct(honey_producing_colonies) %>% pull())
+year <- c(2002:2019)
+
+# year select box 
+selectInput("year_1", label = h3("Choose year"),
+						choices = as.list(year),
+						selected = 2016)
+
+# bee data select box
+#selectInput("bee_type", label = h3("Choose variable"),
+					#	choices = type_variable, selected = "Honey Bee")
+```
+
+Column {.tabset}
+-----------------------------------------------------------------------
+
+### US MAP
+
+```{r us_map}
+# for convert state abbreviations to state names
+#state_abb <- state.name
+#names(state_abb) <- state.abb
+
+# plot_geo
+renderPlotly({
+	# map plot setting
+	geo1 <- list(
+	scope = "usa",
+	projection = list(type = "state"),
+	showlakes = TRUE,
+	lakecolor = toRGB("white")
+	)
+	
+# display value using color intensity
+year_state_bee %>% 
+	filter(year == input$year_1) %>% 
+	plot_geo(locationmode = "USA-states") %>% 
+	add_trace(
+		z = ~Statistics,
+		locations = ~state,
+		color = ~Statistics,
+		colors = "Reds",
+		# add text
+		text = ~paste(honey_producing_colonies, state)
+		) %>%
+	layout(
+		geo = geo1,
+		title = "US Map - State Statistics",
+		legend = list(x = 100, y = 0.5)
+	)
+})
+
+# rsconnect::deployApp("./zanis_shiny.Rmd")
+
+```
