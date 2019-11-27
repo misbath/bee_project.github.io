@@ -36,18 +36,22 @@ bee_data =
   unnest()
 
 #clean data set
-clean_bee_data =
+shiny_bee_data =
   bee_data %>%
  separate(file_names, into = c("year", "remove"), sep = ".c") %>%
   select(-remove, -X1, -X2, -path) %>%
   rename(state = X3, honey_producing_colonies = X4, yield_per_colony = X5, production = X6, stocks = X7, price_per_pound = X8, production_value = X9) %>%
   drop_na(state) %>%
-  mutate(state = recode(state, AL = "Alabama", AR = "Arkansas", AZ = "Arizona", CA = "California", CO = "Colorado", FL = "Florida", GA = "Georgia", HI = "Hawaii", IA = "Iowa", IL = "Illinois", ID = "Idaho", IN = "Indiana", KS = "Kansas", KY = "Kentucky", LA = "Louisiana", ME = "Maine", MD = "Maryland", MI = "Michigan", MN = "Minnesota", MO = "Missouri", MT = "Montana", MS = "Mississippi", NC = "North Carolina", ND = "North Dakota", NE = "Nebraska", NJ = "New Jersey", NM = "New Mexico", NV = "Nevada", NY = "New York", OH = "Ohio", OK = "Oklahoma", OR = "Oregon", PA = "Pennsylvania", SC = "South Carolina", SD = "South Dakota", TN = "Tennessee", TX = "Texas", UT = "Utah", VA = "Virginia", VT = "Vermont", WA = "Washington", WV = "West Virginia", WI = "Wisconsin", WY = "Wyoming"))
+  mutate(state = recode(state, AL = "Alabama", AR = "Arkansas", AZ = "Arizona", CA = "California", CO = "Colorado", FL = "Florida", GA = "Georgia", HI = "Hawaii", IA = "Iowa", IL = "Illinois", ID = "Idaho", IN = "Indiana", KS = "Kansas", KY = "Kentucky", LA = "Louisiana", ME = "Maine", MD = "Maryland", MI = "Michigan", MN = "Minnesota", MO = "Missouri", MT = "Montana", MS = "Mississippi", NC = "North Carolina", ND = "North Dakota", NE = "Nebraska", NJ = "New Jersey", NM = "New Mexico", NV = "Nevada", NY = "New York", OH = "Ohio", OK = "Oklahoma", OR = "Oregon", PA = "Pennsylvania", SC = "South Carolina", SD = "South Dakota", TN = "Tennessee", TX = "Texas", UT = "Utah", VA = "Virginia", VT = "Vermont", WA = "Washington", WV = "West Virginia", WI = "Wisconsin", WY = "Wyoming")) %>%
+  select(year, state, honey_producing_colonies) 
 
-year_state_bee = 
-clean_bee_data %>%
-  group_by(year) %>%
-  mutate(colony_per_year = sum(honey_producing_colonies))
+  #pivot_wider(names_from = year, values_from = honey_producing_colonies) 
+
+
+	#mutate(to_fill = if_else(is.na(honey_producing_colonies), year_2016, to_fill)) %>%
+	#spread(key = selected_years, value = to_fill) %>% 
+	#gather(key = year, value = honey_producing_colonies, year_2013:year_2015) %>%
+	#mutate(year = as.numeric(str_extract(year, "[0-9]{4}")))
 ```
 
 
@@ -78,10 +82,6 @@ Column {.tabset}
 ### US MAP
 
 ```{r us_map}
-# for convert state abbreviations to state names
-#state_abb <- state.name
-#names(state_abb) <- state.abb
-
 # plot_geo
 renderPlotly({
 	# map plot setting
@@ -93,13 +93,13 @@ renderPlotly({
 	)
 	
 # display value using color intensity
-year_state_bee %>% 
+shiny_bee_data %>% 
 	filter(year == input$year_1) %>% 
 	plot_geo(locationmode = "USA-states") %>% 
 	add_trace(
-		z = ~Statistics,
+		z = ~honey_producing_colonies,
 		locations = ~state,
-		color = ~Statistics,
+		color = ~honey_producing_colonies,
 		colors = "Reds",
 		# add text
 		text = ~paste(honey_producing_colonies, state)

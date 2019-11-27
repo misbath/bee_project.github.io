@@ -24,47 +24,28 @@ theme_set(theme_bw() + theme(legend.position = "bottom"))
 
 ```
 
+##need to change the labels and axis for all graphs
+
 ```{r}
-# bee population for country by year
-year_state_bee = 
+# honey bee population for country by year
 clean_bee_data %>%
   group_by(year) %>%
-  mutate(colony_per_year = sum(honey_producing_colonies))
-
-year_state_bee %>%
-  ggplot(aes(x = year, y = colony_per_year)) + 
-  geom_line() 
+  summarise(n = sum(honey_producing_colonies)) %>%
+  ggplot(aes(x = year, y = n)) + 
+  geom_col()
 ```
-
 
 ```{r}
-#shiny dashboard
-===================================== 
+# all bee population for country by year
+year_county_bee = 
+  bee_county %>%
+  mutate(colony_count = as.numeric(colony_count)) %>%
+  drop_na(colony_count) %>%
+    group_by(year) %>%
+  summarise(n = sum(colony_count))  
 
-Column {.sidebar}
------------------------------------------------------------------------
-
-
-```{r for_sidebar}
-
-# entries to select from
-type_variable <- (merged_data %>% distinct(type_variable) %>% pull())
-year <- c(2001:2016)
-
-# year select box 
-selectInput("year_1", label = h3("Choose year"),
-						choices = as.list(year),
-						selected = 2016)
-
-# law strength select box
-selectInput("variable_type", label = h3("Choose variable"),
-						choices = type_variable, selected = "Crude Rate")
-```
-
-
-
-(See description page for more information.)
-
-
+year_county_bee %>%
+  ggplot(aes(x = year, y = n)) + 
+  geom_col()
 ```
 
