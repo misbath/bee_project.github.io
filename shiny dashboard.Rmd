@@ -41,9 +41,11 @@ shiny_bee_data =
  separate(file_names, into = c("year", "remove"), sep = ".c") %>%
   select(-remove, -X1, -X2, -path) %>%
   rename(state = X3, honey_producing_colonies = X4, yield_per_colony = X5, production = X6, stocks = X7, price_per_pound = X8, production_value = X9) %>%
-  drop_na(state) %>%
+  #mutate(honey_producing_colonies = if_else(is.na(honey_producing_colonies), 0, honey_producing_colonies))
+  drop_na(honey_producing_colonies) %>%
   mutate(state = recode(state, AL = "Alabama", AR = "Arkansas", AZ = "Arizona", CA = "California", CO = "Colorado", FL = "Florida", GA = "Georgia", HI = "Hawaii", IA = "Iowa", IL = "Illinois", ID = "Idaho", IN = "Indiana", KS = "Kansas", KY = "Kentucky", LA = "Louisiana", ME = "Maine", MD = "Maryland", MI = "Michigan", MN = "Minnesota", MO = "Missouri", MT = "Montana", MS = "Mississippi", NC = "North Carolina", ND = "North Dakota", NE = "Nebraska", NJ = "New Jersey", NM = "New Mexico", NV = "Nevada", NY = "New York", OH = "Ohio", OK = "Oklahoma", OR = "Oregon", PA = "Pennsylvania", SC = "South Carolina", SD = "South Dakota", TN = "Tennessee", TX = "Texas", UT = "Utah", VA = "Virginia", VT = "Vermont", WA = "Washington", WV = "West Virginia", WI = "Wisconsin", WY = "Wyoming")) %>%
-  select(year, state, honey_producing_colonies) 
+  select(year, state, honey_producing_colonies)
+
 
   #pivot_wider(names_from = year, values_from = honey_producing_colonies) 
 
@@ -94,7 +96,7 @@ renderPlotly({
 	
 # display value using color intensity
 shiny_bee_data %>% 
-	filter(year == input$year_1) %>% 
+	filter(year == year$year_1) %>% 
 	plot_geo(locationmode = "USA-states") %>% 
 	add_trace(
 		z = ~honey_producing_colonies,
@@ -106,7 +108,7 @@ shiny_bee_data %>%
 		) %>%
 	layout(
 		geo = geo1,
-		title = "US Map - State Statistics",
+		title = "US Map - Bee Population",
 		legend = list(x = 100, y = 0.5)
 	)
 })

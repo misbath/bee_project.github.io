@@ -97,7 +97,7 @@ renderPlotly({
 		) %>%
 	layout(
 		geo = geo1,
-		title = "US Map - State Statistics",
+		title = "US Map - State Bee Population",
 		legend = list(x = 100, y = 0.5)
 	)
 })
