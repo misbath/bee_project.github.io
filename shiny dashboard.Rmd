@@ -13,6 +13,7 @@ library(flexdashboard)
 library(shiny)
 library(plotly)
 library(tidyverse)
+
 ```
 
 ```{r}
@@ -41,18 +42,16 @@ shiny_bee_data =
  separate(file_names, into = c("year", "remove"), sep = ".c") %>%
   select(-remove, -X1, -X2, -path) %>%
   rename(state = X3, honey_producing_colonies = X4, yield_per_colony = X5, production = X6, stocks = X7, price_per_pound = X8, production_value = X9) %>%
-  #mutate(honey_producing_colonies = if_else(is.na(honey_producing_colonies), 0, honey_producing_colonies))
-  drop_na(honey_producing_colonies) %>%
   mutate(state = recode(state, AL = "Alabama", AR = "Arkansas", AZ = "Arizona", CA = "California", CO = "Colorado", FL = "Florida", GA = "Georgia", HI = "Hawaii", IA = "Iowa", IL = "Illinois", ID = "Idaho", IN = "Indiana", KS = "Kansas", KY = "Kentucky", LA = "Louisiana", ME = "Maine", MD = "Maryland", MI = "Michigan", MN = "Minnesota", MO = "Missouri", MT = "Montana", MS = "Mississippi", NC = "North Carolina", ND = "North Dakota", NE = "Nebraska", NJ = "New Jersey", NM = "New Mexico", NV = "Nevada", NY = "New York", OH = "Ohio", OK = "Oklahoma", OR = "Oregon", PA = "Pennsylvania", SC = "South Carolina", SD = "South Dakota", TN = "Tennessee", TX = "Texas", UT = "Utah", VA = "Virginia", VT = "Vermont", WA = "Washington", WV = "West Virginia", WI = "Wisconsin", WY = "Wyoming")) %>%
-  select(year, state, honey_producing_colonies)
-
-
+  select(year, state, honey_producing_colonies) %>%
+  filter(!is.na(honey_producing_colonies))
+  
   #pivot_wider(names_from = year, values_from = honey_producing_colonies) 
 
 
-	#mutate(to_fill = if_else(is.na(honey_producing_colonies), year_2016, to_fill)) %>%
-	#spread(key = selected_years, value = to_fill) %>% 
-	#gather(key = year, value = honey_producing_colonies, year_2013:year_2015) %>%
+#mutate(to_fill = if_else(is.na(honey_producing_colonies), 0, honey_producing_colonies)) %>%
+	#spread(key = year, value = honey_producing_coloniesl) %>% 
+	#gather(key = year, value = honey_producing_colonies, year_2002:year_2019) %>%
 	#mutate(year = as.numeric(str_extract(year, "[0-9]{4}")))
 ```
 
@@ -70,8 +69,8 @@ year <- c(2002:2019)
 
 # year select box 
 selectInput("year_1", label = h3("Choose year"),
-						choices = as.list(year),
-						selected = 2016)
+						choices = year,
+						selected = 2019)
 
 # bee data select box
 #selectInput("bee_type", label = h3("Choose variable"),
@@ -83,7 +82,7 @@ Column {.tabset}
 
 ### US MAP
 
-```{r us_map}
+```{r}
 # plot_geo
 renderPlotly({
 	# map plot setting
@@ -96,7 +95,6 @@ renderPlotly({
 	
 # display value using color intensity
 shiny_bee_data %>% 
-	filter(year == year$year_1) %>% 
 	plot_geo(locationmode = "USA-states") %>% 
 	add_trace(
 		z = ~honey_producing_colonies,
@@ -116,3 +114,35 @@ shiny_bee_data %>%
 # rsconnect::deployApp("./zanis_shiny.Rmd")
 
 ```
+
+
+# merge honey bee and all bee data to allow for toggle between bee populations
+honey_bee_data = 
+  full_join(county_bee_yrfips, state_bee_fips, by = "fips")
+full
+  clean_bee_data %>%
+  mutate(bee_type = if_else(production_value >= 0, "honey_bee", "bee"))
+
+```
+
+```{r}
+state_bee_fips %>%
+  ggplot(aes(long, lat, group = state, fill = honey_producing_colonies)) +
+  geom_polygon(color = NA) +
+  coord_map(projection = "albers", lat0 = 39, lat1 = 45) +
+  labs(fill = "Honey Producing Colonies")
+```
+
+shiny_bee_data =
+  bee_data %>%
+ separate(file_names, into = c("year", "remove"), sep = ".c") %>%
+  select(-remove, -X1, -X2, -path) %>%
+  rename(state = X3, honey_producing_colonies = X4, yield_per_colony = X5, production = X6, stocks = X7, price_per_pound = X8, production_value = X9) %>%
+  #mutate(honey_producing_colonies = if_else(is.na(honey_producing_colonies), 0, honey_producing_colonies))
+  drop_na(honey_producing_colonies) %>%
+  mutate(state = recode(state, AL = "Alabama", AR = "Arkansas", AZ = "Arizona", CA = "California", CO = "Colorado", FL = "Florida", GA = "Georgia", HI = "Hawaii", IA = "Iowa", IL = "Illinois", ID = "Idaho", IN = "Indiana", KS = "Kansas", KY = "Kentucky", LA = "Louisiana", ME = "Maine", MD = "Maryland", MI = "Michigan", MN = "Minnesota", MO = "Missouri", MT = "Montana", MS = "Mississippi", NC = "North Carolina", ND = "North Dakota", NE = "Nebraska", NJ = "New Jersey", NM = "New Mexico", NV = "Nevada", NY = "New York", OH = "Ohio", OK = "Oklahoma", OR = "Oregon", PA = "Pennsylvania", SC = "South Carolina", SD = "South Dakota", TN = "Tennessee", TX = "Texas", UT = "Utah", VA = "Virginia", VT = "Vermont", WA = "Washington", WV = "West Virginia", WI = "Wisconsin", WY = "Wyoming")) %>%
+  select(year, state, honey_producing_colonies) %>%
+  mutate(honey_producing_colonies = if_else(is.na(honey_producing_colonies), 0, honey_producing_colonies)) %>%
+	spread(key = year, value = honey_producing_colonies) %>% 
+	gather(key = year, value = honey_producing_colonies, 2:19) %>%
+	mutate(year = as.numeric(str_extract(year, "[2002-2019]{4}")))
