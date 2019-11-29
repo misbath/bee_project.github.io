@@ -20,6 +20,10 @@ Nosema ceranae, a gut microsporidian that can infect bees and has contributed to
 
 A survey of pesticides applied to agricultural areas in southern U.S. row crops reported neonicotinoid seed treatments using clothianidin, imidacloprid, and thiacloprid in the high agriculture survey area, in 2014 and 2015 growing seasons (Zawislak et al. 2019). The distribution of foliar applied pesticides in the high-agriculture survey area included chlorpyrifos and clothianidin, among others. Pesticide residues detected in hive products include chlorothalonil and chlorpyrifos (Zawislak et al. 2019). A migratory beekeeper study from Florida to Main was collected after the colony collapse disorder erupted in 2007, with colonies sampled after each stop along the route (Frazier et al. 2011). The study found the fungicide chlorothalonil and the insecticides chlorpyrifos and imidacloprid in bee-collected pollen (Frazier et al. 2011).
 
+
+_Methods_
+------------------------------------------------------
+
 Based on the literature, the following pesticides were selected for analysis in this project:
 _Neonicotinoids:_
 Imidacloprid, Thiacloprid, Clothianidin 
@@ -30,13 +34,14 @@ Chlorothalonil
 _Other insecticide:_
 Fipronil
 
-
-_Methods_
-------------------------------------------------------
-
 _Data sources and availability_
 
+*Pesticide use data was obtained from https://water.usgs.gov/nawqa/pnsp/usage/maps/county-level/
 
+*County-level bee colony data obtained from https://data.world/finley/bee-colony-statistical-data-from-1987-2017 
+
+*State-level bee colony data obtained from 
+#INSERT!!!
 
 
 
