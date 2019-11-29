@@ -24,3 +24,28 @@ theme_set(theme_bw() + theme(legend.position = "bottom"))
 
 ```
 
+##need to change the labels and axis for all graphs
+
+```{r}
+# honey bee population for country by year
+clean_bee_data %>%
+  group_by(year) %>%
+  summarise(n = sum(honey_producing_colonies)) %>%
+  ggplot(aes(x = year, y = n)) + 
+  geom_col()
+```
+
+```{r}
+# all bee population for country by year
+year_county_bee = 
+  bee_county %>%
+  mutate(colony_count = as.numeric(colony_count)) %>%
+  drop_na(colony_count) %>%
+    group_by(year) %>%
+  summarise(n = sum(colony_count))  
+
+year_county_bee %>%
+  ggplot(aes(x = year, y = n)) + 
+  geom_col()
+```
+
