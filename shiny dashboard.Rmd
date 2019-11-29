@@ -91,6 +91,7 @@ Column {.tabset}
 ### US MAP
 
 ```{r}
+# this chunk of code should not change.. directly copy and pasted from the example shiny. sets the parameters for the way in which the US will appear in the dashboard
 # plot_geo
 renderPlotly({
 	# map plot setting
