@@ -6,6 +6,8 @@ navbar:
     - text: "Background"
       href: landing.html
     - text: "Bee Variability"
+    - text: "Report"
+      href: report.html
       href: dashboard.html
     - icon: fa-envelope fa-lg
       href: mailto:<lg2982@columbia.edu>
