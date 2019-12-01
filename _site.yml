@@ -1,15 +1,14 @@
 name: "Bee & Pesticides"
 output_dir: "."
 navbar:
-  title: "Bee & Pesticides"
-  left:
+  title: "Home"
+  right:
     - text: "Background"
       href: landing.html
     - text: "X"
       href: index.html
-    - text: "Y (MAYBE DASHBOARD HERE"
+    - text: "Y (MAYBE DASHBOARD HERE)"
       href: dashboard.html
-  right:
     - icon: fa-envelope fa-lg
       href: mailto:<lg2982@columbia.edu>
     - icon: fa-github fa-lg
