@@ -18,4 +18,4 @@ output:
   html_document:
     toc: FALSE
     toc_float: FALSE
-    theme: flatly
+    theme: yeti
