@@ -5,8 +5,6 @@ navbar:
   right:
     - text: "Background"
       href: landing.html
-    - text: "Analysis"
-      href: analysis.html
     - text: "Bee Variability"
       href: dashboard.html
     - icon: fa-envelope fa-lg
