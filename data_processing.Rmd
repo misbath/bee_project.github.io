@@ -77,10 +77,6 @@ df = read_csv(file = str_c("./data/bee_state_2/", file_name[1])) %>%
 my_read_csv = function(x){
     df = read_csv(x, skip = 9, col_names  = F)
 }
-
-my_read_csv = function(x){
-    df = read_csv(x, skip = 9, col_names  = F)
-}
   
 bee_data = 
   tibble(
@@ -97,7 +93,7 @@ clean_bee_data =
   select(-remove, -X1, -X2, -path) %>%
   rename(state = X3, honey_producing_colonies = X4, yield_per_colony = X5, production = X6, stocks = X7, price_per_pound = X8, production_value = X9) %>%
   drop_na(state) %>%
-  mutate(state = recode(state, AL = "Alabama", AR = "Arkansas", AZ = "Arizona", CA = "California", CO = "Colorado", FL = "Florida", GA = "Georgia", HI = "Hawaii", IA = "Iowa", IL = "Illinois", ID = "Idaho", IN = "Indiana", KS = "Kansas", KY = "Kentucky", LA = "Louisiana", ME = "Maine", MD = "Maryland", MI = "Michigan", MN = "Minnesota", MO = "Missouri", MT = "Montana", MS = "Mississippi", NC = "North Carolina", ND = "North Dakota", NE = "Nebraska", NJ = "New Jersey", NM = "New Mexico", NV = "Nevada", NY = "New York", OH = "Ohio", OK = "Oklahoma", OR = "Oregon", PA = "Pennsylvania", SC = "South Carolina", SD = "South Dakota", TN = "Tennessee", TX = "Texas", UT = "Utah", VA = "Virginia", VT = "Vermont", WA = "Washington", WV = "West Virginia", WI = "Wisconsin", WY = "Wyoming"  ))
+  mutate(state = recode(state, AL = "Alabama", AR = "Arkansas", AZ = "Arizona", CA = "California", CO = "Colorado", FL = "Florida", GA = "Georgia", HI = "Hawaii", IA = "Iowa", IL = "Illinois", ID = "Idaho", IN = "Indiana", KS = "Kansas", KY = "Kentucky", LA = "Louisiana", ME = "Maine", MD = "Maryland", MI = "Michigan", MN = "Minnesota", MO = "Missouri", MT = "Montana", MS = "Mississippi", NC = "North Carolina", ND = "North Dakota", NE = "Nebraska", NJ = "New Jersey", NM = "New Mexico", NV = "Nevada", NY = "New York", OH = "Ohio", OK = "Oklahoma", OR = "Oregon", PA = "Pennsylvania", SC = "South Carolina", SD = "South Dakota", TN = "Tennessee", TX = "Texas", UT = "Utah", VA = "Virginia", VT = "Vermont", WA = "Washington", WV = "West Virginia", WI = "Wisconsin", WY = "Wyoming"))
 
 clean_bee_data %>%
   ggplot(aes(x = year, y = honey_producing_colonies, color = state)) +
@@ -171,6 +167,16 @@ merged_county_data = full_join(county_bee_yrfips, county_pest_yrfips, by = "year
 
 ```
 
+```{r, missing data analysis}
+
+pest = read_csv("./data/top_pesticides.csv") %>% 
+  group_by(compound) %>% 
+  summarise(missing = sum(is.na(epest_high_kg))) 
+            
+
+
+```
+
 
 ```{r, correlation pesticides}
 
@@ -194,29 +200,11 @@ matrix_state_1
 matrix_state_2 = cor(corr_state, use = "complete.obs", method = c("pearson"))
 matrix_state_2
 
-#correlation of country level mean by year 
-
-corr_country = read_csv("./data/top_pesticides.csv") %>% 
-  group_by(compound, year) %>%
-  summarise(mean_pest_high = mean(epest_high_kg, na.rm = TRUE)) %>% 
-  pivot_wider(
-    names_from = "compound",
-    values_from = "mean_pest_high",
-  ) %>%
-  ungroup() %>%
-  select(-year)
-
-matrix_country_1 = cor(corr_country, use = "everything", method = c("pearson"))
-matrix_country_1
-
-matrix_country_2 = cor(corr_country, use = "complete.obs", method = c("pearson"))
-matrix_country_2
 
 #visualization 
 
 corrplot(matrix_state_2, order = "hclust", type = "full")
 
-corrplot(matrix_country_2, order = "hclust", type = "full")
 ```
 
 ```{r trends pesticides}
@@ -276,5 +264,4 @@ merged_county_data %>%
 
 ```
 
-This repo is ok everyone stop panicking. 
 
