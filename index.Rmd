@@ -1,7 +1,6 @@
----
-title: "home"
-author: "Lizbeth Gomez"
-date: "12/1/2019"
-output: html_document
----
+# Pesticide Use and Bee Population in the United States   
 
+### Mapping and exploring pesticide use and the effect it has on bee population in the U.S.
+
+<img src="images/asset_58.png" style="width:75%">
+</center>

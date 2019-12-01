@@ -4,7 +4,7 @@ output:
   html_document:
     toc: true
     toc_float: true
-    theme: journal
+    theme: yeti
 ---
 
 <img src="images/Bumble_Bee_pic.jpg" style="width:75%">
