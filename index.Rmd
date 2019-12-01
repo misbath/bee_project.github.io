@@ -1,5 +1,5 @@
 ---
-title: "analysis"
+title: "home"
 author: "Lizbeth Gomez"
 date: "12/1/2019"
 output: html_document
