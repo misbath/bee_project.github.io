@@ -4,7 +4,11 @@ output:
   flexdashboard::flex_dashboard:
     orientation: columns
     vertical_layout: fill
+<<<<<<< HEAD
 runtime: shiny
+=======
+    
+>>>>>>> 6f8a14b9298f6e6c98a85cf2a05c7ae0e1b868d9
 ---
 
 ```{r setup, include=FALSE}
