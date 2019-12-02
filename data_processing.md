@@ -438,7 +438,7 @@ merged_county_data = full_join(county_bee_yrfips, county_pest_yrfips, by = "coun
 ```
 
 ``` r
-pest = read_csv("./data/top_pesticides.csv") %>% 
+pest_miss = read_csv("./data/top_pesticides.csv") %>% 
   group_by(compound) %>% 
   summarise(missing = sum(is.na(epest_high_kg))) 
 ```
@@ -456,9 +456,59 @@ pest = read_csv("./data/top_pesticides.csv") %>%
     ## )
 
 ``` r
+pest_miss 
+```
+
+    ## # A tibble: 6 x 2
+    ##   compound       missing
+    ##   <chr>            <int>
+    ## 1 CHLOROTHALONIL       0
+    ## 2 CHLORPYRIFOS         0
+    ## 3 CLOTHIANIDIN         1
+    ## 4 FIPRONIL             0
+    ## 5 IMIDACLOPRID         4
+    ## 6 THIACLOPRID          0
+
+``` r
+#All of our pesticides meet the 90% cutoff for completeness. Imidacloprid has the most missing values (n=4) out of 34,000+ observations. 
+
+pest_zero = read_csv("./data/top_pesticides.csv") %>%
+  mutate(epest_high_kg = na_if(epest_high_kg, "0")) %>%
+  group_by(compound) %>% 
+  summarise(missing = sum(is.na(epest_high_kg)))
+```
+
+    ## Parsed with column specification:
+    ## cols(
+    ##   X1 = col_double(),
+    ##   compound = col_character(),
+    ##   year = col_double(),
+    ##   epest_low_kg = col_double(),
+    ##   epest_high_kg = col_double(),
+    ##   state_fips = col_character(),
+    ##   county_fips = col_character(),
+    ##   state_county_fips = col_character()
+    ## )
+
+``` r
+pest_zero
+```
+
+    ## # A tibble: 6 x 2
+    ##   compound       missing
+    ##   <chr>            <int>
+    ## 1 CHLOROTHALONIL    1012
+    ## 2 CHLORPYRIFOS       525
+    ## 3 CLOTHIANIDIN      3468
+    ## 4 FIPRONIL          1750
+    ## 5 IMIDACLOPRID      2848
+    ## 6 THIACLOPRID       1803
+
+``` r
 #correlation of state level means across all years
 
 corr_state = read_csv("./data/top_pesticides.csv") %>% 
+  drop_na(epest_high_kg) %>%
   group_by(compound, state_fips) %>%
   summarise(mean_pest_high = mean(epest_high_kg, na.rm = TRUE)) %>% 
   pivot_wider(
@@ -524,15 +574,7 @@ matrix_state_2
     ## THIACLOPRID    -0.002073838  1.000000000
 
 ``` r
-#visualization 
-
-corrplot(matrix_state_2, order = "hclust", type = "full")
-```
-
-<img src="data_processing_files/figure-gfm/correlation pesticides-1.png" width="90%" />
-
-``` r
-pest_country = read_csv("./data/top_pesticides.csv") %>% 
+pest_country_all = read_csv("./data/top_pesticides.csv") %>% 
   group_by(compound, year) %>%
   summarise(mean_pest_high = mean(epest_high_kg, na.rm = TRUE)) %>% 
   ggplot(aes(x = year, y = mean_pest_high, color = compound)) + 
@@ -552,18 +594,21 @@ pest_country = read_csv("./data/top_pesticides.csv") %>%
     ## )
 
 ``` r
-pest_country
+pest_country_all 
 ```
 
 <img src="data_processing_files/figure-gfm/trends pesticides-1.png" width="90%" />
 
 ``` r
-pest_state = read_csv("./data/top_pesticides.csv") %>% 
-  group_by(year, compound, state_fips) %>%
+#After looking at the graph above, I decided to remove Imidacloprid and Thiacloprid 
+
+pest_country = read_csv("./data/top_pesticides.csv") %>% 
+  filter(compound %in% c("CHLOROTHALONIL", "CHLORPYRIFOS", 
+                         "CLOTHIANIDIN", "FIPRONIL")) %>%
+  group_by(compound, year) %>%
   summarise(mean_pest_high = mean(epest_high_kg, na.rm = TRUE)) %>% 
   ggplot(aes(x = year, y = mean_pest_high, color = compound)) + 
-  geom_line() + 
-  facet_grid(~state_fips)
+  geom_line() 
 ```
 
     ## Parsed with column specification:
@@ -579,10 +624,69 @@ pest_state = read_csv("./data/top_pesticides.csv") %>%
     ## )
 
 ``` r
-pest_state
+pest_country 
 ```
 
 <img src="data_processing_files/figure-gfm/trends pesticides-2.png" width="90%" />
+
+``` r
+pest_state_2004 = read_csv("./data/top_pesticides.csv") %>% 
+  filter(compound %in% c("CHLOROTHALONIL", "CHLORPYRIFOS",
+                         "CLOTHIANIDIN", "FIPRONIL"), year == 2004) %>%
+  group_by(compound, state_fips) %>%
+  summarise(tot_pest_high = sum(epest_high_kg)) %>% 
+  ggplot(aes(x = state_fips, y = tot_pest_high, color = compound)) + 
+  geom_point() 
+```
+
+    ## Parsed with column specification:
+    ## cols(
+    ##   X1 = col_double(),
+    ##   compound = col_character(),
+    ##   year = col_double(),
+    ##   epest_low_kg = col_double(),
+    ##   epest_high_kg = col_double(),
+    ##   state_fips = col_character(),
+    ##   county_fips = col_character(),
+    ##   state_county_fips = col_character()
+    ## )
+
+``` r
+pest_state_2004
+```
+
+<img src="data_processing_files/figure-gfm/trends pesticides-3.png" width="90%" />
+
+``` r
+pest_state_1 = read_csv("./data/top_pesticides.csv") %>% 
+  filter(compound == "CHLOROTHALONIL") %>%
+  group_by(year, state_fips) %>%
+  summarise(tot_pest_high = sum(epest_high_kg)) %>% 
+  ggplot(aes(x = year, y = tot_pest_high, color =state_fips)) + 
+  geom_line() + 
+  labs( 
+    title = "Chlorothalonil use across states in 2004", 
+    x = "Year",
+    y = "Total Pesticide Use (Kg)")
+```
+
+    ## Parsed with column specification:
+    ## cols(
+    ##   X1 = col_double(),
+    ##   compound = col_character(),
+    ##   year = col_double(),
+    ##   epest_low_kg = col_double(),
+    ##   epest_high_kg = col_double(),
+    ##   state_fips = col_character(),
+    ##   county_fips = col_character(),
+    ##   state_county_fips = col_character()
+    ## )
+
+``` r
+pest_state_1
+```
+
+<img src="data_processing_files/figure-gfm/trends pesticides-4.png" width="90%" />
 
 Looking at merged state data
 
