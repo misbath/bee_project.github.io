@@ -1,25 +1,19 @@
 name: "Bee & Pesticides"
 output_dir: "."
 navbar:
-  title: "Bee & Pesticides"
-  left:
+  title: "Home"
+  right:
     - text: "Background"
       href: landing.html
-    - text: "X"
-      href: index.html
-    - text: "Y (MAYBE DASHBOARD HERE"
+    - text: "Bee Variability"
       href: dashboard.html
-  right:
     - icon: fa-envelope fa-lg
       href: mailto:<lg2982@columbia.edu>
     - icon: fa-github fa-lg
-      href: https://github.com/LizbethGomez
-    - icon: fa-twitter fa-lg
-      href: https://twitter.com/lizbethgomez199
-    - icon: fa-linkedin fa-lg
-      href: https://www.linkedin.com/in/lizbeth-gomez
+      href: https://github.com/misbath/bee_project.github.io
+   
 output:
   html_document:
-    toc: true
-    toc_float: true
-    theme: journal
+    toc: FALSE
+    toc_float: FALSE
+    theme: yeti

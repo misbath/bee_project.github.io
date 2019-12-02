@@ -62,8 +62,6 @@ bee_county = bee_county%>%
     value = replace(value, value == "(D)", "NA"),
     cv_percent = replace(cv_percent, cv_percent == "(D)", "NA")) %>% 
   rename (colony_count = value)
-
-
 ```
 
 ```{r, state bee colonies}
@@ -74,10 +72,6 @@ df = read_csv(file = str_c("./data/bee_state_2/", file_name[1])) %>%
   mutate(file = file_name[1])
   df
   
-my_read_csv = function(x){
-    df = read_csv(x, skip = 9, col_names  = F)
-}
-
 my_read_csv = function(x){
     df = read_csv(x, skip = 9, col_names  = F)
 }
@@ -97,12 +91,7 @@ clean_bee_data =
   select(-remove, -X1, -X2, -path) %>%
   rename(state = X3, honey_producing_colonies = X4, yield_per_colony = X5, production = X6, stocks = X7, price_per_pound = X8, production_value = X9) %>%
   drop_na(state) %>%
-  mutate(state = recode(state, AL = "Alabama", AR = "Arkansas", AZ = "Arizona", CA = "California", CO = "Colorado", FL = "Florida", GA = "Georgia", HI = "Hawaii", IA = "Iowa", IL = "Illinois", ID = "Idaho", IN = "Indiana", KS = "Kansas", KY = "Kentucky", LA = "Louisiana", ME = "Maine", MD = "Maryland", MI = "Michigan", MN = "Minnesota", MO = "Missouri", MT = "Montana", MS = "Mississippi", NC = "North Carolina", ND = "North Dakota", NE = "Nebraska", NJ = "New Jersey", NM = "New Mexico", NV = "Nevada", NY = "New York", OH = "Ohio", OK = "Oklahoma", OR = "Oregon", PA = "Pennsylvania", SC = "South Carolina", SD = "South Dakota", TN = "Tennessee", TX = "Texas", UT = "Utah", VA = "Virginia", VT = "Vermont", WA = "Washington", WV = "West Virginia", WI = "Wisconsin", WY = "Wyoming"  ))
-
-clean_bee_data %>%
-  ggplot(aes(x = year, y = honey_producing_colonies, color = state)) +
-  geom_point()
-
+  mutate(state = recode(state, AL = "Alabama", AR = "Arkansas", AZ = "Arizona", CA = "California", CO = "Colorado", FL = "Florida", GA = "Georgia", HI = "Hawaii", IA = "Iowa", IL = "Illinois", ID = "Idaho", IN = "Indiana", KS = "Kansas", KY = "Kentucky", LA = "Louisiana", ME = "Maine", MD = "Maryland", MI = "Michigan", MN = "Minnesota", MO = "Missouri", MT = "Montana", MS = "Mississippi", NC = "North Carolina", ND = "North Dakota", NE = "Nebraska", NJ = "New Jersey", NM = "New Mexico", NV = "Nevada", NY = "New York", OH = "Ohio", OK = "Oklahoma", OR = "Oregon", PA = "Pennsylvania", SC = "South Carolina", SD = "South Dakota", TN = "Tennessee", TX = "Texas", UT = "Utah", VA = "Virginia", VT = "Vermont", WA = "Washington", WV = "West Virginia", WI = "Wisconsin", WY = "Wyoming"))
 ```
 
 
@@ -143,30 +132,32 @@ state_pest_data =
 ```{r merge state level pest and bee data}
 state_bee_yrfips = 
   state_bee_fips %>%
-  mutate(yearfips = paste0(year, state_fips))
+  mutate(state_year_fips = paste0(year, state_fips))
 
 state_pest_yrfips = 
   state_pest_data %>%
-  mutate(yearfips = paste0(year, state_fips))
+  mutate(state_year_fips = paste0(year, state_fips))
 
-merged_state_data = full_join(state_bee_yrfips, state_pest_yrfips, by = "yearfips") %>%
+merged_state_data = full_join(state_bee_yrfips, state_pest_yrfips, by = "state_year_fips") %>%
   select(year.x, state, state_fips.x, honey_producing_colonies, yield_per_colony, production, compound, low, high) %>%
+   rename(state_fips = state_fips.x) %>%
   drop_na(year.x, state, compound, high)
-
 ```
 
 ```{r merge county level pest and bee data}
 county_bee_yrfips = 
   bee_county %>%
-  mutate(yearfips = paste0(year, state_county_fips))
+  mutate(county_year_fips = paste0(year, state_county_fips), 
+         state_year_fips = paste0(year, state_ansi))
          
 county_pest_yrfips = 
   top_pesticides %>%
   mutate(state_county_fips = as.numeric(state_county_fips) ,
-         yearfips = paste0(year, state_county_fips))
+         county_year_fips = paste0(year, state_county_fips)
+         )
 
-merged_county_data = full_join(county_bee_yrfips, county_pest_yrfips, by = "yearfips") %>%
-  select(year.x, state, county, county_fips, colony_count, compound, epest_low_kg, epest_high_kg) %>%
+merged_county_data = full_join(county_bee_yrfips, county_pest_yrfips, by = "county_year_fips") %>%
+  select(year.x, state, county, county_fips, colony_count, compound, epest_low_kg, epest_high_kg, state_year_fips) %>%
   drop_na(year.x, state, county, colony_count, compound, epest_high_kg)
 
 ```
@@ -299,4 +290,4 @@ merged_county_data %>%
 
 ```
 
-add
+
