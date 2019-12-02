@@ -1,0 +1,63 @@
+---
+title: "Pesticide Change Over the Years"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    source_code: embed
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(shiny)
+library(plotly)
+library(tidyverse)
+
+```
+
+```{r read in data}
+merged_county_data = read_csv("./data/merged_county_data.csv") %>%
+  janitor::clean_names()
+```
+
+
+Column {.sidebar}
+-----------------------------------------------------------------------
+
+```{r}
+compounds = merged_county_data %>% distinct(compound) %>% pull()
+
+# selectInput widget
+selectInput(
+  "pesticide_choice", 
+  label = h3("Select pesticide"),
+  choices = compounds, selected = "IMIDACLPROPID")
+
+
+#need to set this up for merged_state_data
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+
+```
+
+### Chart C
+
+```{r}
+
+```
