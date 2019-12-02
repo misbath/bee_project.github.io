@@ -26,7 +26,7 @@ theme_set(theme_bw() + theme(legend.position = "bottom"))
 
 ##need to change the labels and axis for all graphs
 
-```{r}
+r
 # honey bee population for country by year
 clean_bee_data %>%
   group_by(year) %>%
@@ -39,9 +39,9 @@ clean_bee_data %>%
     x = "Year",
     y = "Honey Bee Colonies Across the US"
   )
-```
 
-```{r}
+
+r
 # all bee population for country by year
 year_county_bee = 
   bee_county %>%
@@ -65,5 +65,5 @@ year_county_bee %>%
   scale_y_continuous(
     breaks = c(100000, 200000, 225000, 250000, 275000, 300000)
   )
-```
+
 

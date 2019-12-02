@@ -69,7 +69,7 @@ renderPlotly({
   mutate(text_label = str_c("Compound: ", compound, '\nYear: ', year)) %>% 
   plot_ly(
     x = ~colony_count, y = ~epest_high_kg, type = "scatter", mode = "markers",
-    alpha = 0.5, color = ~price, text = ~text_label)
+    alpha = 0.5, text = ~text_label)
 })
 ```
 
@@ -79,7 +79,15 @@ Column {data-width=350}
 ### Chart B
 
 ```{r}
-
+bar_graph =
+merged_county_data %>% 
+  filter(
+  compound == input$compound_choice,
+  year == input$year_choice) %>%
+  mutate(text_label = str_c("Compound: ", compound, '\nYear: ', year)) %>% 
+  plot_ly(
+    x = ~colony_count, y = ~epest_high_kg, type = "scatter", mode = "markers",
+    alpha = 0.5, text = ~text_label)
 ```
 
 ### Chart C

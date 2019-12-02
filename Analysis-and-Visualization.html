@@ -309,43 +309,9 @@ $(document).ready(function () {
 
 
 <p>##need to change the labels and axis for all graphs</p>
-<pre class="r"><code># honey bee population for country by year
-clean_bee_data %&gt;%
-  group_by(year) %&gt;%
-  summarise(n = sum(honey_producing_colonies)) %&gt;%
-  ggplot(aes(x = year, y = n)) + 
-  geom_point() + 
-  theme(axis.text.x = element_text(angle = 90)) +
-  labs(
-    title = &quot;Honey Bee Colony Count in the US&quot;,
-    x = &quot;Year&quot;,
-    y = &quot;Honey Bee Colonies Across the US&quot;
-  )</code></pre>
-<p><img src="Analysis-and-Visualization_files/figure-html/unnamed-chunk-1-1.png" width="90%" /></p>
-<pre class="r"><code># all bee population for country by year
-year_county_bee = 
-  bee_county %&gt;%
-  mutate(colony_count = as.numeric(colony_count)) %&gt;%
-  drop_na(colony_count) %&gt;%
-    group_by(year) %&gt;%
-  summarise(n = sum(colony_count))  
-
-year_county_bee %&gt;%
-  ggplot(aes(x = year, y = n)) + 
-  geom_col() + 
-    theme(axis.text.x = element_text(angle = 90)) +
-  labs(
-    title = &quot;Bee Colony Count in the US&quot;,
-    x = &quot;Year&quot;,
-    y = &quot;Bee Colonies Across the US&quot;
-  ) +
-  scale_x_continuous(
-    breaks = c(2002, 2007, 2012)
-  ) + 
-  scale_y_continuous(
-    breaks = c(100000, 200000, 225000, 250000, 275000, 300000)
-  )</code></pre>
-<p><img src="Analysis-and-Visualization_files/figure-html/unnamed-chunk-2-1.png" width="90%" /></p>
+<p>r # honey bee population for country by year clean_bee_data %&gt;% group_by(year) %&gt;% summarise(n = sum(honey_producing_colonies)) %&gt;% ggplot(aes(x = year, y = n)) + geom_point() + theme(axis.text.x = element_text(angle = 90)) + labs( title = “Honey Bee Colony Count in the US”, x = “Year”, y = “Honey Bee Colonies Across the US” )</p>
+<p>r # all bee population for country by year year_county_bee = bee_county %&gt;% mutate(colony_count = as.numeric(colony_count)) %&gt;% drop_na(colony_count) %&gt;% group_by(year) %&gt;% summarise(n = sum(colony_count))</p>
+<p>year_county_bee %&gt;% ggplot(aes(x = year, y = n)) + geom_col() + theme(axis.text.x = element_text(angle = 90)) + labs( title = “Bee Colony Count in the US”, x = “Year”, y = “Bee Colonies Across the US” ) + scale_x_continuous( breaks = c(2002, 2007, 2012) ) + scale_y_continuous( breaks = c(100000, 200000, 225000, 250000, 275000, 300000) )</p>
 
 
 
