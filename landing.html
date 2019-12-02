@@ -12,7 +12,7 @@
 
 
 
-<title>Landing</title>
+<title>landing.utf8.md</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,9 +20,6 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -253,63 +250,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -317,16 +257,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -376,7 +306,6 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Landing</h1>
 
 </div>
 
@@ -384,6 +313,12 @@ div.tocify {
 <div id="project-title" class="section level3">
 <h3>Project Title</h3>
 <p>Pesticide Use and Bee Colonies in the United States</p>
+</div>
+<div id="background" class="section level3">
+<h3>Background</h3>
+<p>Exposure to insecticides can make bees more susceptible to pathogens as pesticides suppress their immune systems; studies suggest that this pesticide-pathogen interaction may be driving bees’ widespread collapse in the U.S. over recent decades (Sánchez-Bayo et al. 2016).</p>
+<p>Nosema ceranae, a gut microsporidian that can infect bees and has contributed to widespread bee decline, was first found in the U.S. around the same time that neonicotinoids were introduced (Sánchez-Bayo et al. 2016). When bees infected with Nosema are exposed to imidacloprid, a neonicotinoid, they cannot sterilize the colony so the pathogen spreads within the colony (Sánchez-Bayo et al. 2016). Additionally, bees infected with N. ceranae that are exposed to another neonicotinoid, thiacloprid, or the phenyl-pyrazole, fripronil, have higher mortality than non-exposed bees (Sánchez-Bayo et al. 2016). Fipronil and imidacloprid suppress immunity-related genes in honey bees, leading to higher mortality rates for hives infected with Nosema (Sánchez-Bayo et al. 2016). There is a known mechanism of action for immune suppression for neonicotinoids, specifically clothianidin and imidacloprid (Di Prisco et al., 2013).</p>
+<p>A survey of pesticides applied to agricultural areas in southern U.S. row crops reported neonicotinoid seed treatments using clothianidin, imidacloprid, and thiacloprid in the high agriculture survey area, in 2014 and 2015 growing seasons (Zawislak et al. 2019). The distribution of foliar applied pesticides in the high-agriculture survey area included chlorpyrifos and clothianidin, among others. Pesticide residues detected in hive products include chlorothalonil and chlorpyrifos (Zawislak et al. 2019). A migratory beekeeper study from Florida to Main was collected after the colony collapse disorder erupted in 2007, with colonies sampled after each stop along the route (Frazier et al. 2011). The study found the fungicide chlorothalonil and the insecticides chlorpyrifos and imidacloprid in bee-collected pollen (Frazier et al. 2011).</p>
 </div>
 <div id="motivation" class="section level3">
 <h3>Motivation</h3>
@@ -393,11 +328,24 @@ div.tocify {
 <h3>Intended Final Project</h3>
 <p>We propose to examine county level data on pesticide use and county level data on bee colonies to see if there are any trends between certain chemical compounds and bee colony decline. We plan to include information on the relationship between bee population over time as well as pesticide use over time controlling for seasonality. Additionally, we will examine bee population in the counties with the highest and lowest pesticide use. Based on these trends, we will investigate pesticides that have stronger associations with bee colony population over time. We aim to identify pesticides that are associated with changes in bee populations, specifically those that might contribute to the recent decline in bee populations nationally.</p>
 </div>
-
-
-
+<div id="methods" class="section level2">
+<h2><em>Methods</em></h2>
+<p>Based on the literature, the following pesticides were selected for analysis in this project: <em>Neonicotinoids:</em> Imidacloprid, Thiacloprid, Clothianidin <em>Organophosphates:</em> Chlorpyrifos, Methyl parathion <em>Fungicide:</em> Chlorothalonil <em>Other insecticide:</em> Fipronil</p>
+<p><em>Data sources and availability</em></p>
+<p>*Pesticide use data was obtained from <a href="https://water.usgs.gov/nawqa/pnsp/usage/maps/county-level/" class="uri">https://water.usgs.gov/nawqa/pnsp/usage/maps/county-level/</a></p>
+<p>*County-level bee colony data obtained from <a href="https://data.world/finley/bee-colony-statistical-data-from-1987-2017" class="uri">https://data.world/finley/bee-colony-statistical-data-from-1987-2017</a></p>
+<p>*State-level bee colony data obtained from #INSERT!!!</p>
+<p><em>References</em></p>
+<p>Frazier, J., Mullin, C., Frazier, M., &amp; Ashcraft, S. (2011). Pesticides and their involvement in colony collapse disorder. Am Bee J, 151, 779-781. <a href="https://bee-health.extension.org/pesticides-and-their-involvement-in-colony-collapse-disorder/" class="uri">https://bee-health.extension.org/pesticides-and-their-involvement-in-colony-collapse-disorder/</a></p>
+<p>Sánchez-Bayo, F., Goulson, D., Pennacchio, F., Nazzi, F., Goka, K., &amp; Desneux, N. (2016). Are bee diseases linked to pesticides?—A brief review. Environment international, 89, 7-11.https://www-sciencedirect-com.ezproxy.cul.columbia.edu/science/article/pii/S0160412016300095?via%3Dihub</p>
+<p>G. Di Prisco, V. Cavaliere, D. Annoscia, P. Varricchio, E. Caprio, F. Nazzi, G. Gargiulo, F. Pennacchio Neonicotinoid clothianidin adversely affects insect immunity and promotes replication of a viral pathogen in honey bees, PNAS, 110 (2013), pp. 18466-18471</p>
+<p>van Lexmond, M.B., Bonmatin, JM., Goulson, D. et al. Environ Sci Pollut Res (2015) 22: 1. <a href="https://doi.org/10.1007/s11356-014-3220-1" class="uri">https://doi.org/10.1007/s11356-014-3220-1</a></p>
+<p>Zawislak, J., Adamczyk, J., Johnson, D. R., Lorenz, G., Black, J., Hornsby, Q., … &amp; Joshi, N. (2019). Comprehensive Survey of Area-Wide Agricultural Pesticide Use in Southern United States Row Crops and Potential Impact on Honey Bee Colonies. Insects, 10(9), 280. <a href="https://www.mdpi.com/2075-4450/10/9/280/htm" class="uri">https://www.mdpi.com/2075-4450/10/9/280/htm</a></p>
+<p>Image: <a href="https://commons.wikimedia.org/wiki/File:Bumble_Bee_(4849358448).jpg" class="uri">https://commons.wikimedia.org/wiki/File:Bumble_Bee_(4849358448).jpg</a></p>
 </div>
-</div>
+
+
+
 
 </div>
 
@@ -430,32 +378,6 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
