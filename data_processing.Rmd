@@ -251,6 +251,8 @@ pest_state_1 = read_csv("./data/top_pesticides.csv") %>%
     x = "Year",
     y = "Total Pesticide Use (Kg)")
 
+pest_state_1
+
 
 ```
 
