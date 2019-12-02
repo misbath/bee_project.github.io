@@ -1,10 +1,11 @@
 
+---
+title: "**Pesticide Use and Bee Population in the United States**" 
+---
 
-
-   
-
-# Pesticide Use and Bee Population in the United States   
 ### Mapping and exploring pesticide use and its effect on bee population in the U.S.
+
+<br>
 
 [Tessa Bloomquist](https://github.com/tessbloomquist), [Misbath Daouda](https://github.com/misbath), [Lizbeth Gomez](https://github.com/LizbethGomez), [Sarah McLarnan](https://github.com/smm2316) and [Maya Spaur](https://github.com/mayaspaur)
  
