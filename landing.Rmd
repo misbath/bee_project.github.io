@@ -34,11 +34,9 @@ Fipronil
 
 _Data sources and availability_
 ------------------------------------------------------
-* Pesticide use data was obtained from https://water.usgs.gov/nawqa/pnsp/usage/maps/county-level/
+* Pesticide use data was obtained from the [USGS](https://water.usgs.gov/nawqa/pnsp/usage/maps/county-level/)
 
-* County-level bee colony data obtained from https://data.world/finley/bee-colony-statistical-data-from-1987-2017 
-
-* State-level bee colony data obtained from  xxxxxxx
+* County-level and State-level bee colony data obtained from the [USDA](https://data.world/finley/bee-colony-statistical-data-from-1987-2017) 
 
 
 _References_
