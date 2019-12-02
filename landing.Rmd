@@ -1,7 +1,14 @@
+---
+title: "**Background**"
+output: 
+  html_document:
+      toc: true
+      toc_float: true
+---
 
-## Pesticide Use and Bee Colonies in the United States
+<br>
 
-_Background_  
+__About__  
 ------------------------------------------------------
 Exposure to insecticides can make bees more susceptible to pathogens as pesticides suppress their immune systems; studies suggest that this pesticide-pathogen interaction may be driving bees’ widespread collapse in the U.S. over recent decades (Sánchez-Bayo et al. 2016).
 
@@ -9,20 +16,28 @@ Nosema ceranae, a gut microsporidian that can infect bees and has contributed to
 
 A survey of pesticides applied to agricultural areas in southern U.S. row crops reported neonicotinoid seed treatments using clothianidin, imidacloprid, and thiacloprid in the high agriculture survey area, in 2014 and 2015 growing seasons (Zawislak et al. 2019). The distribution of foliar applied pesticides in the high-agriculture survey area included chlorpyrifos and clothianidin, among others. Pesticide residues detected in hive products include chlorothalonil and chlorpyrifos (Zawislak et al. 2019). A migratory beekeeper study from Florida to Main was collected after the colony collapse disorder erupted in 2007, with colonies sampled after each stop along the route (Frazier et al. 2011). The study found the fungicide chlorothalonil and the insecticides chlorpyrifos and imidacloprid in bee-collected pollen (Frazier et al. 2011).
 
-_Motivation_  
+<br>
+
+
+__Motivation__
 ------------------------------------------------------
 Bee colony decline has made headlines in recent news reports. The decrease in bee survival has been linked to a decrease in crop diversity, loss of habitat, poor beekeeping practices, and widespread and intensive use of pesticides such as neonicotinoids. As a group we are interested in trends between pesticide use and bee populations. If the bee population continues to decline, biodiversity of plants across the country will continue to decline, with potentially catastrophic implications to our food supply.
 
-_Intended Final Project_  
+<br>
+
+
+__Intended Final Project__  
 ------------------------------------------------------
 
 We propose to examine county level data on pesticide use and county level data on bee colonies to see if there are any trends between certain chemical compounds and bee colony decline. We plan to include information on the relationship between bee population over time as well as pesticide use over time controlling for seasonality. Additionally, we will examine bee population in the counties with the highest and lowest pesticide use. Based on these trends, we will investigate pesticides that have stronger associations with bee colony population over time. We aim to identify pesticides that are associated with changes in bee populations, specifically those that might contribute to the recent decline in bee populations nationally. 
 
-_Methods_
+<br>
+
+__Methods__
 ------------------------------------------------------
 
 Based on the literature, the following pesticides were selected for analysis in this project:    
-------------------------------------------------------
+
 * Neonicotinoids:
 Imidacloprid, Thiacloprid, Clothianidin   
 * Organophosphates:
@@ -32,14 +47,19 @@ Chlorothalonil
 * Other insecticide:
 Fipronil  
 
-_Data sources and availability_
+<br>
+
+
+__Data sources and availability__
 ------------------------------------------------------
 * Pesticide use data was obtained from the [USGS](https://water.usgs.gov/nawqa/pnsp/usage/maps/county-level/)
 
 * County-level and State-level bee colony data obtained from the [USDA](https://data.world/finley/bee-colony-statistical-data-from-1987-2017) 
 
+<br>
 
-_References_
+
+__References__
 ------------------------------------------------------
 * Frazier, J., Mullin, C., Frazier, M., & Ashcraft, S. (2011). Pesticides and their involvement in colony collapse disorder. Am Bee J, 151, 779-781. https://bee-health.extension.org/pesticides-and-their-involvement-in-colony-collapse-disorder/
 
