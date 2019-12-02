@@ -18,12 +18,13 @@ library(tidyverse)
 
 # if we would like to toggle between honey bee and all bee, need to merge the datasets and add differentiating factor... this gets more complicated
 
+```{r}
 honey_bee_data = 
-  full_join(county_bee_yrfips, state_bee_fips, by = "fips")
-full
-  clean_bee_data %>%
-  mutate(bee_type = if_else(production_value >= 0, "honey_bee", "bee"))
+  full_join(county_bee_yrfips, state_bee_yrfips, by = "state_year_fips")
 
+all_bee_data %>%
+  mutate(bee_type = if_else(production_value >= 0, "honey_bee", "bee"))
+```
 
 ```{r}
 #create function to import data
