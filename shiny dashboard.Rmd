@@ -53,16 +53,13 @@ shiny_bee_data =
   rename(state = X3, honey_producing_colonies = X4, yield_per_colony = X5, production = X6, stocks = X7, price_per_pound = X8, production_value = X9) %>%
   mutate(state = recode(state, AL = "Alabama", AR = "Arkansas", AZ = "Arizona", CA = "California", CO = "Colorado", FL = "Florida", GA = "Georgia", HI = "Hawaii", IA = "Iowa", IL = "Illinois", ID = "Idaho", IN = "Indiana", KS = "Kansas", KY = "Kentucky", LA = "Louisiana", ME = "Maine", MD = "Maryland", MI = "Michigan", MN = "Minnesota", MO = "Missouri", MT = "Montana", MS = "Mississippi", NC = "North Carolina", ND = "North Dakota", NE = "Nebraska", NJ = "New Jersey", NM = "New Mexico", NV = "Nevada", NY = "New York", OH = "Ohio", OK = "Oklahoma", OR = "Oregon", PA = "Pennsylvania", SC = "South Carolina", SD = "South Dakota", TN = "Tennessee", TX = "Texas", UT = "Utah", VA = "Virginia", VT = "Vermont", WA = "Washington", WV = "West Virginia", WI = "Wisconsin", WY = "Wyoming")) %>%
   select(year, state, honey_producing_colonies) %>%
-  filter(!is.na(honey_producing_colonies))
+  filter(!is.na(honey_producing_colonies)) 
+```
 
 shiny_bee_data %>%
   group_by(state) %>%
   summarise(n = n()) %>%
   view()
-
-```
-
-
 
 Bee Population Map
 ===================================== 
@@ -72,12 +69,12 @@ Column {.sidebar}
 
 ```{r}
 # entries to select from
-year <- c(2002:2019)
+year <- c(2002:2002)
 
 # year select box 
 selectInput("year_1", label = h3("Choose year"),
 						choices = year,
-						selected = 2019)
+						selected = 2002)
 
 # bee data select box
 #ONLY IF WE WANT TO MERGE DATASETS

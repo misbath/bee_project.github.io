@@ -32,7 +32,13 @@ clean_bee_data %>%
   group_by(year) %>%
   summarise(n = sum(honey_producing_colonies)) %>%
   ggplot(aes(x = year, y = n)) + 
-  geom_col()
+  geom_point() + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  labs(
+    title = "Honey Bee Colony Count in the US",
+    x = "Year",
+    y = "Honey Bee Colonies Across the US"
+  )
 ```
 
 ```{r}
@@ -46,6 +52,18 @@ year_county_bee =
 
 year_county_bee %>%
   ggplot(aes(x = year, y = n)) + 
-  geom_col()
+  geom_col() + 
+    theme(axis.text.x = element_text(angle = 90)) +
+  labs(
+    title = "Bee Colony Count in the US",
+    x = "Year",
+    y = "Bee Colonies Across the US"
+  ) +
+  scale_x_continuous(
+    breaks = c(2002, 2007, 2012)
+  ) + 
+  scale_y_continuous(
+    breaks = c(100000, 200000, 225000, 250000, 275000, 300000)
+  )
 ```
 
