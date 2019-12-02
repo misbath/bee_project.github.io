@@ -1,6 +1,6 @@
 # Pesticide Use and Bee Population in the United States   
 
-### Mapping and exploring pesticide use and the effect it has on bee population in the U.S.
+#### Mapping and exploring pesticide use and the effect it has on bee population in the U.S.
 
-<img src="images/bee.jpg" style="width:75%">
+<img src="images/logo.png">
 </center>
