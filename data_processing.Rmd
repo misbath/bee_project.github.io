@@ -83,7 +83,7 @@ bee_data =
     file_names = file_name,
     path = str_c("./data/bee_state_2/", file_names)
   ) %>% 
-  mutate(data = map(path, my_read_csv))%>% 
+  mutate(data = map(path, my_read_csv)) %>% 
   unnest()
 
 #clean data set
@@ -173,8 +173,6 @@ write.csv(merged_county_data, file = "merged_county_data.csv")
 pest = read_csv("./data/top_pesticides.csv") %>% 
   group_by(compound) %>% 
   summarise(missing = sum(is.na(epest_high_kg))) 
-            
-
 
 ```
 
