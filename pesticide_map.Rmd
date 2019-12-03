@@ -30,51 +30,24 @@ merged_county_data = read_csv("./data/merged_county_data.csv") %>%
     county = str_to_lower(county)
   )
 
-summary(merged_county_data)
-
-view(merged_county_data)
-
 merged_state_data = read_csv("./data/merged_state_data.csv") %>%
   janitor::clean_names() %>%
   rename(year = year_x)
 
 ```
 
-#Reading in other data
-
-```{r, include = FALSE}
-pesticides = read_csv("./data/top_pesticides.csv") %>% 
-  select(-epest_low_kg)
-
-fips_codes = read_csv("./data/fips_codes.csv")
-
-```
-
 
 ```{r}
-usa <- map_data("state")
+state.map <- map_data("state")
 counties <- map_data("county")
-
-merged_state_data_for_join = 
-  merged_state_data %>%
-  rename(region = state)
 
 merged_county_data_for_join =
   merged_county_data %>%
   rename(subregion = county)
-  
-
-```
-
-```{r}
-usa_2 <- merged_state_data_for_join %>%
-            left_join(usa, "region")
 
 county_2 <- merged_county_data_for_join %>%
   left_join(counties, "subregion")
 
-head(county_2)
-  
 ```
 
 
@@ -82,6 +55,8 @@ Column {data-width=650}
 -----------------------------------------------------------------------
 
 ###County Data 
+
+Pesticides 
 
 ```{r}
 
@@ -94,45 +69,23 @@ map_county <- counties_base + theme_nothing() +
       theme_bw() + labs(title= "All Pesticides, All Years, County Level Data")
 
 map_county
+```
+
+Bees
+
+```{r}
+map_county_bees <- counties_base + theme_nothing() + 
+  geom_polygon(data = county_2, aes(fill= colony_count), color = "white") + geom_polygon(color = "black", fill = NA) +
+      theme_bw() + labs(title= "All Bees, All Years, County Level Data")
+
+map_county_bees
 
   
 ```
 
-Column  {data-width=350}
------------------------------------------------------------------------
-
-###State Data
-
-```{r}
-usa_base <- ggplot(data = usa, mapping = aes(x = long, y = lat, group = group)) + 
-  coord_fixed(1.3) + 
-  geom_polygon(color = "black")
-
-map <- usa_base + theme_nothing() + 
-  geom_polygon(data = usa_2, aes(fill= high), color = "white") + geom_polygon(color = "black", fill = NA) +
-      theme_bw()
-
-map
-view(usa_2)
-```
-
-Column {data-width=350}
------------------------------------------------------------------------
-
-### Chart B
-
-```{r, eval = FALSE}
 
 
-library(maps)
-map('state')
-map('county')
-cnty.fips <- county.fips$fips[match(map("county", plot=FALSE)$names,
-    county.fips$polyname)]
 
-data("merged_county_data")
-#merged_county_data %>%
-  map("state", xlim = range(epest_high_kg$x), ylim = range(epest_high_kg$y))
 
 ```
 

@@ -1,0 +1,12 @@
+name: shiny
+title: shiny
+username:
+account: misbath
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 1555450
+bundleId: 2636460
+url: https://misbath.shinyapps.io/shiny/
+when: 1575389535.10458
+asMultiple: FALSE
+asStatic: FALSE

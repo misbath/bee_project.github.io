@@ -9,56 +9,12 @@ runtime: shiny
 
 ```{r setup, include=FALSE}
 library(flexdashboard)
-library(shiny)
 library(plotly)
 library(tidyverse)
-
+#install.packages("Hmisc")
+library(Hmisc)
 ```
 
-# if we would like to toggle between honey bee and all bee, need to merge the datasets and add differentiating factor... this gets more complicated
-
-honey_bee_data = 
-  full_join(county_bee_yrfips, state_bee_yrfips, by = "state_year_fips")
-
-all_bee_data %>%
-  mutate(bee_type = if_else(production_value >= 0, "honey_bee", "bee"))
-
-
-```{r}
-#create function to import data
-file_name <- list.files(path = "./data/bee_state_2/") 
-
-df = read_csv(file = str_c("./data/bee_state_2/", file_name[1])) %>%
-  mutate(file = file_name[1])
-  df
-  
-my_read_csv = function(x){
-    df = read_csv(x, skip = 9, col_names  = F)
-}
-  
-bee_data = 
-  tibble(
-    file_names = file_name,
-    path = str_c("./data/bee_state_2/", file_names)
-  ) %>% 
-  mutate(data = map(path, my_read_csv))%>% 
-  unnest()
-
-#clean data set
-shiny_bee_data =
-  bee_data %>%
- separate(file_names, into = c("year", "remove"), sep = ".c") %>%
-  select(-remove, -X1, -X2, -path) %>%
-  rename(state = X3, honey_producing_colonies = X4, yield_per_colony = X5, production = X6, stocks = X7, price_per_pound = X8, production_value = X9) %>%
-  mutate(state = recode(state, AL = "Alabama", AR = "Arkansas", AZ = "Arizona", CA = "California", CO = "Colorado", FL = "Florida", GA = "Georgia", HI = "Hawaii", IA = "Iowa", IL = "Illinois", ID = "Idaho", IN = "Indiana", KS = "Kansas", KY = "Kentucky", LA = "Louisiana", ME = "Maine", MD = "Maryland", MI = "Michigan", MN = "Minnesota", MO = "Missouri", MT = "Montana", MS = "Mississippi", NC = "North Carolina", ND = "North Dakota", NE = "Nebraska", NJ = "New Jersey", NM = "New Mexico", NV = "Nevada", NY = "New York", OH = "Ohio", OK = "Oklahoma", OR = "Oregon", PA = "Pennsylvania", SC = "South Carolina", SD = "South Dakota", TN = "Tennessee", TX = "Texas", UT = "Utah", VA = "Virginia", VT = "Vermont", WA = "Washington", WV = "West Virginia", WI = "Wisconsin", WY = "Wyoming")) %>%
-  select(year, state, honey_producing_colonies) %>%
-  filter(!is.na(honey_producing_colonies)) 
-```
-
-shiny_bee_data %>%
-  group_by(state) %>%
-  summarise(n = n()) %>%
-  view()
 
 Bee Population Map
 ===================================== 
@@ -67,8 +23,13 @@ Column {.sidebar}
 -----------------------------------------------------------------------
 
 ```{r}
+shiny_bee_data = read_csv("./data/clean_bee_data.csv")%>%
+  select(year, state, honey_producing_colonies) %>%
+  filter(!is.na(honey_producing_colonies)) %>%
+  rename("Statistics"= "honey_producing_colonies")
+
 # entries to select from
-year <- c(2002:2002)
+year <- c(2002:2019)
 
 # year select box 
 selectInput("year_1", label = h3("Choose year"),
@@ -87,7 +48,6 @@ Column {.tabset}
 ### US MAP
 
 ```{r}
-# this chunk of code should not change.. directly copy and pasted from the example shiny. sets the parameters for the way in which the US will appear in the dashboard
 # plot_geo
 renderPlotly({
 	# map plot setting
@@ -102,12 +62,11 @@ shiny_bee_data %>%
 	filter(year == input$year_1) %>% 
 	plot_geo(locationmode = "USA-states") %>% 
 	add_trace(
-		z = ~honey_producing_colonies,
+		z = ~Statistics,
 		locations = ~state,
-		color = ~honey_producing_colonies,
-		colors = "Reds",
+		color = ~Statistics,
 		# add text
-		text = ~paste(year, state, sep = "")
+		text = ~paste(state, sep = "")
 		) %>%
 	layout(
 		geo = geo1,
