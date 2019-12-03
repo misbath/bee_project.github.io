@@ -55,7 +55,9 @@ bee_county %>%
    labs(
      title = "Bee Colony Count in the US",
       x = "Year",
-     y = "Honey Bee Colonies Across the US")
+     y = "Honey Bee Colonies Across the US") + 
+   scale_x_continuous(
+      breaks = c(2002, 2007, 2012))
 ```
 
 ```{r}
@@ -72,8 +74,7 @@ top_pesticides %>%
      x = "Year",
      y = "Weight of Pesticide used in the US (kg)"
    )
-=======
-#Once tess fixes I can use that for exploratory analysis
+
 clean_bee_data %>%
   group_by(year) %>%
   summarise(n = sum(honey_producing_colonies)) %>%
@@ -85,7 +86,7 @@ clean_bee_data %>%
     x = "Year",
     y = "Honey Bee Colonies Across the US"
   )
->>>>>>> 1f378808db0285acafb7f975341bf033d9be6573
+
 ```
 
 ```{r}
