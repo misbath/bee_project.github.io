@@ -135,7 +135,7 @@ top_pesticides %>%
 ```
 
 
-# state and pesticide
+# state and pesticide in one graph
 merged_state_data %>%
   mutate(year = as.numeric(year.x)) %>%
   group_by(year, compound) %>%
@@ -165,16 +165,4 @@ p2 = p + geom_polygon(color = "gray90", size = 0.1) +
 
 p2
 ```
-
-clean_bee_data %>%
-  group_by(year) %>%
-  summarise(n = sum(honey_producing_colonies)) %>%
-  ggplot(aes(x = year, y = n)) + 
-  geom_point() + 
-  theme(axis.text.x = element_text(angle = 90)) +
-  labs(
-    title = "Honey Bee Colony Count in the US",
-    x = "Year",
-    y = "Honey Bee Colonies Across the US"
-  )
 
