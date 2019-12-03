@@ -28,6 +28,7 @@ theme_set(theme_bw() + theme(legend.position = "bottom"))
 
 ```{r}
 # honey bee population for country by year
+#Once tess fixes I can use that for exploratory analysis
 clean_bee_data %>%
   group_by(year) %>%
   summarise(n = sum(honey_producing_colonies)) %>%

@@ -184,7 +184,9 @@ pest = read_csv("./data/top_pesticides.csv") %>%
 
 ```{r, correlation pesticides}
 
-#correlation of state level means across all years
+#correlation of state level means across all years 
+#use this one and matrix 2
+
 
 corr_state = read_csv("./data/top_pesticides.csv") %>% 
   group_by(compound, state_fips) %>%
@@ -203,7 +205,6 @@ matrix_state_1
 
 matrix_state_2 = cor(corr_state, use = "complete.obs", method = c("pearson"))
 matrix_state_2
-
 
 #visualization 
 
