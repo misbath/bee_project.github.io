@@ -55,7 +55,7 @@ bee_county %>%
    labs(
      title = "Bee Colony Count in the US",
       x = "Year",
-     y = "Honey Bee Colonies Across the US") + 
+     y = "Bee Colonies Across the US") + 
    scale_x_continuous(
       breaks = c(2002, 2007, 2012))
 ```
