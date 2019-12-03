@@ -91,9 +91,10 @@ counties_base <- ggplot(data = counties, mapping = aes(x = long, y = lat, group 
 
 map_county <- counties_base + theme_nothing() + 
   geom_polygon(data = county_2, aes(fill= epest_high_kg), color = "white") + geom_polygon(color = "black", fill = NA) +
-      theme_bw()
+      theme_bw() + labs(title= "All Pesticides, All Years, County Level Data")
 
 map_county
+
   
 ```
 
