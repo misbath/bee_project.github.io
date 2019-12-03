@@ -8,3 +8,6 @@ Further we looked at the pesticide use per year across the united states:
 
 <center>
 ![FigName](add_analysis_files/figure-html/unnamed-chunk-1-1.gif)
+
+
+The graph above shows the continued weight of pesticide used in the United States from 2004-2016. As seen, there
