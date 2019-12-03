@@ -1,5 +1,5 @@
 ---
-title: "Pesticide Use in the US (2004-2016)"
+title: "Pesticide Use and Bee Trends in the US (2004-2016)"
 output:
   flexdashboard::flex_dashboard:
     orientation: columns
@@ -12,16 +12,20 @@ library(flexdashboard)
 library(shiny)
 library(plotly)
 library(tidyverse)
-#install.packages("Hmisc")
 library(Hmisc)
-```
 
-```{r, include = FALSE}
+#Adding in pesticide data 
 pesticides = read_csv("./data/top_pesticides.csv") %>% 
   mutate(compound = capitalize(tolower(compound))) %>% 
   mutate(state = recode(state_fips, "01" = "AL", "04" = "AZ", "05" = "AR", "06" = "CA", "08" = "CO", "09" = "CT", "10" = "DE", "12" = "FL", "13" = "GA", "16" = "ID", "17" = "IL", "18" = "IN", "19" = "IA", "20" = "KS", "21" = "KY", "22" = "LA", "23" = "ME", "24" = "MD", "25" = "MA", "26" = "MI", "27" = "MN", "28" = "MS", "29" = "MO", "30" = "MT", "31" = "NE", "32" = "NV", "33" = "NH", "34" = "NJ", "35" = "NM", "36" = "NY", "37" = "NC", "38" = "ND", "39" = "OH", "40" = "OK", "41" = "OR", "42" = "PA", "44" = "RI", "45" = "SC", "46" = "SD", "47" = "TN", "48" = "TX", "49" = "UT", "50" = "VT", "51" = "VA", "53" = "WA", "54" = "WV", "55" = "WI", "56" = "WY")) %>%
   select(-epest_low_kg)
+
+#Adding in bee data
+
 ```
+
+State Level Pesticide Use 
+=====================================
 
 Column {.sidebar}
 -----------------------------------------------------------------------
@@ -52,10 +56,10 @@ selectInput(
 #choices = compound, selected = "Chlorothalonil")
 ```
 
-Column {data-width=650}
+Column {.tabset}
 -----------------------------------------------------------------------
 
-### Chart A
+### Histogram
 
 ```{r, echo=FALSE}
 
@@ -72,18 +76,40 @@ renderPlotly({
 })
 ```
 
-Column {data-width=350}
+### Description 
+
+State Level Bee Count 
+=====================================
+
+Column {.sidebar}
+-----------------------------------------------------------------------
+```{r, echo=FALSE}
+
+# selectInput widget
+selectInput(
+  "year_choice", 
+  label = h3("Select Year"),
+  choices = years, selected = "2004")
+
+states = pesticides %>% distinct(state) %>% pull()
+
+# selectInput widget
+selectInput(
+  "state_choice", 
+  label = h3("Select State"),
+  choices = states, selected = "AL")
+
+```
+
+Column {.tabset}
 -----------------------------------------------------------------------
 
-### Chart B
+### Histogram
 
 ```{r, echo=FALSE}
 
 
 ```
 
-### Chart C
+### Description
 
-```{r}
-
-```
