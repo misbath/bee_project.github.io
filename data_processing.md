@@ -103,19 +103,19 @@ df = read_csv(file = str_c("./data/bee_state_2/", file_name[1])) %>%
 ```
 
     ## # A tibble: 51 x 10
-    ##      `2` t     `Honey: Released … X4    X5    X6    X7    X8    X9    file 
+    ##      `2` t     `Honey: Released ~ X4    X5    X6    X7    X8    X9    file 
     ##    <dbl> <chr> <chr>              <chr> <chr> <chr> <chr> <chr> <chr> <chr>
-    ##  1     2 t     Honey:  Number of… <NA>  <NA>  <NA>  <NA>  <NA>  <NA>  2002…
-    ##  2     2 t     and Value by Stat… <NA>  <NA>  <NA>  <NA>  <NA>  <NA>  2002…
-    ##  3     2 h     <NA>               <NA>  <NA>  <NA>  <NA>  <NA>  <NA>  2002…
-    ##  4     2 h     <NA>               Honey Yield <NA>  <NA>  Aver… Value 2002…
-    ##  5     2 h     State              Prod… per   Prod… Stoc… Pric… of    2002…
-    ##  6     2 h     <NA>               Colo… Colo… <NA>  Dec … Poun… Prod… 2002…
-    ##  7     2 h     <NA>               <NA>  <NA>  <NA>  <NA>  <NA>  <NA>  2002…
-    ##  8     2 u     <NA>               1,000 Poun… 1,00… 1,00… Cents 1,00… 2002…
-    ##  9     2 d     AL                 16    78    1248  187   59    736   2002…
-    ## 10     2 d     AZ                 40    59    2360  1322  73    1723  2002…
-    ## # … with 41 more rows
+    ##  1     2 t     Honey:  Number of~ <NA>  <NA>  <NA>  <NA>  <NA>  <NA>  2002~
+    ##  2     2 t     and Value by Stat~ <NA>  <NA>  <NA>  <NA>  <NA>  <NA>  2002~
+    ##  3     2 h     <NA>               <NA>  <NA>  <NA>  <NA>  <NA>  <NA>  2002~
+    ##  4     2 h     <NA>               Honey Yield <NA>  <NA>  Aver~ Value 2002~
+    ##  5     2 h     State              Prod~ per   Prod~ Stoc~ Pric~ of    2002~
+    ##  6     2 h     <NA>               Colo~ Colo~ <NA>  Dec ~ Poun~ Prod~ 2002~
+    ##  7     2 h     <NA>               <NA>  <NA>  <NA>  <NA>  <NA>  <NA>  2002~
+    ##  8     2 u     <NA>               1,000 Poun~ 1,00~ 1,00~ Cents 1,00~ 2002~
+    ##  9     2 d     AL                 16    78    1248  187   59    736   2002~
+    ## 10     2 d     AZ                 40    59    2360  1322  73    1723  2002~
+    ## # ... with 41 more rows
 
 ``` r
 my_read_csv = function(x){
@@ -734,7 +734,7 @@ summary(merged_state_data)
     ##  Class :character   1st Qu.:    742.8   1st Qu.:   1158  
     ##  Mode  :character   Median :   8517.0   Median :   8213  
     ##                     Mean   :  62555.0   Mean   :  52131  
-    ##                     3rd Qu.:  48834.5   3rd Qu.:  45540  
+    ##                     3rd Qu.:  48834.5   3rd Qu.:  45541  
     ##                     Max.   :1466223.0   Max.   :1468227  
     ##                     NA's   :1435
 
@@ -840,7 +840,12 @@ merged_state_data %>%
 
 <img src="data_processing_files/figure-markdown_github/unnamed-chunk-1-1.png" width="90%" />
 
+<<<<<<< HEAD
 Looking at merged county data \#there appear to be problems with the colony count data, it is missing
+=======
+Looking at merged county data \#there appear to be problems with the
+colony count data, it is missing
+>>>>>>> 913039d46c29bf61167ddae2b8d7f738bd0127a8
 
 ``` r
 summary(merged_county_data)

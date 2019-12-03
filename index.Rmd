@@ -1,6 +1,9 @@
-
 ---
 title: "**Pesticide Use and Bee Population in the United States**" 
+output: 
+  html_document:
+    includes:
+      after_body: footer.html
 ---
 
 ### Mapping and exploring pesticide use and its effect on bee population in the U.S.
@@ -15,6 +18,3 @@ title: "**Pesticide Use and Bee Population in the United States**"
 <center>
 ![FigName](images/logo.png)
 </center>
-
-
-

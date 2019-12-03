@@ -26,33 +26,31 @@ theme_set(theme_bw() + theme(legend.position = "bottom"))
 
 ##need to change the labels and axis for all graphs
 
-r
+```{r}
 # honey bee population for country by year
 clean_bee_data %>%
+  mutate(year = as.numeric(year)) %>%
   group_by(year) %>%
   summarise(n = sum(honey_producing_colonies)) %>%
   ggplot(aes(x = year, y = n)) + 
   geom_point() + 
+  geom_smooth(se = FALSE) +
   theme(axis.text.x = element_text(angle = 90)) +
   labs(
     title = "Honey Bee Colony Count in the US",
     x = "Year",
-    y = "Honey Bee Colonies Across the US"
-  )
+    y = "Honey Bee Colonies Across the US")
 
-
-r
 # all bee population for country by year
-year_county_bee = 
-  bee_county %>%
+
+bee_county %>%
   mutate(colony_count = as.numeric(colony_count)) %>%
   drop_na(colony_count) %>%
-    group_by(year) %>%
-  summarise(n = sum(colony_count))  
-
-year_county_bee %>%
+  group_by(year) %>%
+  summarise(n = sum(colony_count)) %>%
   ggplot(aes(x = year, y = n)) + 
-  geom_col() + 
+  geom_point() + 
+  geom_smooth() +
     theme(axis.text.x = element_text(angle = 90)) +
   labs(
     title = "Bee Colony Count in the US",
@@ -65,5 +63,53 @@ year_county_bee %>%
   scale_y_continuous(
     breaks = c(100000, 200000, 225000, 250000, 275000, 300000)
   )
+```
 
+```{r}
+# high pesticide use by year and compound
+top_pesticides %>%
+  group_by(compound, year) %>%
+  na.omit(epest_high_kg) %>%
+  summarise(n = sum(epest_high_kg)) %>%
+  ggplot(aes(x = year, y = n, color = compound)) + 
+  geom_point() + 
+  geom_smooth(se = FALSE) +
+    theme(axis.text.x = element_text(angle = 90)) +
+    labs(
+    title = "Pesticide Use in the US",
+    x = "Year",
+    y = "Weight of Pesticide used in the US (kg)"
+  )
+
+# high range of pesticide use
+top_pesticides %>%
+  group_by(year) %>%
+  na.omit(epest_high_kg) %>%
+  summarise(n = sum(epest_high_kg)) %>%
+  ggplot(aes(x = year, y = n)) + 
+  geom_point() + 
+  geom_smooth(se = FALSE) +
+    theme(axis.text.x = element_text(angle = 90)) +
+      labs(
+    title = "Pesticide Use in the US",
+    x = "Year",
+    y = "Weight of Pesticide used in the US (kg)"
+  )
+
+#low range of pesticide use
+top_pesticides %>%
+  group_by(year) %>%
+  na.omit(epest_low_kg) %>%
+  summarise(n = sum(epest_low_kg)) %>%
+  ggplot(aes(x = year, y = n)) + 
+  geom_point() + 
+  geom_smooth(se = FALSE) +
+    theme(axis.text.x = element_text(angle = 90)) +
+      labs(
+    title = "Pesticide Use in the US",
+    x = "Year",
+    y = "Weight of Pesticide used in the US (kg)"
+  )
+
+```
 
