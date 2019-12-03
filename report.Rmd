@@ -5,7 +5,7 @@ output:
     includes:
       after_body: footer.html
 ---
-# **Discussion**
+
 
 
 <br>
