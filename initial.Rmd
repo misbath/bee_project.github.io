@@ -8,10 +8,11 @@ Here we examine county level data on pesticide use and county level data on bee 
 
 Initially we wanted to look a all the pesticides used accross the US, but the number of compunds exceded the thousands; thus we decided to narrow this number to the most commonly used. 
 
-In this report we present:
-* Bee population variability from 2002 - 2012  by state and county
-* Pesticide use accross from 2002 - 2016 by state and county
-* Correlations for bee population and pesticide use over time within states and counties
+In this report we present:  
+
+* Bee population variability from 2002 - 2012  by state and county  
+* Pesticide use accross from 2002 - 2016 by state and county  
+* Correlations for bee population and pesticide use over time within states and counties  
 
 <br>
 
