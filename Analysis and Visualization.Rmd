@@ -96,3 +96,12 @@ p2 = p + geom_polygon(color = "gray90", size = 0.1) +
 
 p2
 ```
+
+```{r}
+library(maps)
+map("county")
+
+county_choropleth
+
+```
+
