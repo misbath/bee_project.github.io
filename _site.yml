@@ -3,8 +3,6 @@ output_dir: "."
 navbar:
   title: "Home"
   right:
-    - text: "Background"
-      href: landing.html
     - text: "Bee Variability"
       href: dashboard.html
     - text: "Report"

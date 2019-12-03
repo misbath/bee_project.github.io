@@ -1,11 +1,12 @@
 ---
-title: "Report"
+title: "**Report**"
 output: 
   html_document:
-    toc: TRUE
-    toc_float: TRUE
-    theme: yeti
+      toc: TRUE
+      toc_float: TRUE
 ---
+
+<br>
 
 <img src="images/Bumble_Bee_pic.jpg" style="width:75%">
 
@@ -28,11 +29,14 @@ Bee colony decline has made headlines in recent news reports. The decrease in be
 
 __Related work__
 
+One group that is playing an important role in terms of bee management and data driven information disemination, is [BeeInformed](https://beeinformed.org/). Their website includes a dynamic way of tracking bee colony loss across the U.S. for all seasons in an effort to take the guesswork out of bee management. This interactivity aspect of their website became something we were inspired by and want to create a similar layout.
+
 
 <br>
 
 __Initial questions__
 
+Here we examine county level data on pesticide use and county level data on bee colonies to see if there are any trends between certain chemical compounds and bee colony decline. We include information on the relationship between bee population over time as well as pesticide use over time controlling for seasonality. Additionally, we  examine bee population in the counties with the highest and lowest pesticide use. Based on these trends, we investigated pesticides that have stronger associations with bee colony population over time. We aim to identify pesticides that are associated with changes in bee populations, specifically those that might contribute to the recent decline in bee populations nationally.
 
 <br>
 
