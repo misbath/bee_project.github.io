@@ -27,6 +27,7 @@ theme_set(theme_bw() + theme(legend.position = "bottom"))
 
 ```{r}
 # honey bee population for country by year
+<<<<<<< HEAD
  clean_bee_data %>%
    mutate(year = as.numeric(year)) %>%
    group_by(year) %>%
@@ -71,6 +72,20 @@ top_pesticides %>%
      x = "Year",
      y = "Weight of Pesticide used in the US (kg)"
    )
+=======
+#Once tess fixes I can use that for exploratory analysis
+clean_bee_data %>%
+  group_by(year) %>%
+  summarise(n = sum(honey_producing_colonies)) %>%
+  ggplot(aes(x = year, y = n)) + 
+  geom_point() + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  labs(
+    title = "Honey Bee Colony Count in the US",
+    x = "Year",
+    y = "Honey Bee Colonies Across the US"
+  )
+>>>>>>> 1f378808db0285acafb7f975341bf033d9be6573
 ```
 
 ```{r}
