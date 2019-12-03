@@ -29,28 +29,30 @@ theme_set(theme_bw() + theme(legend.position = "bottom"))
 ```{r}
 # honey bee population for country by year
 clean_bee_data %>%
-  mutate(year = as.numeric(year)) %>%
   group_by(year) %>%
   summarise(n = sum(honey_producing_colonies)) %>%
   ggplot(aes(x = year, y = n)) + 
   geom_point() + 
-  geom_smooth(se = FALSE) +
   theme(axis.text.x = element_text(angle = 90)) +
   labs(
     title = "Honey Bee Colony Count in the US",
     x = "Year",
-    y = "Honey Bee Colonies Across the US")
+    y = "Honey Bee Colonies Across the US"
+  )
+```
 
+```{r}
 # all bee population for country by year
-
-bee_county %>%
+year_county_bee = 
+  bee_county %>%
   mutate(colony_count = as.numeric(colony_count)) %>%
   drop_na(colony_count) %>%
-  group_by(year) %>%
-  summarise(n = sum(colony_count)) %>%
+    group_by(year) %>%
+  summarise(n = sum(colony_count))  
+
+year_county_bee %>%
   ggplot(aes(x = year, y = n)) + 
-  geom_point() + 
-  geom_smooth() +
+  geom_col() + 
     theme(axis.text.x = element_text(angle = 90)) +
   labs(
     title = "Bee Colony Count in the US",
@@ -66,54 +68,22 @@ bee_county %>%
 ```
 
 ```{r}
-# high pesticide use by year and compound
-top_pesticides %>%
-  group_by(compound, year) %>%
-  na.omit(epest_high_kg) %>%
-  summarise(n = sum(epest_high_kg)) %>%
-  ggplot(aes(x = year, y = n, color = compound)) + 
-  geom_point() + 
-  geom_smooth(se = FALSE) +
-    theme(axis.text.x = element_text(angle = 90)) +
-    labs(
-    title = "Pesticide Use in the US",
-    x = "Year",
-    y = "Weight of Pesticide used in the US (kg)"
-  )
+library(maps)
 
-# high range of pesticide use
-top_pesticides %>%
-  group_by(year) %>%
-  na.omit(epest_high_kg) %>%
-  summarise(n = sum(epest_high_kg)) %>%
-  ggplot(aes(x = year, y = n)) + 
-  geom_point() + 
-  geom_smooth(se = FALSE) +
-    theme(axis.text.x = element_text(angle = 90)) +
-      labs(
-    title = "Pesticide Use in the US",
-    x = "Year",
-    y = "Weight of Pesticide used in the US (kg)"
-  )
-
-#low range of pesticide use
-top_pesticides %>%
-  group_by(year) %>%
-  na.omit(epest_low_kg) %>%
-  summarise(n = sum(epest_low_kg)) %>%
-  ggplot(aes(x = year, y = n)) + 
-  geom_point() + 
-  geom_smooth(se = FALSE) +
-    theme(axis.text.x = element_text(angle = 90)) +
-      labs(
-    title = "Pesticide Use in the US",
-    x = "Year",
-    y = "Weight of Pesticide used in the US (kg)"
-  )
+map(database = "United States")
 
 ```
 
 ```{r}
+library(choroplethr)
+library(choroplethrAdmin1)
+
+get_admin1_regions("united states of america")
+
+```
+
+```{r}
+<<<<<<< HEAD
 # state and pesticide
 merged_state_data %>%
   mutate(year = as.numeric(year.x)) %>%
@@ -130,3 +100,18 @@ merged_state_data %>%
     y = "Honey Bee Colonies Across the US")
 ```
 
+=======
+us_counties = map_data("county") %>%
+  
+
+p =   ggplot(data = us_counties,
+            mapping = aes(x = long, y = lat,
+                          group = group, fill = region))
+
+p2 = p + geom_polygon(color = "gray90", size = 0.1) +
+    coord_map(projection = "albers", lat0 = 39, lat1 = 45) +
+    guides(fill = FALSE)
+
+p2
+```
+>>>>>>> cedaf8f94585dc529a9c9129e592788bc26a8ede
