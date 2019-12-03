@@ -41,3 +41,11 @@ Fipronil
 
 County maps of pesticide use and bee colony counts were created using the merged files of county pesticide and colony count data. [will add more]
 <br>
+
+Merging Datasets
+In order to merge the data on pesticide use and bee data sets we required a vector common to both data sets but unique to each geographic area and year of data. To create this field we merged the bee data by state/county with a file of FIPS codes. We then merged the unique FIPS for each county with the year to generate a unique number identifying data from each county/state in each year (e.g. 200201001 uniquely identifies the 2002 data from Atauga County, Alabama). This value was then used to merge the pesticide data to both the county and state level bee data. 
+
+State Maps
+
+Maps of state level bee populations and pesticide production were generated through use of the`choroplethrMaps` package and ggplot. The `states.map` dataframe in the `choroplethrMaps` package provided the underlying map which the state level data was merged with using state name. All maps were modified to the void theme with a bonne projection for asthetic purposes. 
+
