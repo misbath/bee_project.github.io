@@ -1,10 +1,13 @@
 ---
 title: "**Exploratory Analysis**" 
 ---
-
 <br>
 
-```{r, echo=FALSE, results='hide', message=FALSE}
+Initially we wanted to look at the correlation of state-level pesticide use accross all years.  
+
+Pearson correlation is shown below:
+
+```{r, echo=FALSE, message=FALSE}
 library(tidyverse)
 library(viridis)
 library(readxl)
@@ -30,11 +33,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 <br>
 
-Initially we wanted to look at the correlation of state-level pesticide use accross all years.  
-
-Pearson correlation is shown below:
-
-```{r, echo=FALSE, results='hide', message = FALSE}
+```{r, echo=FALSE, message = FALSE}
 corr_state = read_csv("./data/top_pesticides.csv") %>% 
   group_by(compound, state_fips) %>%
   summarise(mean_pest_high = mean(epest_high_kg, na.rm = TRUE)) %>% 
@@ -58,6 +57,8 @@ matrix_state_2
 corrplot(matrix_state_2, order = "hclust", type = "full")
 
 ```
+
+<br>
 
 ```{r,echo=FALSE, message=FALSE}
 knitr::kable(matrix_state_2)
