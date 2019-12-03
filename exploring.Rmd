@@ -59,7 +59,7 @@ corrplot(matrix_state_2, order = "hclust", type = "full")
 
 ```
 
-```{r, message=FALSE}
+```{r,echo=FALSE, message=FALSE}
 knitr::kable(matrix_state_2)
 ```
 
