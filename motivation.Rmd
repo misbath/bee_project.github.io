@@ -1,7 +1,80 @@
 ---
-title: "**Motivation**" 
+title: "**Motivation & Related Work**" 
 ---
+<br>
 
-Bee colony decline has made headlines in recent news reports. The decrease in bee survival has been linked to a decrease in crop diversity, loss of habitat, poor beekeeping practices, and widespread and intensive use of pesticides such as neonicotinoids. As a group we are interested in trends between pesticide use and bee populations. If the bee population continues to decline, biodiversity of plants across the country will continue to decline, with potentially catastrophic implications to our food supply.
+```{r, echo=FALSE, results='hide', message=FALSE}
+library(tidyverse)
+library(viridis)
+library(ggplot2)
+library(gganimate)
+library(geojsonio)
+library(RColorBrewer)
+library(rgdal)
+
+knitr::opts_chunk$set(
+	echo = TRUE,
+	warning = FALSE,
+	fig.width = 8, 
+  fig.height = 6,
+  out.width = "90%"
+)
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+theme_set(theme_bw() + theme(legend.position = "bottom"))
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<br>
+```{r, echo=FALSE, results='hide', message=FALSE}
+
+spdf <- geojson_read("data/us_states_hexgrid.geojson",  what = "sp")
+
+# Bit of reformating
+spdf@data = spdf@data %>%
+  mutate(google_name = gsub(" \\(United States\\)", "", google_name))
+
+
+```
+
+```{r, echo=FALSE, results='hide', message = FALSE}
+library(broom)
+spdf@data = spdf@data %>% mutate(google_name = gsub(" \\(United States\\)", "", google_name))
+spdf_fortified <- tidy(spdf, region = "google_name")
+
+# Calculate the centroid of each hexagon to add the label:
+library(rgeos)
+centers <- cbind.data.frame(data.frame(gCentroid(spdf, byid=TRUE), id=spdf@data$iso3166_2))
+ 
+# Now I can plot this shape easily as described before:
+ggplot() +
+  geom_polygon(data = spdf_fortified, aes( x = long, y = lat, group = group), fill="skyblue", color="white") +
+  geom_text(data=centers, aes(x=x, y=y, label=id)) +
+  theme_void() +
+  coord_map()
+```
+
+
+Bee colony decline has made headlines in recent news reports. The decrease in bee survival has been linked to a decrease in crop diversity, loss of habitat, poor beekeeping practices, and widespread and intensive use of pesticides such as neonicotinoids. As a group we are interested in trends between pesticide use and bee populations. 
+
+One of every three bites of food eaten worldwide depends on pollinators, especially bees, for a successful harvest. And in the recent years, states like California, have seen the effects that almond groves scarcity has meant for food production if the widespread — and still puzzling — decimation of bee colonies continues. 
+
+For much of the past 10 years, beekeepers, primarily in the United States and Europe, have been reporting annual hive losses of 30 percent or higher, substantially more than is considered normal or sustainable. But this winter, many U.S. beekeepers experienced losses of 40 to 50 percent or more, just as commercial bee operations prepared to transport their hives for the country’s largest pollinator event: the fertilizing of California’s almond trees. 
+
+Spread across 800,000 acres, California’s almond orchards typically require 1.6 million domesticated bee colonies to pollinate the flowering trees and produce what has become the state’s largest overseas agricultural export. But given the widespread bee losses to so-called “colony collapse disorder” this winter, California’s almond growers were able to pollinate their crop only through an intense, nationwide push to cobble together the necessary number of healthy bee colonies.
+
+If the bee population continues to decline, biodiversity of plants across the country will continue to decline, with potentially catastrophic implications to our food supply.
+<br>
+
+
+# **Related Work**
+
+<br>
+One group that is playing an important role in terms of bee management and data driven information disemination, is [BeeInformed](https://beeinformed.org/). Their website includes a dynamic way of tracking bee colony loss across the U.S. for all seasons in an effort to take the guesswork out of bee management. This interactivity aspect of their website became something we were inspired by and want to create a similar layout.
+
 
 <br>
