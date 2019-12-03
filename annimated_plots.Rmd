@@ -1,0 +1,54 @@
+---
+title: "annimated plots"
+author: "Lizbeth Gomez"
+date: "12/3/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(viridis)
+library(ggplot2)
+library(gganimate)
+
+knitr::opts_chunk$set(
+	echo = TRUE,
+	warning = FALSE,
+	fig.width = 8, 
+  fig.height = 6,
+  out.width = "90%"
+)
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+theme_set(theme_bw() + theme(legend.position = "bottom"))
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+top_pesticides = read_csv("./data/top_pesticides.csv")
+top_pesticides %>%
+  group_by(compound, year) %>%
+  na.omit(epest_high_kg) %>%
+  summarise(n = sum(epest_high_kg)) %>%
+  ggplot(aes(x = year, y = n, color = compound)) + 
+  geom_point() + 
+  geom_line() +
+    theme(axis.text.x = element_text(angle = 90)) +
+    labs(
+    title = "Pesticide Use in the US",
+    x = "Year",
+    y = "Weight of Pesticide used in the US (kg)") +
+  transition_reveal(year)
+
+
+```
+
+```{r}
+
+```
+

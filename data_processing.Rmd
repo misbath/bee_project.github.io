@@ -8,7 +8,6 @@ library(tidyverse)
 library(viridis)
 library(readxl)
 library(corrplot)
-library(plotly)
 
 knitr::opts_chunk$set(
 	echo = TRUE,
@@ -63,6 +62,8 @@ bee_county = bee_county%>%
     value = replace(value, value == "(D)", "NA"),
     cv_percent = replace(cv_percent, cv_percent == "(D)", "NA")) %>% 
   rename (colony_count = value)
+
+write.csv(bee_county, file = "bee_county.csv")
 ```
 
 ```{r, state bee colonies}
@@ -82,7 +83,7 @@ bee_data =
     file_names = file_name,
     path = str_c("./data/bee_state_2/", file_names)
   ) %>% 
-  mutate(data = map(path, my_read_csv))%>% 
+  mutate(data = map(path, my_read_csv)) %>% 
   unnest()
 
 #clean data set
@@ -93,6 +94,8 @@ clean_bee_data =
   rename(state = X3, honey_producing_colonies = X4, yield_per_colony = X5, production = X6, stocks = X7, price_per_pound = X8, production_value = X9) %>%
   drop_na(state) %>%
   mutate(state = recode(state, AL = "Alabama", AR = "Arkansas", AZ = "Arizona", CA = "California", CO = "Colorado", FL = "Florida", GA = "Georgia", HI = "Hawaii", IA = "Iowa", IL = "Illinois", ID = "Idaho", IN = "Indiana", KS = "Kansas", KY = "Kentucky", LA = "Louisiana", ME = "Maine", MD = "Maryland", MI = "Michigan", MN = "Minnesota", MO = "Missouri", MT = "Montana", MS = "Mississippi", NC = "North Carolina", ND = "North Dakota", NE = "Nebraska", NJ = "New Jersey", NM = "New Mexico", NV = "Nevada", NY = "New York", OH = "Ohio", OK = "Oklahoma", OR = "Oregon", PA = "Pennsylvania", SC = "South Carolina", SD = "South Dakota", TN = "Tennessee", TX = "Texas", UT = "Utah", VA = "Virginia", VT = "Vermont", WA = "Washington", WV = "West Virginia", WI = "Wisconsin", WY = "Wyoming"))
+
+write.csv(clean_bee_data, file = "clean_bee_data.csv")
 ```
 
 
@@ -133,62 +136,54 @@ state_pest_data =
 ```{r merge state level pest and bee data}
 state_bee_yrfips = 
   state_bee_fips %>%
-  mutate(state_year_fips = paste0(year, state_fips))
+  mutate(yearfips = paste0(year, state_fips))
 
 state_pest_yrfips = 
   state_pest_data %>%
-  mutate(state_year_fips = paste0(year, state_fips))
+  mutate(yearfips = paste0(year, state_fips))
 
-merged_state_data = full_join(state_bee_yrfips, state_pest_yrfips, by = "state_year_fips") %>%
+merged_state_data = full_join(state_bee_yrfips, state_pest_yrfips, by = "yearfips") %>%
   select(year.x, state, state_fips.x, honey_producing_colonies, yield_per_colony, production, compound, low, high) %>%
-   rename(state_fips = state_fips.x) %>%
   drop_na(year.x, state, compound, high)
+
+write.csv(merged_state_data, file = "merged_state_data.csv")
+
 ```
 
 ```{r merge county level pest and bee data}
 county_bee_yrfips = 
   bee_county %>%
-  mutate(county_year_fips = paste0(year, state_county_fips), 
-         state_year_fips = paste0(year, state_ansi))
+  mutate(yearfips = paste0(year, state_county_fips))
          
 county_pest_yrfips = 
   top_pesticides %>%
   mutate(state_county_fips = as.numeric(state_county_fips) ,
-         county_year_fips = paste0(year, state_county_fips)
-         )
+         yearfips = paste0(year, state_county_fips))
 
-merged_county_data = full_join(county_bee_yrfips, county_pest_yrfips, by = "county_year_fips") %>%
-  select(year.x, state, county, county_fips, colony_count, compound, epest_low_kg, epest_high_kg, state_year_fips) %>%
+merged_county_data = full_join(county_bee_yrfips, county_pest_yrfips, by = "yearfips") %>%
+  select(year.x, state, county, county_fips, colony_count, compound, epest_low_kg, epest_high_kg) %>%
   drop_na(year.x, state, county, colony_count, compound, epest_high_kg)
+
+write.csv(merged_county_data, file = "merged_county_data.csv")
 
 ```
 
 ```{r, missing data analysis}
 
-pest_miss = read_csv("./data/top_pesticides.csv") %>% 
+pest = read_csv("./data/top_pesticides.csv") %>% 
   group_by(compound) %>% 
   summarise(missing = sum(is.na(epest_high_kg))) 
-            
-pest_miss 
-
-#All of our pesticides meet the 90% cutoff for completeness. Imidacloprid has the most missing values (n=4) out of 34,000+ observations. 
-
-pest_zero = read_csv("./data/top_pesticides.csv") %>%
-  mutate(epest_high_kg = na_if(epest_high_kg, "0")) %>%
-  group_by(compound) %>% 
-  summarise(missing = sum(is.na(epest_high_kg)))
-
-pest_zero
 
 ```
 
 
 ```{r, correlation pesticides}
 
-#correlation of state level means across all years
+#correlation of state level means across all years 
+#use this one and matrix 2
+
 
 corr_state = read_csv("./data/top_pesticides.csv") %>% 
-  drop_na(epest_high_kg) %>%
   group_by(compound, state_fips) %>%
   summarise(mean_pest_high = mean(epest_high_kg, na.rm = TRUE)) %>% 
   pivot_wider(
@@ -206,58 +201,30 @@ matrix_state_1
 matrix_state_2 = cor(corr_state, use = "complete.obs", method = c("pearson"))
 matrix_state_2
 
+#visualization 
+
+corrplot(matrix_state_2, order = "hclust", type = "full")
 
 ```
 
 ```{r trends pesticides}
 
-pest_country_all = read_csv("./data/top_pesticides.csv") %>% 
-  group_by(compound, year) %>%
-  summarise(mean_pest_high = mean(epest_high_kg, na.rm = TRUE)) %>% 
-  ggplot(aes(x = year, y = mean_pest_high, color = compound)) + 
-  geom_line() 
-
-pest_country_all 
-
-#After looking at the graph above, I decided to remove Imidacloprid and Thiacloprid 
-
 pest_country = read_csv("./data/top_pesticides.csv") %>% 
-  filter(compound %in% c("CHLOROTHALONIL", "CHLORPYRIFOS", 
-                         "CLOTHIANIDIN", "FIPRONIL")) %>%
   group_by(compound, year) %>%
   summarise(mean_pest_high = mean(epest_high_kg, na.rm = TRUE)) %>% 
   ggplot(aes(x = year, y = mean_pest_high, color = compound)) + 
   geom_line() 
 
-pest_country 
+pest_country
 
-pest_state_2004 = read_csv("./data/top_pesticides.csv") %>% 
-  filter(compound %in% c("CHLOROTHALONIL", "CHLORPYRIFOS",
-                         "CLOTHIANIDIN", "FIPRONIL"), year == 2004) %>%
-  group_by(compound, state_fips) %>%
-  summarise(tot_pest_high = sum(epest_high_kg)) %>% 
-  ggplot(aes(x = state_fips, y = tot_pest_high, color = compound)) + 
-  geom_point() 
-
-pest_state_2004
-
-pest_state_1 = read_csv("./data/top_pesticides.csv") %>% 
-  filter(compound == "CHLOROTHALONIL") %>%
-  group_by(year, state_fips) %>%
-  summarise(tot_pest_high = sum(epest_high_kg)) %>% 
-  ggplot(aes(x = year, y = tot_pest_high, color =state_fips)) + 
+pest_state = read_csv("./data/top_pesticides.csv") %>% 
+  group_by(year, compound, state_fips) %>%
+  summarise(mean_pest_high = mean(epest_high_kg, na.rm = TRUE)) %>% 
+  ggplot(aes(x = year, y = mean_pest_high, color = compound)) + 
   geom_line() + 
-  labs( 
-    title = "Chlorothalonil use across states in 2004", 
-    x = "Year",
-    y = "Total Pesticide Use (Kg)")
+  facet_grid(~state_fips)
 
-pest_state_1
-
-pest_test = read_csv("./data/top_pesticides.csv") %>% 
-  group_by(state_fips, compound) %>%
-  summarise(tot_pest_high = sum(epest_high_kg)) %>%
-  plot_ly(x = ~compound, y = ~tot_pest_high, color = ~compound, type = "bar")
+pest_state
 
 ```
 

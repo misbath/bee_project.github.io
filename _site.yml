@@ -3,10 +3,15 @@ output_dir: "."
 navbar:
   title: "Home"
   right:
-    - text: "Bee Variability"
+    - text: "Bees"
       href: dashboard.html
+    - text: "Pesticides"
+      href: pesticides.html
+    - text: "Screencast"
+      href: screen.html
     - text: "Report"
       href: report.html
+      
     - icon: fa-envelope fa-lg
       href: mailto:<lg2982@columbia.edu>
     - icon: fa-github fa-lg

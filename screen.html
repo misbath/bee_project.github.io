@@ -10,9 +10,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Lizbeth Gomez" />
 
 
-<title>Analysis and Visualization</title>
+<title>screen</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -309,150 +310,14 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Analysis and Visualization</h1>
+<h1 class="title toc-ignore">screen</h1>
+<h4 class="author">Lizbeth Gomez</h4>
+<h4 class="date">12/3/2019</h4>
 
 </div>
 
 
-<pre class="r"><code>clean_bee_data = read_csv(&quot;./data/clean_bee_data.csv&quot;)</code></pre>
-<pre><code>## Parsed with column specification:
-## cols(
-##   X1 = col_double(),
-##   year = col_double(),
-##   state = col_character(),
-##   honey_producing_colonies = col_double(),
-##   yield_per_colony = col_double(),
-##   production = col_double(),
-##   stocks = col_double(),
-##   price_per_pound = col_double(),
-##   production_value = col_double()
-## )</code></pre>
-<pre class="r"><code># honey bee population for country by year
-clean_bee_data %&gt;%
-   mutate(year = as.numeric(year)) %&gt;%
-   group_by(year) %&gt;%
-   summarise(n = sum(honey_producing_colonies)) %&gt;%
-   ggplot(aes(x = year, y = n)) + 
-   geom_point() + 
-   geom_smooth(se = FALSE) +
-   theme(axis.text.x = element_text(angle = 90)) +
-   labs(
-     title = &quot;Honey Bee Colony Count in the US&quot;,
-     x = &quot;Year&quot;,
-     y = &quot;Honey Bee Colonies Across the US&quot;) +
-   scale_x_continuous(
-      breaks = c(2002, 2007, 2012, 2017))</code></pre>
-<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="Analysis-and-Visualization_files/figure-html/unnamed-chunk-1-1.png" width="90%" /></p>
-<pre class="r"><code>bee_county = read_csv(&quot;./data/bee_county.csv&quot;)</code></pre>
-<pre><code>## Parsed with column specification:
-## cols(
-##   X1 = col_double(),
-##   year = col_double(),
-##   state = col_character(),
-##   state_ansi = col_character(),
-##   ag_district = col_character(),
-##   ag_district_code = col_double(),
-##   county = col_character(),
-##   county_ansi = col_character(),
-##   colony_count = col_number(),
-##   cv_percent = col_character(),
-##   state_county_fips = col_character()
-## )</code></pre>
-<pre class="r"><code>bee_county %&gt;%
-   mutate(colony_count = as.numeric(colony_count)) %&gt;%
-   drop_na(colony_count) %&gt;%
-   group_by(year) %&gt;%
-   summarise(n = sum(colony_count)) %&gt;%
-   ggplot(aes(x = year, y = n)) + 
-   geom_point() + 
-   geom_smooth() +
-     theme(axis.text.x = element_text(angle = 90)) +
-   labs(
-     title = &quot;Bee Colony Count in the US&quot;,
-      x = &quot;Year&quot;,
-     y = &quot;Bee Colonies Across the US&quot;) + 
-   scale_x_continuous(
-      breaks = c(2002, 2007, 2012))</code></pre>
-<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="Analysis-and-Visualization_files/figure-html/unnamed-chunk-2-1.png" width="90%" /></p>
-<pre class="r"><code>top_pesticides = read_csv(&quot;./data/top_pesticides.csv&quot;)</code></pre>
-<pre><code>## Parsed with column specification:
-## cols(
-##   X1 = col_double(),
-##   compound = col_character(),
-##   year = col_double(),
-##   epest_low_kg = col_double(),
-##   epest_high_kg = col_double(),
-##   state_fips = col_character(),
-##   county_fips = col_character(),
-##   state_county_fips = col_character()
-## )</code></pre>
-<pre class="r"><code>top_pesticides %&gt;%
-  group_by(compound, year) %&gt;%
-   na.omit(epest_high_kg) %&gt;%
-   summarise(n = sum(epest_high_kg)) %&gt;%
-   ggplot(aes(x = year, y = n, color = compound)) + 
-   geom_point() + 
-   geom_smooth(se = FALSE) +
-     theme(axis.text.x = element_text(angle = 90)) +
-     labs(
-     title = &quot;Pesticide Use in the US&quot;,
-     x = &quot;Year&quot;,
-     y = &quot;Weight of Pesticide used in the US (kg)&quot;
-   )</code></pre>
-<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="Analysis-and-Visualization_files/figure-html/unnamed-chunk-3-1.png" width="90%" /></p>
-<pre class="r"><code># high range of pesticide use
- top_pesticides %&gt;%
-   group_by(year) %&gt;%
-   na.omit(epest_high_kg) %&gt;%
-   summarise(n = sum(epest_high_kg)) %&gt;%
-   ggplot(aes(x = year, y = n)) + 
-   geom_point() + 
-   geom_smooth(se = FALSE) +
-     theme(axis.text.x = element_text(angle = 90)) +
-    theme(axis.text.x = element_text(angle = 90)) +
-       labs(
-     title = &quot;Pesticide Use in the US&quot;,
-     x = &quot;Year&quot;,
-     y = &quot;Weight of Pesticide used in the US (kg)&quot;
-   )</code></pre>
-<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="Analysis-and-Visualization_files/figure-html/unnamed-chunk-4-1.png" width="90%" /></p>
-<pre class="r"><code> #low range of pesticide use
- top_pesticides %&gt;%
-   group_by(year) %&gt;%
-   na.omit(epest_low_kg) %&gt;%
-   summarise(n = sum(epest_low_kg)) %&gt;%
-   ggplot(aes(x = year, y = n)) + 
-   geom_point() + 
-   geom_smooth(se = FALSE) +
-     theme(axis.text.x = element_text(angle = 90)) +
-     theme(axis.text.x = element_text(angle = 90)) +
-       labs(
-     title = &quot;Pesticide Use in the US&quot;,
-     x = &quot;Year&quot;,
-     y = &quot;Weight of Pesticide used in the US (kg)&quot;
-   )</code></pre>
-<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="Analysis-and-Visualization_files/figure-html/unnamed-chunk-4-2.png" width="90%" /></p>
-<pre class="r"><code>#library(maps)
 
-#map(database = &quot;United States&quot;)</code></pre>
-<pre class="r"><code>#library(choroplethr)
-#library(choroplethrAdmin1)
-
-#get_admin1_regions(&quot;united states of america&quot;)</code></pre>
-<div id="state-and-pesticide" class="section level1">
-<h1>state and pesticide</h1>
-<p>merged_state_data %&gt;% mutate(year = as.numeric(year.x)) %&gt;% group_by(year, compound) %&gt;% summarise(colonies = sum(honey_producing_colonies), pesticides = sum(high)) %&gt;% ggplot(aes(x = year, y = pesticides, color = compound) + geom_point() + geom_smooth(se = FALSE) + theme(axis.text.x = element_text(angle = 90)) + labs( title = “Honey Bee Colony Count in the US”, x = “Year”, y = “Honey Bee Colonies Across the US”)</p>
-<p>======= us_counties = map_data(“county”) %&gt;%</p>
-<p>p = ggplot(data = us_counties, mapping = aes(x = long, y = lat, group = group, fill = region))</p>
-<p>p2 = p + geom_polygon(color = “gray90”, size = 0.1) + coord_map(projection = “albers”, lat0 = 39, lat1 = 45) + guides(fill = FALSE)</p>
-<p>p2 ```</p>
-<p>clean_bee_data %&gt;% group_by(year) %&gt;% summarise(n = sum(honey_producing_colonies)) %&gt;% ggplot(aes(x = year, y = n)) + geom_point() + theme(axis.text.x = element_text(angle = 90)) + labs( title = “Honey Bee Colony Count in the US”, x = “Year”, y = “Honey Bee Colonies Across the US” )</p>
-</div>
 
 
 
