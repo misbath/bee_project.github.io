@@ -1,6 +1,6 @@
 ---
 title: "Pesticide Use in the US (2004-2016)"
-output: 
+output:
   flexdashboard::flex_dashboard:
     orientation: columns
     vertical_layout: fill
@@ -9,6 +9,7 @@ runtime: shiny
 
 ```{r setup, include=FALSE}
 library(flexdashboard)
+library(shiny)
 library(plotly)
 library(tidyverse)
 #install.packages("Hmisc")
@@ -18,6 +19,7 @@ library(Hmisc)
 ```{r, include = FALSE}
 pesticides = read_csv("./data/top_pesticides.csv") %>% 
   mutate(compound = capitalize(tolower(compound))) %>% 
+  mutate(state = recode(state_fips, "01" = "AL", "04" = "AZ", "05" = "AR", "06" = "CA", "08" = "CO", "09" = "CT", "10" = "DE", "12" = "FL", "13" = "GA", "16" = "ID", "17" = "IL", "18" = "IN", "19" = "IA", "20" = "KS", "21" = "KY", "22" = "LA", "23" = "ME", "24" = "MD", "25" = "MA", "26" = "MI", "27" = "MN", "28" = "MS", "29" = "MO", "30" = "MT", "31" = "NE", "32" = "NV", "33" = "NH", "34" = "NJ", "35" = "NM", "36" = "NY", "37" = "NC", "38" = "ND", "39" = "OH", "40" = "OK", "41" = "OR", "42" = "PA", "44" = "RI", "45" = "SC", "46" = "SD", "47" = "TN", "48" = "TX", "49" = "UT", "50" = "VT", "51" = "VA", "53" = "WA", "54" = "WV", "55" = "WI", "56" = "WY")) %>%
   select(-epest_low_kg)
 ```
 
@@ -31,17 +33,17 @@ years = pesticides %>% distinct(year) %>% pull()
 selectInput(
   "year_choice", 
   label = h3("Select Year"),
-  choices = years, selected = "2016")
+  choices = years, selected = "2004")
 
-fips = pesticides %>% distinct(state_fips) %>% pull()
+states = pesticides %>% distinct(state) %>% pull()
 
 # selectInput widget
 selectInput(
-  "fips_choice", 
-  label = h3("Select State FIPS"),
-  choices = fips, selected = "01")
+  "state_choice", 
+  label = h3("Select State"),
+  choices = states, selected = "AL")
 
-compound = pesticides %>% distinct(compound) %>% pull()
+#compound = pesticides %>% distinct(compound) %>% pull()
 
 # radioButtons widget
 #radioButtons(
@@ -60,7 +62,7 @@ Column {data-width=650}
 renderPlotly({
   pesticides %>%
   filter(year == input$year_choice, 
-        state_fips == input$fips_choice) %>%
+        state == input$state_choice) %>%
   group_by(state_fips, compound) %>%
   summarise(tot_pest_high = sum(epest_high_kg)) %>%
   plot_ly(x = ~compound, y = ~tot_pest_high, color = ~compound, type = "bar") %>%
@@ -77,9 +79,6 @@ Column {data-width=350}
 
 ```{r, echo=FALSE}
 
-renderPrint({ 
-  input[["fips_choice"]]
-})
 
 ```
 
