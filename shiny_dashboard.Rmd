@@ -1,0 +1,57 @@
+---
+title: "Pesticide Use in the US"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(plotly)
+library(tidyverse)
+```
+
+```{r, include = FALSE}
+pesticides = read_csv("./data/top_pesticides.csv") %>% 
+  mutate(compound = tolower(compound)) %>% 
+  select(-epest_low_kg)
+```
+
+Column {.sidebar}
+-----------------------------------------------------------------------
+
+```{r, echo=FALSE}
+years = pesticides %>% distinct(year) %>% pull()
+
+# selectInput widget
+selectInput(
+  "year_choice", 
+  label = h3("Select year"),
+  choices = years, selected = "2016")
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+
+```
+
+### Chart C
+
+```{r}
+
+```
