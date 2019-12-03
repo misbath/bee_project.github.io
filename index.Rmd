@@ -18,6 +18,3 @@ output:
 <center>
 ![FigName](images/logo.png)
 </center>
-
-
-
