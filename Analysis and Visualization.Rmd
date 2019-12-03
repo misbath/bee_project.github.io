@@ -116,7 +116,7 @@ top_pesticides %>%
 
 ```
 
-# Annimated
+# Annimated Plots
 ```{r}
 
 #Lizbeth trying to annimate the plots
