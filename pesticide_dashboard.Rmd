@@ -18,7 +18,7 @@ library(tidyverse)
 
 County Pesticide Data
 
-```{r read in data}
+```{r read in data,include=FALSE}
 merged_county_data = read_csv("./data/merged_county_data.csv") %>%
   janitor::clean_names() %>%
   rename(year = year_x)
