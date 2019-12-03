@@ -354,8 +354,10 @@ $(document).ready(function () {
 <h1><strong>Data sources and availability</strong></h1>
 <ul>
 <li><p>Pesticide use data was obtained from the <a href="https://water.usgs.gov/nawqa/pnsp/usage/maps/county-level/">USGS</a></p></li>
-<li><p>County-level and State-level bee colony data obtained from the <a href="https://data.world/finley/bee-colony-statistical-data-from-1987-2017">USDA</a></p></li>
-<li><p>County-level dataset can be accessed <a href="https://query.data.world/s/266nsnl3bnmozsl2xld7komsiyzp22">here</a>. Cleaning involved using <code>select</code> and <code>mutate</code> from the <code>Tidyverse</code> package. Additionally, this dataset is very messy, with many missing values, thus we worked on managing these without loosing important information. Lastly, this dataset was intended to be merged by state using <code>state_county_fips</code> variables which had to be transformed into the right type and length.</p></li>
+<li><p>County-level and State-level bee colony data obtained from the <a href="https://data.world/finley/bee-colony-statistical-data-from-1987-2017">USDA</a></p>
+<ul>
+<li>County-level dataset can be accessed <a href="https://query.data.world/s/266nsnl3bnmozsl2xld7komsiyzp22">here</a>. Cleaning involved using <code>select</code> and <code>mutate</code> from the <code>Tidyverse</code> package. Additionally, this dataset is very messy, with many missing values, thus we worked on managing these without loosing important information. Lastly, this dataset was intended to be merged by state using <code>state_county_fips</code> variables which had to be transformed into the right type and length.</li>
+</ul></li>
 </ul>
 <p>Based on the literature, the following pesticides were selected for analysis in this project:</p>
 <ul>
@@ -367,10 +369,15 @@ $(document).ready(function () {
 </li>
 <li>Other insecticide: Fipronil</li>
 </ul>
+</div>
+<div id="methods" class="section level1">
+<h1><strong>Methods</strong></h1>
 <p><br></p>
 <p>Merging Datasets In order to merge the data on pesticide use and bee data sets we required a vector common to both data sets but unique to each geographic area and year of data. To create this field we merged the bee data by state/county with a file of FIPS codes. We then merged the unique FIPS for each county with the year to generate a unique number identifying data from each county/state in each year (e.g. 200201001 uniquely identifies the 2002 data from Atauga County, Alabama). This value was then used to merge the pesticide data to both the county and state level bee data.</p>
 <p>State Maps</p>
 <p>Maps of state level bee populations and pesticide production were generated through use of the<code>choroplethrMaps</code> package and ggplot. The <code>states.map</code> dataframe in the <code>choroplethrMaps</code> package provided the underlying map which the state level data was merged with using state name. All maps were modified to the void theme with a bonne projection for asthetic purposes.</p>
+<p>County Maps</p>
+<p>Maps of county level pesticide use and bee colony counts were created using the merged files of pesticide use data and county colony count (for all bee populations) data. The base county map was built using the ‘county’ map provided by the <code>maps</code> package, for the conterminious United States. The <code>ggplot2</code> package was used to map county level pesticide use data and county level bee colony county data on top of the base county map.</p>
 </div>
 
 

@@ -299,9 +299,6 @@ $(document).ready(function () {
       <a href="motivation.html">Motivation</a>
     </li>
     <li>
-      <a href="related.html">Related Work</a>
-    </li>
-    <li>
       <a href="initial.html">Initial Question/Data</a>
     </li>
     <li>
@@ -341,7 +338,81 @@ $(document).ready(function () {
 </div>
 
 
-
+<p><br></p>
+<p>Initially we wanted to look at the correlation of state-level pesticide use accross all years.</p>
+<p>Pearson correlation is shown below:</p>
+<p><br></p>
+<p><img src="exploring_files/figure-html/unnamed-chunk-2-1.png" width="90%" /></p>
+<p><br></p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">CHLOROTHALONIL</th>
+<th align="right">CHLORPYRIFOS</th>
+<th align="right">CLOTHIANIDIN</th>
+<th align="right">FIPRONIL</th>
+<th align="right">IMIDACLOPRID</th>
+<th align="right">THIACLOPRID</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CHLOROTHALONIL</td>
+<td align="right">1.0000000</td>
+<td align="right">0.7024675</td>
+<td align="right">0.3117681</td>
+<td align="right">-0.1226238</td>
+<td align="right">0.6541162</td>
+<td align="right">0.1766534</td>
+</tr>
+<tr class="even">
+<td>CHLORPYRIFOS</td>
+<td align="right">0.7024675</td>
+<td align="right">1.0000000</td>
+<td align="right">0.5756553</td>
+<td align="right">0.0013495</td>
+<td align="right">0.9749727</td>
+<td align="right">0.1236703</td>
+</tr>
+<tr class="odd">
+<td>CLOTHIANIDIN</td>
+<td align="right">0.3117681</td>
+<td align="right">0.5756553</td>
+<td align="right">1.0000000</td>
+<td align="right">0.5068899</td>
+<td align="right">0.5498456</td>
+<td align="right">-0.1679516</td>
+</tr>
+<tr class="even">
+<td>FIPRONIL</td>
+<td align="right">-0.1226238</td>
+<td align="right">0.0013495</td>
+<td align="right">0.5068899</td>
+<td align="right">1.0000000</td>
+<td align="right">-0.0038862</td>
+<td align="right">-0.0562471</td>
+</tr>
+<tr class="odd">
+<td>IMIDACLOPRID</td>
+<td align="right">0.6541162</td>
+<td align="right">0.9749727</td>
+<td align="right">0.5498456</td>
+<td align="right">-0.0038862</td>
+<td align="right">1.0000000</td>
+<td align="right">-0.0020738</td>
+</tr>
+<tr class="even">
+<td>THIACLOPRID</td>
+<td align="right">0.1766534</td>
+<td align="right">0.1236703</td>
+<td align="right">-0.1679516</td>
+<td align="right">-0.0562471</td>
+<td align="right">-0.0020738</td>
+<td align="right">1.0000000</td>
+</tr>
+</tbody>
+</table>
 
 
 

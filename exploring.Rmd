@@ -1,5 +1,66 @@
 ---
 title: "**Exploratory Analysis**" 
-
 ---
+<br>
+
+Initially we wanted to look at the correlation of state-level pesticide use accross all years.  
+
+Pearson correlation is shown below:
+
+```{r, echo=FALSE, message=FALSE}
+library(tidyverse)
+library(viridis)
+library(readxl)
+library(corrplot)
+
+
+knitr::opts_chunk$set(
+	echo = TRUE,
+	warning = FALSE,
+	fig.width = 8, 
+  fig.height = 6,
+  out.width = "90%"
+)
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+theme_set(theme_bw() + theme(legend.position = "bottom"))
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<br>
+
+```{r, echo=FALSE, message = FALSE}
+corr_state = read_csv("./data/top_pesticides.csv") %>% 
+  group_by(compound, state_fips) %>%
+  summarise(mean_pest_high = mean(epest_high_kg, na.rm = TRUE)) %>% 
+  pivot_wider(
+    names_from = "compound",
+    values_from = "mean_pest_high",
+  ) %>% 
+  select(-state_fips)
+
+corr_state %>%
+  view()
+
+matrix_state_1 = cor(corr_state, use = "everything", method = c("pearson"))
+matrix_state_1
+
+matrix_state_2 = cor(corr_state, use = "complete.obs", method = c("pearson"))
+matrix_state_2
+
+#visualization 
+
+corrplot(matrix_state_2, order = "hclust", type = "full")
+
+```
+
+<br>
+
+```{r,echo=FALSE, message=FALSE}
+knitr::kable(matrix_state_2)
+```
 
