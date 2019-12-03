@@ -26,6 +26,8 @@ theme_set(theme_bw() + theme(legend.position = "bottom"))
 
 
 ```{r}
+clean_bee_data = read_csv("./data/clean_bee_data.csv/")
+
 # honey bee population for country by year
 clean_bee_data %>%
    mutate(year = as.numeric(year)) %>%
