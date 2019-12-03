@@ -4,7 +4,6 @@ output:
   flexdashboard::flex_dashboard:
     orientation: columns
     vertical_layout: fill
-    source_code: embed
 runtime: shiny
 ---
 
@@ -23,10 +22,16 @@ merged_county_data = read_csv("./data/merged_county_data.csv") %>%
   janitor::clean_names() %>%
   rename(year = year_x)
 
+
+county_data_for_map = 
+  merged_county_data %>%
+  
+
 merged_state_data = read_csv("./data/merged_state_data.csv") %>%
   janitor::clean_names() %>%
   rename(year = year_x)
 
+view(merged_county_data)
 ```
 
 
@@ -81,12 +86,21 @@ renderPlotly({
 
 library(maps)
 map('state')
+map('county')
 cnty.fips <- county.fips$fips[match(map("county", plot=FALSE)$names,
     county.fips$polyname)]
 
 data("merged_county_data")
 merged_county_data %>%
   map("state", xlim = range(epest_high_kg$x), ylim = range(epest_high_kg$y))
+
+
+library(viridis)
+
+p0 <- ggplot(data = subset(opiates_map, year > 1999),
+             mapping = aes(x = long, y = lat,
+                 group = group,
+                 fill = adjusted))
   
 ```
 
