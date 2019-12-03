@@ -63,7 +63,7 @@ bee_county = bee_county%>%
     cv_percent = replace(cv_percent, cv_percent == "(D)", "NA")) %>% 
   rename (colony_count = value)
 
-
+write.csv(bee_county, file = "bee_county.csv")
 ```
 
 ```{r, state bee colonies}
@@ -83,7 +83,7 @@ bee_data =
     file_names = file_name,
     path = str_c("./data/bee_state_2/", file_names)
   ) %>% 
-  mutate(data = map(path, my_read_csv))%>% 
+  mutate(data = map(path, my_read_csv)) %>% 
   unnest()
 
 #clean data set
@@ -95,10 +95,7 @@ clean_bee_data =
   drop_na(state) %>%
   mutate(state = recode(state, AL = "Alabama", AR = "Arkansas", AZ = "Arizona", CA = "California", CO = "Colorado", FL = "Florida", GA = "Georgia", HI = "Hawaii", IA = "Iowa", IL = "Illinois", ID = "Idaho", IN = "Indiana", KS = "Kansas", KY = "Kentucky", LA = "Louisiana", ME = "Maine", MD = "Maryland", MI = "Michigan", MN = "Minnesota", MO = "Missouri", MT = "Montana", MS = "Mississippi", NC = "North Carolina", ND = "North Dakota", NE = "Nebraska", NJ = "New Jersey", NM = "New Mexico", NV = "Nevada", NY = "New York", OH = "Ohio", OK = "Oklahoma", OR = "Oregon", PA = "Pennsylvania", SC = "South Carolina", SD = "South Dakota", TN = "Tennessee", TX = "Texas", UT = "Utah", VA = "Virginia", VT = "Vermont", WA = "Washington", WV = "West Virginia", WI = "Wisconsin", WY = "Wyoming"))
 
-clean_bee_data %>%
-  ggplot(aes(x = year, y = honey_producing_colonies, color = state)) +
-  geom_point()
-
+write.csv(clean_bee_data, file = "clean_bee_data.csv")
 ```
 
 
@@ -176,15 +173,15 @@ write.csv(merged_county_data, file = "merged_county_data.csv")
 pest = read_csv("./data/top_pesticides.csv") %>% 
   group_by(compound) %>% 
   summarise(missing = sum(is.na(epest_high_kg))) 
-            
-
 
 ```
 
 
 ```{r, correlation pesticides}
 
-#correlation of state level means across all years
+#correlation of state level means across all years 
+#use this one and matrix 2
+
 
 corr_state = read_csv("./data/top_pesticides.csv") %>% 
   group_by(compound, state_fips) %>%
@@ -203,7 +200,6 @@ matrix_state_1
 
 matrix_state_2 = cor(corr_state, use = "complete.obs", method = c("pearson"))
 matrix_state_2
-
 
 #visualization 
 

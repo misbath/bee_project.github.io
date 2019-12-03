@@ -24,65 +24,134 @@ theme_set(theme_bw() + theme(legend.position = "bottom"))
 
 ```
 
-##need to change the labels and axis for all graphs
 
 ```{r}
+clean_bee_data = read_csv("./data/clean_bee_data.csv")
+
 # honey bee population for country by year
 clean_bee_data %>%
-  group_by(year) %>%
-  summarise(n = sum(honey_producing_colonies)) %>%
-  ggplot(aes(x = year, y = n)) + 
+   mutate(year = as.numeric(year)) %>%
+   group_by(year) %>%
+   summarise(n = sum(honey_producing_colonies)) %>%
+   ggplot(aes(x = year, y = n)) + 
+   geom_point() + 
+   geom_smooth(se = FALSE) +
+   theme(axis.text.x = element_text(angle = 90)) +
+   labs(
+     title = "Honey Bee Colony Count in the US",
+     x = "Year",
+     y = "Honey Bee Colonies Across the US") +
+   scale_x_continuous(
+      breaks = c(2002, 2007, 2012, 2017))
+```
+
+```{r}
+bee_county = read_csv("./data/bee_county.csv")
+
+bee_county %>%
+   mutate(colony_count = as.numeric(colony_count)) %>%
+   drop_na(colony_count) %>%
+   group_by(year) %>%
+   summarise(n = sum(colony_count)) %>%
+   ggplot(aes(x = year, y = n)) + 
+   geom_point() + 
+   geom_smooth() +
+     theme(axis.text.x = element_text(angle = 90)) +
+   labs(
+     title = "Bee Colony Count in the US",
+      x = "Year",
+     y = "Bee Colonies Across the US") + 
+   scale_x_continuous(
+      breaks = c(2002, 2007, 2012))
+```
+
+```{r}
+top_pesticides = read_csv("./data/top_pesticides.csv")
+
+top_pesticides %>%
+  group_by(compound, year) %>%
+   na.omit(epest_high_kg) %>%
+   summarise(n = sum(epest_high_kg)) %>%
+   ggplot(aes(x = year, y = n, color = compound)) + 
+   geom_point() + 
+   geom_smooth(se = FALSE) +
+     theme(axis.text.x = element_text(angle = 90)) +
+     labs(
+     title = "Pesticide Use in the US",
+     x = "Year",
+     y = "Weight of Pesticide used in the US (kg)"
+   )
+
+```
+
+```{r}
+# high range of pesticide use
+ top_pesticides %>%
+   group_by(year) %>%
+   na.omit(epest_high_kg) %>%
+   summarise(n = sum(epest_high_kg)) %>%
+   ggplot(aes(x = year, y = n)) + 
+   geom_point() + 
+   geom_smooth(se = FALSE) +
+     theme(axis.text.x = element_text(angle = 90)) +
+    theme(axis.text.x = element_text(angle = 90)) +
+       labs(
+     title = "Pesticide Use in the US",
+     x = "Year",
+     y = "Weight of Pesticide used in the US (kg)"
+   )
+
+ #low range of pesticide use
+ top_pesticides %>%
+   group_by(year) %>%
+   na.omit(epest_low_kg) %>%
+   summarise(n = sum(epest_low_kg)) %>%
+   ggplot(aes(x = year, y = n)) + 
+   geom_point() + 
+   geom_smooth(se = FALSE) +
+     theme(axis.text.x = element_text(angle = 90)) +
+     theme(axis.text.x = element_text(angle = 90)) +
+       labs(
+     title = "Pesticide Use in the US",
+     x = "Year",
+     y = "Weight of Pesticide used in the US (kg)"
+   )
+```
+
+
+```{r}
+#library(maps)
+
+#map(database = "United States")
+
+```
+
+```{r}
+#library(choroplethr)
+#library(choroplethrAdmin1)
+
+#get_admin1_regions("united states of america")
+
+```
+
+
+# state and pesticide in one graph
+merged_state_data %>%
+  mutate(year = as.numeric(year.x)) %>%
+  group_by(year, compound) %>%
+  summarise(colonies = sum(honey_producing_colonies), 
+            pesticides = sum(high)) %>%
+  ggplot(aes(x = year, y = pesticides, color = compound) + 
   geom_point() + 
+  geom_smooth(se = FALSE) +
   theme(axis.text.x = element_text(angle = 90)) +
   labs(
     title = "Honey Bee Colony Count in the US",
     x = "Year",
-    y = "Honey Bee Colonies Across the US"
-  )
-```
+    y = "Honey Bee Colonies Across the US")
 
-```{r}
-# all bee population for country by year
-year_county_bee = 
-  bee_county %>%
-  mutate(colony_count = as.numeric(colony_count)) %>%
-  drop_na(colony_count) %>%
-    group_by(year) %>%
-  summarise(n = sum(colony_count))  
 
-year_county_bee %>%
-  ggplot(aes(x = year, y = n)) + 
-  geom_col() + 
-    theme(axis.text.x = element_text(angle = 90)) +
-  labs(
-    title = "Bee Colony Count in the US",
-    x = "Year",
-    y = "Bee Colonies Across the US"
-  ) +
-  scale_x_continuous(
-    breaks = c(2002, 2007, 2012)
-  ) + 
-  scale_y_continuous(
-    breaks = c(100000, 200000, 225000, 250000, 275000, 300000)
-  )
-```
-
-```{r}
-library(maps)
-
-map(database = "United States")
-
-```
-
-```{r}
-library(choroplethr)
-library(choroplethrAdmin1)
-
-get_admin1_regions("united states of america")
-
-```
-
-```{r}
+=======
 us_counties = map_data("county") %>%
   
 
@@ -97,6 +166,7 @@ p2 = p + geom_polygon(color = "gray90", size = 0.1) +
 p2
 ```
 
+<<<<<<< HEAD
 ```{r}
 library(maps)
 map("county")
@@ -105,3 +175,5 @@ county_choropleth
 
 ```
 
+=======
+>>>>>>> 7aa70bfbc252e3ae54e162843e89c09d89098fef
