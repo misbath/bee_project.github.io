@@ -56,6 +56,8 @@ Column {data-width=650}
 
 ###County Data 
 
+Pesticides 
+
 ```{r}
 
 counties_base <- ggplot(data = counties, mapping = aes(x = long, y = lat, group = group)) + 
@@ -67,7 +69,11 @@ map_county <- counties_base + theme_nothing() +
       theme_bw() + labs(title= "All Pesticides, All Years, County Level Data")
 
 map_county
+```
 
+Bees
+
+```{r}
 map_county_bees <- counties_base + theme_nothing() + 
   geom_polygon(data = county_2, aes(fill= colony_count), color = "white") + geom_polygon(color = "black", fill = NA) +
       theme_bw() + labs(title= "All Bees, All Years, County Level Data")
@@ -78,16 +84,7 @@ map_county_bees
 ```
 
 
-```{r state chlorpyrifos use}
-state_chlorpyrifos =
-  merged_state_data %>%
-  mutate(state = str_to_lower(state)) %>%
-  rename(region = state) %>%
-  filter(compound == "CHLORPYRIFOS")
 
-state_map_chlorpyrifos = left_join(state.map, state_chlorpyrifos, by = "region") 
-ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon() + theme_void() + labs(title = "Chlorpyrifos")
-```
 
 
 ```
