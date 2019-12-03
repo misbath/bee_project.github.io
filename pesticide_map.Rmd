@@ -1,0 +1,92 @@
+---
+title: "Pesticide Change Over the Years"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(shiny)
+library(plotly)
+library(tidyverse)
+library(ggplot2)
+library(ggmap)
+library(maps)
+library(mapdata)
+
+```
+
+
+#Reading in data
+
+```{r read in data,include=FALSE}
+merged_county_data = read_csv("./data/merged_county_data.csv") %>%
+  janitor::clean_names() %>%
+  rename(year = year_x) %>%
+  mutate(
+    county = str_to_lower(county)
+  )
+
+merged_state_data = read_csv("./data/merged_state_data.csv") %>%
+  janitor::clean_names() %>%
+  rename(year = year_x)
+
+```
+
+
+```{r}
+state.map <- map_data("state")
+counties <- map_data("county")
+
+merged_county_data_for_join =
+  merged_county_data %>%
+  rename(subregion = county)
+
+county_2 <- merged_county_data_for_join %>%
+  left_join(counties, "subregion")
+
+```
+
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+###County Data 
+
+Pesticides 
+
+```{r}
+
+counties_base <- ggplot(data = counties, mapping = aes(x = long, y = lat, group = group)) + 
+  coord_fixed(1.3) + 
+  geom_polygon(color = "black", fill = "gray")
+
+map_county <- counties_base + theme_nothing() + 
+  geom_polygon(data = county_2, aes(fill= epest_high_kg), color = "white") + geom_polygon(color = "black", fill = NA) +
+      theme_bw() + labs(title= "All Pesticides, All Years, County Level Data")
+
+map_county
+```
+
+Bees
+
+```{r}
+map_county_bees <- counties_base + theme_nothing() + 
+  geom_polygon(data = county_2, aes(fill= colony_count), color = "white") + geom_polygon(color = "black", fill = NA) +
+      theme_bw() + labs(title= "All Bees, All Years, County Level Data")
+
+map_county_bees
+
+  
+```
+
+
+
+
+
+```
+
+

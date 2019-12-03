@@ -264,4 +264,76 @@ merged_county_data %>%
 
 ```
 
+```{r intrastate correlations of bees and pesticide over years}
+#alabama
+corr_al_data = 
+  merged_state_data %>%
+  filter(state == "Alabama") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor1 = cor(corr_al_data, use = "everything", method = "pearson")
+
+#alaska
+corr_ak_data = 
+  merged_state_data %>%
+  filter(state == "Alaska") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor2 = cor(corr_ak_data, use = "everything", method = "pearson")
+
+#arkansas
+corr_as_data = 
+  merged_state_data %>%
+  filter(state == "Arkansas") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor3 = cor(corr_as_data, use = "everything", method = "pearson")
+
+#arizona
+corr_ar_data = 
+  merged_state_data %>%
+  filter(state == "Arizona") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor4 = cor(corr_ar_data, use = "everything", method = "pearson")
+
+#california
+corr_ca_data = 
+  merged_state_data %>%
+  filter(state == "Alabama") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor5 = cor(corr_ca_data, use = "everything", method = "pearson")
+
+state_correlations = bind_rows(cor1, cor2, cor3, cor4, cor5)
+```
+
+```{r}
+correlation_function = function(x) {
+  corr_data = 
+  merged_state_data %>%
+  filter(state_fips.x == x) %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+  
+cor(corr_data, use = "everything", method = "pearson")
+  
+}
+
+correlations = map_dfr(.x = merged_state_data, ~correlation_function(.x))
+
+```
+
+
 
