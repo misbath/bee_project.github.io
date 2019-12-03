@@ -116,26 +116,3 @@ top_pesticides %>%
 
 ```
 
-# Annimated Plots
-```{r}
-
-#Lizbeth trying to annimate the plots
-
-
-  top_pesticides %>%
-  group_by(compound, year) %>%
-  na.omit(epest_high_kg) %>%
-  summarise(n = sum(epest_high_kg)) %>%
-  ggplot(aes(x = year, y = n, color = compound)) + 
-  geom_point() + 
-  geom_line()+
-    theme(axis.text.x = element_text(angle = 90)) +
-    labs(
-    title = "Pesticide Use in the US",
-    x = "Year",
-    y = "Weight of Pesticide used in the US (kg)") +
-  transition_reveal(year)
-  
-anim_save("287-smooth-animation-with-tweenr.gif")
-```
-
