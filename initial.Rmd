@@ -38,8 +38,6 @@ Chlorothalonil
 Fipronil  
 
 # **Methods**
-
-County maps of pesticide use and bee colony counts were created using the merged files of county pesticide and colony count data. [will add more]
 <br>
 
 Merging Datasets
@@ -49,3 +47,6 @@ State Maps
 
 Maps of state level bee populations and pesticide production were generated through use of the`choroplethrMaps` package and ggplot. The `states.map` dataframe in the `choroplethrMaps` package provided the underlying map which the state level data was merged with using state name. All maps were modified to the void theme with a bonne projection for asthetic purposes. 
 
+County Maps
+
+Maps of county level pesticide use and bee colony counts were created using the merged files of pesticide use data and county colony count (for all bee populations) data. The base county map was built using the 'county' map provided by the `maps` package, for the conterminious United States. The `ggplot2` package was used to map county level pesticide use data and county level bee colony county data on top of the base county map.
