@@ -27,8 +27,7 @@ theme_set(theme_bw() + theme(legend.position = "bottom"))
 
 ```{r}
 # honey bee population for country by year
-<<<<<<< HEAD
- clean_bee_data %>%
+clean_bee_data %>%
    mutate(year = as.numeric(year)) %>%
    group_by(year) %>%
    summarise(n = sum(honey_producing_colonies)) %>%
@@ -39,7 +38,9 @@ theme_set(theme_bw() + theme(legend.position = "bottom"))
    labs(
      title = "Honey Bee Colony Count in the US",
      x = "Year",
-     y = "Honey Bee Colonies Across the US")
+     y = "Honey Bee Colonies Across the US") +
+   scale_x_continuous(
+      breaks = c(2002, 2007, 2012, 2017))
 ```
 
 ```{r}
