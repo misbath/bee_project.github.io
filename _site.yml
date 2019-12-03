@@ -10,7 +10,22 @@ navbar:
     - text: "Screencast"
       href: screen.html
     - text: "Report"
-      href: report.html
+      menu:
+        - text: "About"
+          href: about.html
+        - text: "Motivation"
+          href: motivation.html
+        - text: "Related Work"
+          href: related.html
+        - text: "Initial Question/Data"
+          href: initial.html
+        - text: "Exploratory Analysis"
+          href: exploring.html
+        - text: "Additional Analysis"
+          href: add_analysis.html
+        - text: "Discussion"
+          href: report.html
+          
     - icon: fa-envelope fa-lg
       href: mailto:<lg2982@columbia.edu>
     - icon: fa-github fa-lg

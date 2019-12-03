@@ -1,0 +1,13 @@
+---
+title: "**Related**" 
+output: 
+  html_document:
+    includes:
+      after_body: footer.html
+---
+# **Related work**
+
+One group that is playing an important role in terms of bee management and data driven information disemination, is [BeeInformed](https://beeinformed.org/). Their website includes a dynamic way of tracking bee colony loss across the U.S. for all seasons in an effort to take the guesswork out of bee management. This interactivity aspect of their website became something we were inspired by and want to create a similar layout.
+
+
+<br>

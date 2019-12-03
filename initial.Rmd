@@ -1,0 +1,34 @@
+---
+title: "**Initial**" 
+output: 
+  html_document:
+    includes:
+      after_body: footer.html
+---
+
+# **Initial questions**
+
+Here we examine county level data on pesticide use and county level data on bee colonies to see if there are any trends between certain chemical compounds and bee colony decline. We include information on the relationship between bee population over time as well as pesticide use over time controlling for seasonality. Additionally, we  examine bee population in the counties with the highest and lowest pesticide use. Based on these trends, we investigated pesticides that have stronger associations with bee colony population over time. We aim to identify pesticides that are associated with changes in bee populations, specifically those that might contribute to the recent decline in bee populations nationally.
+
+<br>
+
+# **Data sources and availability**
+
+* Pesticide use data was obtained from the [USGS](https://water.usgs.gov/nawqa/pnsp/usage/maps/county-level/)
+
+* County-level and State-level bee colony data obtained from the [USDA](https://data.world/finley/bee-colony-statistical-data-from-1987-2017) 
+
+
+
+Based on the literature, the following pesticides were selected for analysis in this project:    
+
+* Neonicotinoids:
+Imidacloprid, Thiacloprid, Clothianidin   
+* Organophosphates:
+Chlorpyrifos, Methyl parathion  
+* Fungicide:
+Chlorothalonil  
+* Other insecticide:
+Fipronil  
+
+<br>
