@@ -6,12 +6,11 @@ navbar:
     - text: "Bees"
       href: dashboard.html
     - text: "Pesticides"
-      href: pesticides.html
+      href: https://misbath.shinyapps.io/shiny_dashboard/
     - text: "Screencast"
       href: screen.html
     - text: "Report"
       href: report.html
-      
     - icon: fa-envelope fa-lg
       href: mailto:<lg2982@columbia.edu>
     - icon: fa-github fa-lg
@@ -19,6 +18,4 @@ navbar:
    
 output:
   html_document:
-    toc: FALSE
-    toc_float: FALSE
     theme: yeti
