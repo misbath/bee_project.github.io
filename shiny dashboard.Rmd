@@ -23,10 +23,10 @@ Column {.sidebar}
 -----------------------------------------------------------------------
 
 ```{r}
-shiny_bee_data = read_csv("./data/clean_bee_data.csv")%>%
+shiny_bee_data = read_csv("./data/clean_bee_data.csv") %>%
   select(year, state, honey_producing_colonies) %>%
   filter(!is.na(honey_producing_colonies)) %>%
-  rename("Statistics"= "honey_producing_colonies")
+  rename("Statistics" = "honey_producing_colonies")
 
 # entries to select from
 year <- c(2002:2019)
@@ -59,18 +59,18 @@ renderPlotly({
 	)
 
 shiny_bee_data %>% 
-	filter(year == input$year_1) %>% 
+		filter(year == input$year_1) %>% 
 	plot_geo(locationmode = "USA-states") %>% 
 	add_trace(
 		z = ~Statistics,
 		locations = ~state,
 		color = ~Statistics,
+		colors = "Reds"
 		# add text
-		text = ~paste(state, sep = "")
 		) %>%
 	layout(
 		geo = geo1,
-		title = "US Map - State Bee Population",
+		title = "US Map - State Statistics",
 		legend = list(x = 100, y = 0.5)
 	)
 })
