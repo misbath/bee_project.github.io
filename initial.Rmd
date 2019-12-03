@@ -37,4 +37,7 @@ Chlorothalonil
 * Other insecticide:
 Fipronil  
 
+# **Methods**
+
+County maps of pesticide use and bee colony counts were created using the merged files of county pesticide and colony count data. [will add more]
 <br>
