@@ -1,0 +1,138 @@
+---
+title: "Map Code"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(plotly)
+library(tidyverse)
+library(ggplot2)
+library(ggmap)
+library(maps)
+library(choroplethrMaps)
+
+knitr::opts_chunk$set(
+	echo = TRUE,
+	warning = FALSE,
+	fig.width = 8, 
+  fig.height = 6,
+  out.width = "90%"
+)
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+theme_set(theme_bw() + theme(legend.position = "bottom"))
+```
+
+#Reading in data
+
+```{r read in data,include=FALSE}
+merged_county_data = read_csv("./data/merged_county_data.csv") %>%
+  janitor::clean_names() %>%
+  rename(year = year_x) %>%
+  mutate(
+    county = str_to_lower(county)
+  )
+
+merged_state_data = read_csv("./data/merged_state_data.csv") %>%
+  janitor::clean_names() %>%
+  rename(year = year_x)
+
+```
+
+
+```{r}
+state.map <- map_data("state")
+counties <- map_data("county")
+
+merged_county_data_for_join =
+  merged_county_data %>%
+  rename(subregion = county)
+
+county_2 <- merged_county_data_for_join %>%
+  left_join(counties, "subregion")
+
+```
+
+###COUNTY Maps
+
+##Pesticides 
+
+```{r}
+
+counties_base <- ggplot(data = counties, mapping = aes(x = long, y = lat, group = group)) + 
+  coord_fixed(1.3) + 
+  geom_polygon(color = "black", fill = "gray")
+
+map_county <- counties_base + theme_nothing() + 
+  geom_polygon(data = county_2, aes(fill= epest_high_kg), color = "white") + geom_polygon(color = "black", fill = NA) +
+      theme_void() + labs(title= "All Pesticides, All Years, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))
+
+map_county
+```
+toggle: year, pesticide
+
+I think the issue of missing data will be less so once we separate by years. I'm honestly not fully clear the difference between dark and light grey. 
+
+##Bees
+
+```{r}
+map_county_bees <- counties_base + theme_nothing() + 
+  geom_polygon(data = county_2, aes(fill= colony_count), color = "white") + geom_polygon(color = "black", fill = NA) +
+      theme_void() + labs(title= "All Bees, All Years, County Level Data", fill = "Number of Bee Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))
+
+map_county_bees
+
+```
+toggle: year
+
+### STATE MAPS
+
+##Bees
+
+```{r state honey production colonies}
+data(state.map)
+
+state.map = 
+  state.map %>%
+  filter(region != "alaska", region != "hawaii")
+
+merged_state_data = read_csv("./data/merged_state_data.csv")
+
+merged_state_data_map =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state)
+
+state_map_data = left_join(state.map, merged_state_data_map, by = "region")
+
+honey_bee_colony_map = 
+  ggplot(state_map_data, aes(long, lat, group = group, fill = honey_producing_colonies)) + geom_polygon(color = "black") + theme_void() + labs(title = "Honey Producing Colonies", fill = "Honey Producing Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))
+
+honey_bee_colony_map
+```
+toggle: year
+
+## Pesticides 
+
+```{r state chlorpyrifos use}
+state_chlorpyrifos =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "CHLORPYRIFOS")
+
+state_map_chlorpyrifos = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+chlorpyrifos_map =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorpyrifos", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))
+
+chlorpyrifos_map
+```
+toggle: year, pesticide 
+
+
+
