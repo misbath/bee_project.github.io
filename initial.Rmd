@@ -15,6 +15,9 @@ Initially we wanted to look a all the pesticides used accross the US, but the nu
 
 * County-level and State-level bee colony data obtained from the [USDA](https://data.world/finley/bee-colony-statistical-data-from-1987-2017) 
 
+  * County-level dataset can be accessed [here](https://query.data.world/s/266nsnl3bnmozsl2xld7komsiyzp22). Cleaning involved using `select` and `mutate` from the `Tidyverse` package. Additionally, this dataset is very messy, with many missing values, thus we worked on managing these without loosing important information. Lastly, this dataset was intended to be merged by state using `state_county_fips` variables which had to be transformed into the right type and length. 
+  
+
 
 
 Based on the literature, the following pesticides were selected for analysis in this project:    
