@@ -6,7 +6,7 @@ navbar:
     - text: "Bees"
       href: dashboard.html
     - text: "Pesticides"
-      href: pesticides.html
+      href: https://misbath.shinyapps.io/shiny_dashboard/
     - text: "Screencast"
       href: screen.html
     - text: "Report"
