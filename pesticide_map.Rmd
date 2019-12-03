@@ -24,7 +24,7 @@ merged_county_data = read_csv("./data/merged_county_data.csv") %>%
 
 
 county_data_for_map = 
-  merged_county_data %>%
+  merged_county_data
   
 
 merged_state_data = read_csv("./data/merged_state_data.csv") %>%
@@ -87,20 +87,14 @@ renderPlotly({
 library(maps)
 map('state')
 map('county')
-cnty.fips <- county.fips$fips[match(map("county", plot=FALSE)$names,
+#cnty.fips <- county.fips$fips[match(map("county", plot=FALSE)$names,
     county.fips$polyname)]
 
 data("merged_county_data")
 merged_county_data %>%
-  map("state", xlim = range(epest_high_kg$x), ylim = range(epest_high_kg$y))
+#map("state", xlim = range(epest_high_kg$x), ylim = range(epest_high_kg$y))
 
 
-library(viridis)
-
-p0 <- ggplot(data = subset(opiates_map, year > 1999),
-             mapping = aes(x = long, y = lat,
-                 group = group,
-                 fill = adjusted))
   
 ```
 
@@ -109,7 +103,7 @@ Column {.sidebar}
 
 ###State Data
 
-```{r}
+```{r, eval = FALSE}
 compounds = merged_state_data %>% distinct(compound) %>% pull()
 
 
@@ -142,8 +136,27 @@ Column {data-width=350}
 
 ### Chart B
 
-```{r}
+```{r, eval = FALSE}
+renderPlotly({ 
+  merged_county_data %>%
+  filter(
+  compound == input$compound_choice,
+  year == input$year_choice) %>%
+  mutate(text_label = str_c("Compound: ", compound, '\nYear: ', year)) %>% 
+  plot_ly(
+    x = ~colony_count, y = ~epest_high_kg, type = "scatter", mode = "markers",
+    alpha = 0.5, text = ~text_label)
+})
 
+library(maps)
+map('state')
+map('county')
+cnty.fips <- county.fips$fips[match(map("county", plot=FALSE)$names,
+    county.fips$polyname)]
+
+data("merged_county_data")
+#merged_county_data %>%
+  map("state", xlim = range(epest_high_kg$x), ylim = range(epest_high_kg$y))
 
 ```
 
