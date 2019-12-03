@@ -7,7 +7,7 @@ title: "**About**"
 ![FigName](images/Bumble_Bee_pic.jpg)
 </center>
 
-# **About**
+<br>
 
 Exposure to insecticides can make bees more susceptible to pathogens as pesticides suppress their immune systems; studies suggest that this pesticide-pathogen interaction may be driving bees’ widespread collapse in the U.S. over recent decades (Sánchez-Bayo et al. 2016).
 
