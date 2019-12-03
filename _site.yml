@@ -3,7 +3,6 @@ output_dir: "."
 navbar:
   title: "Home"
   right:
-  
     - text: "Bees"
       href: dashboard.html
     - text: "Pesticides"
