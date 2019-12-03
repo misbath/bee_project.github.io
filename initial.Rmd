@@ -7,6 +7,12 @@ title: "**Initial Questions**"
 Here we examine county level data on pesticide use and county level data on bee colonies to see if there are any trends between certain chemical compounds and bee colony decline. We include information on the relationship between bee population over time as well as pesticide use over time controlling for seasonality. Additionally, we  examine bee population in the counties with the highest and lowest pesticide use. Based on these trends, we investigated pesticides that have stronger associations with bee colony population over time. We aim to identify pesticides that are associated with changes in bee populations, specifically those that might contribute to the recent decline in bee populations nationally.
 
 Initially we wanted to look a all the pesticides used accross the US, but the number of compunds exceded the thousands; thus we decided to narrow this number to the most commonly used. 
+
+In this report we present:
+* Bee population variability from 2002 - 2012  by state and county
+* Pesticide use accross from 2002 - 2016 by state and county
+* Correlations for bee population and pesticide use over time within states and counties
+
 <br>
 
 # **Data sources and availability**
@@ -17,7 +23,6 @@ Initially we wanted to look a all the pesticides used accross the US, but the nu
 
   * County-level dataset can be accessed [here](https://query.data.world/s/266nsnl3bnmozsl2xld7komsiyzp22). Cleaning involved using `select` and `mutate` from the `Tidyverse` package. Additionally, this dataset is very messy, with many missing values, thus we worked on managing these without loosing important information. Lastly, this dataset was intended to be merged by state using `state_county_fips` variables which had to be transformed into the right type and length. 
   
-
 
 
 Based on the literature, the following pesticides were selected for analysis in this project:    
