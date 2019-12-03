@@ -12,10 +12,15 @@ library(flexdashboard)
 library(shiny)
 library(plotly)
 library(tidyverse)
+library(ggplot2)
+library(ggmap)
+library(maps)
+library(mapdata)
 
 ```
 
-County Pesticide Data
+
+#Reading in data
 
 ```{r read in data,include=FALSE}
 merged_county_data = read_csv("./data/merged_county_data.csv") %>%
@@ -23,16 +28,49 @@ merged_county_data = read_csv("./data/merged_county_data.csv") %>%
   rename(year = year_x)
 
 
-county_data_for_map = 
-  merged_county_data
-  
-
 merged_state_data = read_csv("./data/merged_state_data.csv") %>%
   janitor::clean_names() %>%
   rename(year = year_x)
 
-view(merged_county_data)
 ```
+
+#Reading in other data
+
+```{r, include = FALSE}
+pesticides = read_csv("./data/top_pesticides.csv") %>% 
+  select(-epest_low_kg)
+
+fips_codes = read_csv("./data/fips_codes.csv")
+
+```
+
+
+```{r}
+
+usa <- map_data("state")
+head(usa)
+view(usa)
+counties <- map_data("county")
+counties
+
+head(counties)
+head(pesticides)
+
+merged_state_data_for_join = 
+  merged_state_data %>%
+  rename(region = state)
+
+head(merged_state_data)
+```
+
+```{r}
+usa_2 <- merged_state_data_for_join %>%
+            left_join(usa, "region")
+
+head(usa_2)
+```
+
+
 
 
 Column {.sidebar}
@@ -41,30 +79,7 @@ Column {.sidebar}
 ###County Data 
 
 ```{r}
-compounds = merged_county_data %>% distinct(compound) %>% pull()
 
-# selectInput widget
-selectInput(
-  "pesticide_choice", 
-  label = h3("Select pesticide"),
-  choices = compounds, selected = "IMIDACLPROPID")
-
-
-years = merged_county_data %>% distinct(year) %>% pull()
-
-
-selectInput(
-  "year_choice", 
-  label = h3("Choose year"),
-  choices = years, selected = "2012")
-
-renderPrint({ 
-  input[["compound_choice"]]
-})
-
-renderPrint({ 
-  input[["year_choice"]]
-})
 ```
 
 Column {data-width=650}
@@ -73,26 +88,6 @@ Column {data-width=650}
 ### Chart A
 
 ```{r, eval = FALSE}
-renderPlotly({ 
-  merged_county_data %>%
-  filter(
-  compound == input$compound_choice,
-  year == input$year_choice) %>%
-  mutate(text_label = str_c("Compound: ", compound, '\nYear: ', year)) %>% 
-  plot_ly(
-    x = ~colony_count, y = ~epest_high_kg, type = "scatter", mode = "markers",
-    alpha = 0.5, text = ~text_label)
-})
-
-library(maps)
-map('state')
-map('county')
-#cnty.fips <- county.fips$fips[match(map("county", plot=FALSE)$names,
-    county.fips$polyname)]
-
-data("merged_county_data")
-merged_county_data %>%
-#map("state", xlim = range(epest_high_kg$x), ylim = range(epest_high_kg$y))
 
 
   
@@ -104,31 +99,16 @@ Column {.sidebar}
 ###State Data
 
 ```{r, eval = FALSE}
-compounds = merged_state_data %>% distinct(compound) %>% pull()
+usa_base <- ggplot(data = usa, mapping = aes(x = long, y = lat, group = group)) + 
+  coord_fixed(1.3) + 
+  geom_polygon(color = "black", fill = "gray")
 
+map <- usa_base + theme_nothing() + 
+  geom_polygon(data = usa_2, aes(fill= high), color = "white") + geom_polygon(color = "black", fill = NA) +
+      theme_bw()
 
-# selectInput widget
-selectInput(
-  "pesticide_choice", 
-  label = h3("Select pesticide"),
-  choices = compounds, selected = "IMIDACLPROPID")
-
-
-years = merged_county_data %>% distinct(year) %>% pull()
-
-
-selectInput(
-  "year_choice", 
-  label = h3("Choose year"),
-  choices = years, selected = "2012")
-
-renderPrint({ 
-  input[["compound_choice"]]
-})
-
-renderPrint({ 
-  input[["year_choice"]]
-})
+map
+view(usa_2)
 ```
 
 Column {data-width=350}
@@ -137,16 +117,7 @@ Column {data-width=350}
 ### Chart B
 
 ```{r, eval = FALSE}
-renderPlotly({ 
-  merged_county_data %>%
-  filter(
-  compound == input$compound_choice,
-  year == input$year_choice) %>%
-  mutate(text_label = str_c("Compound: ", compound, '\nYear: ', year)) %>% 
-  plot_ly(
-    x = ~colony_count, y = ~epest_high_kg, type = "scatter", mode = "markers",
-    alpha = 0.5, text = ~text_label)
-})
+
 
 library(maps)
 map('state')
