@@ -8,6 +8,7 @@ library(tidyverse)
 library(viridis)
 library(readxl)
 library(corrplot)
+library(plotly)
 
 knitr::opts_chunk$set(
 	echo = TRUE,
@@ -253,6 +254,10 @@ pest_state_1 = read_csv("./data/top_pesticides.csv") %>%
 
 pest_state_1
 
+pest_test = read_csv("./data/top_pesticides.csv") %>% 
+  group_by(state_fips, compound) %>%
+  summarise(tot_pest_high = sum(epest_high_kg)) %>%
+  plot_ly(x = ~compound, y = ~tot_pest_high, color = ~compound, type = "bar")
 
 ```
 

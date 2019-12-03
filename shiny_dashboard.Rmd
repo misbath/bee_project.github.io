@@ -1,5 +1,5 @@
 ---
-title: "Pesticide Use in the US"
+title: "Pesticide Use in the US (2004-2016)"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
@@ -11,11 +11,13 @@ runtime: shiny
 library(flexdashboard)
 library(plotly)
 library(tidyverse)
+#install.packages("Hmisc")
+library(Hmisc)
 ```
 
 ```{r, include = FALSE}
 pesticides = read_csv("./data/top_pesticides.csv") %>% 
-  mutate(compound = tolower(compound)) %>% 
+  mutate(compound = capitalize(tolower(compound))) %>% 
   select(-epest_low_kg)
 ```
 
@@ -28,8 +30,24 @@ years = pesticides %>% distinct(year) %>% pull()
 # selectInput widget
 selectInput(
   "year_choice", 
-  label = h3("Select year"),
+  label = h3("Select Year"),
   choices = years, selected = "2016")
+
+fips = pesticides %>% distinct(state_fips) %>% pull()
+
+# selectInput widget
+selectInput(
+  "fips_choice", 
+  label = h3("Select State FIPS"),
+  choices = fips, selected = "01")
+
+compound = pesticides %>% distinct(compound) %>% pull()
+
+# radioButtons widget
+#radioButtons(
+#"compound_choice", 
+#label = h3("Choose pesticide"),
+#choices = compound, selected = "Chlorothalonil")
 ```
 
 Column {data-width=650}
@@ -37,8 +55,19 @@ Column {data-width=650}
 
 ### Chart A
 
-```{r}
+```{r, echo=FALSE}
 
+renderPlotly({
+  pesticides %>%
+  filter(year == input$year_choice, 
+        state_fips == input$fips_choice) %>%
+  group_by(state_fips, compound) %>%
+  summarise(tot_pest_high = sum(epest_high_kg)) %>%
+  plot_ly(x = ~compound, y = ~tot_pest_high, color = ~compound, type = "bar") %>%
+  layout(xaxis = list(title = 'Pesticide'),
+         yaxis = list(title = 'Total Amount Used (Kg)'))
+  
+})
 ```
 
 Column {data-width=350}
@@ -46,7 +75,11 @@ Column {data-width=350}
 
 ### Chart B
 
-```{r}
+```{r, echo=FALSE}
+
+renderPrint({ 
+  input[["fips_choice"]]
+})
 
 ```
 

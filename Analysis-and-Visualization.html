@@ -283,6 +283,9 @@ $(document).ready(function () {
   <a href="dashboard.html">Bee Variability</a>
 </li>
 <li>
+  <a href="report.html">Report</a>
+</li>
+<li>
   <a href="mailto:&lt;lg2982@columbia.edu&gt;">
     <span class="fa fa-envelope fa-lg"></span>
      
@@ -308,10 +311,12 @@ $(document).ready(function () {
 </div>
 
 
-<p>##need to change the labels and axis for all graphs</p>
+<div id="need-to-change-the-labels-and-axis-for-all-graphs" class="section level2">
+<h2>need to change the labels and axis for all graphs</h2>
 <p>r # honey bee population for country by year clean_bee_data %&gt;% group_by(year) %&gt;% summarise(n = sum(honey_producing_colonies)) %&gt;% ggplot(aes(x = year, y = n)) + geom_point() + theme(axis.text.x = element_text(angle = 90)) + labs( title = “Honey Bee Colony Count in the US”, x = “Year”, y = “Honey Bee Colonies Across the US” )</p>
 <p>r # all bee population for country by year year_county_bee = bee_county %&gt;% mutate(colony_count = as.numeric(colony_count)) %&gt;% drop_na(colony_count) %&gt;% group_by(year) %&gt;% summarise(n = sum(colony_count))</p>
 <p>year_county_bee %&gt;% ggplot(aes(x = year, y = n)) + geom_col() + theme(axis.text.x = element_text(angle = 90)) + labs( title = “Bee Colony Count in the US”, x = “Year”, y = “Bee Colonies Across the US” ) + scale_x_continuous( breaks = c(2002, 2007, 2012) ) + scale_y_continuous( breaks = c(100000, 200000, 225000, 250000, 275000, 300000) )</p>
+</div>
 
 
 

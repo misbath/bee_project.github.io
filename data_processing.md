@@ -597,7 +597,7 @@ pest_country_all = read_csv("./data/top_pesticides.csv") %>%
 pest_country_all 
 ```
 
-<img src="data_processing_files/figure-gfm/trends pesticides-1.png" width="90%" />
+<img src="data_processing_files/figure-markdown_github/trends pesticides-1.png" width="90%" />
 
 ``` r
 #After looking at the graph above, I decided to remove Imidacloprid and Thiacloprid 
@@ -627,7 +627,7 @@ pest_country = read_csv("./data/top_pesticides.csv") %>%
 pest_country 
 ```
 
-<img src="data_processing_files/figure-gfm/trends pesticides-2.png" width="90%" />
+<img src="data_processing_files/figure-markdown_github/trends pesticides-2.png" width="90%" />
 
 ``` r
 pest_state_2004 = read_csv("./data/top_pesticides.csv") %>% 
@@ -655,7 +655,7 @@ pest_state_2004 = read_csv("./data/top_pesticides.csv") %>%
 pest_state_2004
 ```
 
-<img src="data_processing_files/figure-gfm/trends pesticides-3.png" width="90%" />
+<img src="data_processing_files/figure-markdown_github/trends pesticides-3.png" width="90%" />
 
 ``` r
 pest_state_1 = read_csv("./data/top_pesticides.csv") %>% 
@@ -686,7 +686,26 @@ pest_state_1 = read_csv("./data/top_pesticides.csv") %>%
 pest_state_1
 ```
 
-<img src="data_processing_files/figure-gfm/trends pesticides-4.png" width="90%" />
+<img src="data_processing_files/figure-markdown_github/trends pesticides-4.png" width="90%" />
+
+``` r
+pest_test = read_csv("./data/top_pesticides.csv") %>% 
+  group_by(state_fips, compound) %>%
+  summarise(tot_pest_high = sum(epest_high_kg)) %>%
+  plot_ly(x = ~compound, y = ~tot_pest_high, color = ~compound, type = "bar")
+```
+
+    ## Parsed with column specification:
+    ## cols(
+    ##   X1 = col_double(),
+    ##   compound = col_character(),
+    ##   year = col_double(),
+    ##   epest_low_kg = col_double(),
+    ##   epest_high_kg = col_double(),
+    ##   state_fips = col_character(),
+    ##   county_fips = col_character(),
+    ##   state_county_fips = col_character()
+    ## )
 
 Looking at merged state data
 
@@ -728,86 +747,86 @@ merged_state_data %>%
   knitr::kable(digits=2)
 ```
 
-| year.x | compound       | mean\_colony\_count | mean\_pest\_high\_kg |
-| :----- | :------------- | ------------------: | -------------------: |
-| 2004   | CHLOROTHALONIL |               59.49 |             88468.95 |
-| 2005   | CHLOROTHALONIL |               60.09 |             99930.16 |
-| 2006   | CHLOROTHALONIL |               63.25 |            106147.10 |
-| 2007   | CHLOROTHALONIL |               59.62 |            127448.55 |
-| 2008   | CHLOROTHALONIL |               59.12 |            106846.62 |
-| 2009   | CHLOROTHALONIL |               60.45 |            104185.02 |
-| 2010   | CHLOROTHALONIL |               57.90 |            122511.48 |
-| 2011   | CHLOROTHALONIL |               63.13 |            116520.49 |
-| 2012   | CHLOROTHALONIL |               68.10 |            126408.97 |
-| 2013   | CHLOROTHALONIL |               63.00 |            115444.08 |
-| 2014   | CHLOROTHALONIL |               64.08 |            119310.95 |
-| 2015   | CHLOROTHALONIL |               68.26 |            141246.00 |
-| 2016   | CHLOROTHALONIL |               69.08 |            130352.00 |
-| 2004   | CHLORPYRIFOS   |               59.49 |            104549.44 |
-| 2005   | CHLORPYRIFOS   |               60.09 |            103115.07 |
-| 2006   | CHLORPYRIFOS   |               63.25 |            105032.98 |
-| 2007   | CHLORPYRIFOS   |               59.62 |            101325.95 |
-| 2008   | CHLORPYRIFOS   |               59.12 |            146560.23 |
-| 2009   | CHLORPYRIFOS   |               60.45 |            102064.55 |
-| 2010   | CHLORPYRIFOS   |               57.90 |             87879.27 |
-| 2011   | CHLORPYRIFOS   |               63.13 |             83918.82 |
-| 2012   | CHLORPYRIFOS   |               68.10 |            109464.28 |
-| 2013   | CHLORPYRIFOS   |               63.00 |            112382.59 |
-| 2014   | CHLORPYRIFOS   |               64.08 |            116213.77 |
-| 2015   | CHLORPYRIFOS   |               68.26 |            106157.76 |
-| 2016   | CHLORPYRIFOS   |               69.08 |             87361.72 |
-| 2004   | CLOTHIANIDIN   |               46.42 |              4884.40 |
-| 2005   | CLOTHIANIDIN   |               51.52 |              7813.73 |
-| 2006   | CLOTHIANIDIN   |               56.13 |              7080.89 |
-| 2007   | CLOTHIANIDIN   |               60.95 |             10152.82 |
-| 2008   | CLOTHIANIDIN   |               59.87 |             12918.87 |
-| 2009   | CLOTHIANIDIN   |               60.45 |             14183.10 |
-| 2010   | CLOTHIANIDIN   |               58.67 |             11911.69 |
-| 2011   | CLOTHIANIDIN   |               63.13 |             21198.54 |
-| 2012   | CLOTHIANIDIN   |               68.10 |             32759.74 |
-| 2013   | CLOTHIANIDIN   |               63.00 |             39837.10 |
-| 2014   | CLOTHIANIDIN   |               64.08 |             44439.77 |
-| 2015   | CLOTHIANIDIN   |               64.10 |              5273.45 |
-| 2016   | CLOTHIANIDIN   |               67.82 |              2581.46 |
-| 2004   | FIPRONIL       |               51.00 |              5045.10 |
-| 2005   | FIPRONIL       |               61.71 |              6735.04 |
-| 2006   | FIPRONIL       |               68.71 |              2979.76 |
-| 2007   | FIPRONIL       |               66.84 |              4034.74 |
-| 2008   | FIPRONIL       |               65.20 |              2013.84 |
-| 2009   | FIPRONIL       |               65.21 |              3165.43 |
-| 2010   | FIPRONIL       |               70.33 |              2247.27 |
-| 2011   | FIPRONIL       |               94.67 |              1819.29 |
-| 2012   | FIPRONIL       |               75.79 |               523.21 |
-| 2013   | FIPRONIL       |               53.93 |               326.33 |
-| 2014   | FIPRONIL       |               83.79 |               495.57 |
-| 2015   | FIPRONIL       |               84.69 |               279.69 |
-| 2016   | FIPRONIL       |               87.31 |               247.31 |
-| 2004   | IMIDACLOPRID   |               59.49 |              6295.58 |
-| 2005   | IMIDACLOPRID   |               61.43 |              5119.00 |
-| 2006   | IMIDACLOPRID   |               63.25 |              5452.25 |
-| 2007   | IMIDACLOPRID   |               59.62 |              8308.92 |
-| 2008   | IMIDACLOPRID   |               59.03 |              7942.79 |
-| 2009   | IMIDACLOPRID   |               61.82 |              9847.33 |
-| 2010   | IMIDACLOPRID   |               57.90 |             18865.38 |
-| 2011   | IMIDACLOPRID   |               63.13 |             20565.23 |
-| 2012   | IMIDACLOPRID   |               68.10 |             21167.00 |
-| 2013   | IMIDACLOPRID   |               63.00 |             23691.23 |
-| 2014   | IMIDACLOPRID   |               64.08 |             25955.82 |
-| 2015   | IMIDACLOPRID   |               68.26 |             11658.32 |
-| 2016   | IMIDACLOPRID   |               69.08 |             11433.49 |
-| 2004   | THIACLOPRID    |               29.47 |               296.12 |
-| 2005   | THIACLOPRID    |               28.47 |               422.65 |
-| 2006   | THIACLOPRID    |               47.89 |               471.26 |
-| 2007   | THIACLOPRID    |               51.75 |               385.06 |
-| 2008   | THIACLOPRID    |               60.36 |               382.57 |
-| 2009   | THIACLOPRID    |               30.73 |               590.93 |
-| 2010   | THIACLOPRID    |               30.93 |               597.80 |
-| 2011   | THIACLOPRID    |               32.13 |               529.07 |
-| 2012   | THIACLOPRID    |               57.12 |               324.81 |
-| 2013   | THIACLOPRID    |               30.86 |               776.57 |
-| 2014   | THIACLOPRID    |               30.50 |               661.21 |
-| 2015   | THIACLOPRID    |               32.77 |               335.38 |
-| 2016   | THIACLOPRID    |               45.60 |               699.00 |
+| year.x | compound       |  mean\_colony\_count|  mean\_pest\_high\_kg|
+|:-------|:---------------|--------------------:|---------------------:|
+| 2004   | CHLOROTHALONIL |                59.49|              88468.95|
+| 2005   | CHLOROTHALONIL |                60.09|              99930.16|
+| 2006   | CHLOROTHALONIL |                63.25|             106147.10|
+| 2007   | CHLOROTHALONIL |                59.62|             127448.55|
+| 2008   | CHLOROTHALONIL |                59.12|             106846.62|
+| 2009   | CHLOROTHALONIL |                60.45|             104185.02|
+| 2010   | CHLOROTHALONIL |                57.90|             122511.48|
+| 2011   | CHLOROTHALONIL |                63.13|             116520.49|
+| 2012   | CHLOROTHALONIL |                68.10|             126408.97|
+| 2013   | CHLOROTHALONIL |                63.00|             115444.08|
+| 2014   | CHLOROTHALONIL |                64.08|             119310.95|
+| 2015   | CHLOROTHALONIL |                68.26|             141246.00|
+| 2016   | CHLOROTHALONIL |                69.08|             130352.00|
+| 2004   | CHLORPYRIFOS   |                59.49|             104549.44|
+| 2005   | CHLORPYRIFOS   |                60.09|             103115.07|
+| 2006   | CHLORPYRIFOS   |                63.25|             105032.98|
+| 2007   | CHLORPYRIFOS   |                59.62|             101325.95|
+| 2008   | CHLORPYRIFOS   |                59.12|             146560.23|
+| 2009   | CHLORPYRIFOS   |                60.45|             102064.55|
+| 2010   | CHLORPYRIFOS   |                57.90|              87879.27|
+| 2011   | CHLORPYRIFOS   |                63.13|              83918.82|
+| 2012   | CHLORPYRIFOS   |                68.10|             109464.28|
+| 2013   | CHLORPYRIFOS   |                63.00|             112382.59|
+| 2014   | CHLORPYRIFOS   |                64.08|             116213.77|
+| 2015   | CHLORPYRIFOS   |                68.26|             106157.76|
+| 2016   | CHLORPYRIFOS   |                69.08|              87361.72|
+| 2004   | CLOTHIANIDIN   |                46.42|               4884.40|
+| 2005   | CLOTHIANIDIN   |                51.52|               7813.73|
+| 2006   | CLOTHIANIDIN   |                56.13|               7080.89|
+| 2007   | CLOTHIANIDIN   |                60.95|              10152.82|
+| 2008   | CLOTHIANIDIN   |                59.87|              12918.87|
+| 2009   | CLOTHIANIDIN   |                60.45|              14183.10|
+| 2010   | CLOTHIANIDIN   |                58.67|              11911.69|
+| 2011   | CLOTHIANIDIN   |                63.13|              21198.54|
+| 2012   | CLOTHIANIDIN   |                68.10|              32759.74|
+| 2013   | CLOTHIANIDIN   |                63.00|              39837.10|
+| 2014   | CLOTHIANIDIN   |                64.08|              44439.77|
+| 2015   | CLOTHIANIDIN   |                64.10|               5273.45|
+| 2016   | CLOTHIANIDIN   |                67.82|               2581.46|
+| 2004   | FIPRONIL       |                51.00|               5045.10|
+| 2005   | FIPRONIL       |                61.71|               6735.04|
+| 2006   | FIPRONIL       |                68.71|               2979.76|
+| 2007   | FIPRONIL       |                66.84|               4034.74|
+| 2008   | FIPRONIL       |                65.20|               2013.84|
+| 2009   | FIPRONIL       |                65.21|               3165.43|
+| 2010   | FIPRONIL       |                70.33|               2247.27|
+| 2011   | FIPRONIL       |                94.67|               1819.29|
+| 2012   | FIPRONIL       |                75.79|                523.21|
+| 2013   | FIPRONIL       |                53.93|                326.33|
+| 2014   | FIPRONIL       |                83.79|                495.57|
+| 2015   | FIPRONIL       |                84.69|                279.69|
+| 2016   | FIPRONIL       |                87.31|                247.31|
+| 2004   | IMIDACLOPRID   |                59.49|               6295.58|
+| 2005   | IMIDACLOPRID   |                61.43|               5119.00|
+| 2006   | IMIDACLOPRID   |                63.25|               5452.25|
+| 2007   | IMIDACLOPRID   |                59.62|               8308.92|
+| 2008   | IMIDACLOPRID   |                59.03|               7942.79|
+| 2009   | IMIDACLOPRID   |                61.82|               9847.33|
+| 2010   | IMIDACLOPRID   |                57.90|              18865.38|
+| 2011   | IMIDACLOPRID   |                63.13|              20565.23|
+| 2012   | IMIDACLOPRID   |                68.10|              21167.00|
+| 2013   | IMIDACLOPRID   |                63.00|              23691.23|
+| 2014   | IMIDACLOPRID   |                64.08|              25955.82|
+| 2015   | IMIDACLOPRID   |                68.26|              11658.32|
+| 2016   | IMIDACLOPRID   |                69.08|              11433.49|
+| 2004   | THIACLOPRID    |                29.47|                296.12|
+| 2005   | THIACLOPRID    |                28.47|                422.65|
+| 2006   | THIACLOPRID    |                47.89|                471.26|
+| 2007   | THIACLOPRID    |                51.75|                385.06|
+| 2008   | THIACLOPRID    |                60.36|                382.57|
+| 2009   | THIACLOPRID    |                30.73|                590.93|
+| 2010   | THIACLOPRID    |                30.93|                597.80|
+| 2011   | THIACLOPRID    |                32.13|                529.07|
+| 2012   | THIACLOPRID    |                57.12|                324.81|
+| 2013   | THIACLOPRID    |                30.86|                776.57|
+| 2014   | THIACLOPRID    |                30.50|                661.21|
+| 2015   | THIACLOPRID    |                32.77|                335.38|
+| 2016   | THIACLOPRID    |                45.60|                699.00|
 
 ``` r
 merged_state_data %>%
@@ -819,11 +838,9 @@ merged_state_data %>%
 
     ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 
-<img src="data_processing_files/figure-gfm/unnamed-chunk-1-1.png" width="90%" />
+<img src="data_processing_files/figure-markdown_github/unnamed-chunk-1-1.png" width="90%" />
 
-Looking at merged county data \#there appear to be problems with the
-colony count data, it is
-    missing
+Looking at merged county data \#there appear to be problems with the colony count data, it is missing
 
 ``` r
 summary(merged_county_data)
@@ -864,17 +881,17 @@ merged_county_data %>%
   knitr::kable(digits=2)
 ```
 
-| year.x | compound       | mean\_colony\_count | mean\_pest\_high\_kg |
-| -----: | :------------- | ------------------: | -------------------: |
-|   2007 | CHLOROTHALONIL |                  NA |              1929.81 |
-|   2012 | CHLOROTHALONIL |                  NA |              1694.32 |
-|   2007 | CHLORPYRIFOS   |                  NA |              1237.60 |
-|   2012 | CHLORPYRIFOS   |                  NA |              1391.69 |
-|   2007 | CLOTHIANIDIN   |                  NA |               162.45 |
-|   2012 | CLOTHIANIDIN   |                  NA |               497.33 |
-|   2007 | FIPRONIL       |                  NA |                56.50 |
-|   2012 | FIPRONIL       |                  NA |                28.07 |
-|   2007 | IMIDACLOPRID   |                  NA |                79.59 |
-|   2012 | IMIDACLOPRID   |                  NA |               262.99 |
-|   2007 | THIACLOPRID    |                  NA |                12.33 |
-|   2012 | THIACLOPRID    |                  NA |                11.66 |
+|  year.x| compound       |  mean\_colony\_count|  mean\_pest\_high\_kg|
+|-------:|:---------------|--------------------:|---------------------:|
+|    2007| CHLOROTHALONIL |                   NA|               1929.81|
+|    2012| CHLOROTHALONIL |                   NA|               1694.32|
+|    2007| CHLORPYRIFOS   |                   NA|               1237.60|
+|    2012| CHLORPYRIFOS   |                   NA|               1391.69|
+|    2007| CLOTHIANIDIN   |                   NA|                162.45|
+|    2012| CLOTHIANIDIN   |                   NA|                497.33|
+|    2007| FIPRONIL       |                   NA|                 56.50|
+|    2012| FIPRONIL       |                   NA|                 28.07|
+|    2007| IMIDACLOPRID   |                   NA|                 79.59|
+|    2012| IMIDACLOPRID   |                   NA|                262.99|
+|    2007| THIACLOPRID    |                   NA|                 12.33|
+|    2012| THIACLOPRID    |                   NA|                 11.66|
