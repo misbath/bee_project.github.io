@@ -63,7 +63,7 @@ bee_county = bee_county%>%
     cv_percent = replace(cv_percent, cv_percent == "(D)", "NA")) %>% 
   rename (colony_count = value)
 
-
+write.csv(bee_county, file = "bee_county.csv")
 ```
 
 ```{r, state bee colonies}

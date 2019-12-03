@@ -26,7 +26,7 @@ theme_set(theme_bw() + theme(legend.position = "bottom"))
 
 
 ```{r}
-clean_bee_data = read_csv("./data/clean_bee_data.csv/")
+clean_bee_data = read_csv("./data/clean_bee_data.csv")
 
 # honey bee population for country by year
 clean_bee_data %>%
@@ -46,6 +46,8 @@ clean_bee_data %>%
 ```
 
 ```{r}
+bee_county = read_csv("./data/bee_county.csv")
+
 bee_county %>%
    mutate(colony_count = as.numeric(colony_count)) %>%
    drop_na(colony_count) %>%
@@ -64,6 +66,8 @@ bee_county %>%
 ```
 
 ```{r}
+top_pesticides = read_csv("./data/top_pesticides.csv")
+
 top_pesticides %>%
   group_by(compound, year) %>%
    na.omit(epest_high_kg) %>%
@@ -77,18 +81,6 @@ top_pesticides %>%
      x = "Year",
      y = "Weight of Pesticide used in the US (kg)"
    )
-
-clean_bee_data %>%
-  group_by(year) %>%
-  summarise(n = sum(honey_producing_colonies)) %>%
-  ggplot(aes(x = year, y = n)) + 
-  geom_point() + 
-  theme(axis.text.x = element_text(angle = 90)) +
-  labs(
-    title = "Honey Bee Colony Count in the US",
-    x = "Year",
-    y = "Honey Bee Colonies Across the US"
-  )
 
 ```
 
@@ -128,22 +120,21 @@ clean_bee_data %>%
 
 
 ```{r}
-library(maps)
+#library(maps)
 
-map(database = "United States")
-
-```
-
-```{r}
-library(choroplethr)
-library(choroplethrAdmin1)
-
-get_admin1_regions("united states of america")
+#map(database = "United States")
 
 ```
 
 ```{r}
-<<<<<<< HEAD
+#library(choroplethr)
+#library(choroplethrAdmin1)
+
+#get_admin1_regions("united states of america")
+
+```
+
+
 # state and pesticide
 merged_state_data %>%
   mutate(year = as.numeric(year.x)) %>%
@@ -158,7 +149,7 @@ merged_state_data %>%
     title = "Honey Bee Colony Count in the US",
     x = "Year",
     y = "Honey Bee Colonies Across the US")
-```
+
 
 =======
 us_counties = map_data("county") %>%
@@ -174,4 +165,16 @@ p2 = p + geom_polygon(color = "gray90", size = 0.1) +
 
 p2
 ```
+
+clean_bee_data %>%
+  group_by(year) %>%
+  summarise(n = sum(honey_producing_colonies)) %>%
+  ggplot(aes(x = year, y = n)) + 
+  geom_point() + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  labs(
+    title = "Honey Bee Colony Count in the US",
+    x = "Year",
+    y = "Honey Bee Colonies Across the US"
+  )
 

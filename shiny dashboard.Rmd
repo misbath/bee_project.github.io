@@ -117,8 +117,8 @@ shiny_bee_data %>%
 })
 
 # rsconnect::deployApp("./zanis_shiny.Rmd")
-
 ```
+
 # display value using color intensity
 shiny_bee_data %>% 
 	plot_geo(locationmode = "USA-states") %>% 
