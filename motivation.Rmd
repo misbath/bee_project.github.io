@@ -1,11 +1,6 @@
 ---
 title: "**Motivation**" 
-output: 
-  html_document:
-    includes:
-      after_body: footer.html
 ---
-# **Motivation**
 
 Bee colony decline has made headlines in recent news reports. The decrease in bee survival has been linked to a decrease in crop diversity, loss of habitat, poor beekeeping practices, and widespread and intensive use of pesticides such as neonicotinoids. As a group we are interested in trends between pesticide use and bee populations. If the bee population continues to decline, biodiversity of plants across the country will continue to decline, with potentially catastrophic implications to our food supply.
 
