@@ -11,11 +11,9 @@ navbar:
       href: screen.html
     - text: "Report"
       menu:
-        - text: "About"
-          href: about.html
         - text: "Motivation"
           href: motivation.html
-        - text: "Report"
+        - text: "Project Details"
           href: initial.html
         - text: "Exploratory Analysis"
           href: exploring.html

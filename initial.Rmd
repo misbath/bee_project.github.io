@@ -1,9 +1,5 @@
 ---
-title: "**Report**" 
-output: 
-  html_document:
-    toc: true
-    toc_float: true
+title: "**Project Details**" 
 ---
 <center>
 ![FigName](images/Bumble_Bee_pic.jpg)
@@ -85,8 +81,3 @@ Maps of state level bee populations and pesticide production were generated thro
 <br>
 Maps of county level pesticide use and bee colony counts were created using the merged files of pesticide use data and county colony count (for all bee populations) data. The base county map was built using the 'county' map provided by the `maps` package, for the conterminious United States. The `ggplot2` package was used to map county level pesticide use data and county level bee colony county data on top of the base county map.
 
-# **Results**
-<br>
-
-# **Discussion**
-<br>

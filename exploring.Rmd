@@ -3,9 +3,11 @@ title: "**Exploratory Analysis**"
 ---
 <br>
 
-To gauge the changes in the top six pesticides used in the entire country we looked at the  pesticide use per year across over time:
+To gauge the changes in the top six pesticides used in the entire country we looked at the  pesticide use per year over time:
 
+# Temporal Analysis
 
+<center>
 ![Pesticide Use in the US by Year](add_analysis_files/figure-html/unnamed-chunk-1-1.gif)
 
 <br>
@@ -14,8 +16,7 @@ To gauge the changes in the top six pesticides used in the entire country we loo
 The graph above shows the continued weight of pesticide used in the United States from 2004-2016. As seen, two of the six compunds are much greatly used, Clhlorpyfiros and Chlorothalonil. These two compunds are known to be insecticides that can potentially lead to nervous fucntion loss in bees, as well as the loss of bee population loss.
 
 <br>
-Further, we wanted to look at the correlation of state-level pesticide use accross all years.   
-*Pearson correlation is shown below*
+
 
 ```{r, echo=FALSE, message=FALSE}
 library(tidyverse)
@@ -69,60 +70,10 @@ corrplot(matrix_state_2, order = "hclust", type = "full")
 
 ```
 
-<br>
-**Correlation Coefficients for mean persticide use across states**
-
-```{r,echo=FALSE, message=FALSE}
-
-matrix_state_2 = cor(corr_state, use = "complete.obs", method = c("pearson"))
-
-knitr::kable(matrix_state_2)
-```
 
 <br>
 
-**Honey producing Colonies across the US**
-<br>
 
-<left>
-
-In addition to exploring pesticide use over time, it was important to have a general sense of changes in the bee populations over these same years. 
-
-Below, the map of the United States demonstrates the states with the highest population of bee producing colonies. 
-
-```{r, echo=FALSE, message=FALSE}
-
-library(choroplethrMaps)
-data(state.map)
-
-state.map = 
-  state.map %>%
-  filter(region != "alaska", region != "hawaii")
-
-merged_state_data = read_csv("./data/merged_state_data.csv")
-
-merged_state_data_map =
-  merged_state_data %>%
-  mutate(state = str_to_lower(state)) %>%
-  rename(region = state)
-
-state_map_data = left_join(state.map, merged_state_data_map, by = "region")
-
-honey_bee_colony_map = 
-  ggplot(state_map_data, aes(long, lat, group = group, fill = honey_producing_colonies)) + 
-  geom_polygon(color = "black") + 
-  theme_void() + 
-  labs(title = "Honey Producing Colonies") + 
-  coord_map(projection = "bonne", lat0 = 50) + 
-  theme(plot.title = element_text(hjust = 0.5)) 
-  
-
-honey_bee_colony_map
-```
-
-After identifying the states with the highest number of honey bee colonies, we identified changes in bee population over time, for honey bees specifically and all bees.
-
-<br>
 ```{r,echo=FALSE, message=FALSE}
 clean_bee_data = read_csv("./data/clean_bee_data.csv")
 
@@ -165,6 +116,66 @@ bee_county %>%
 (honey_bee + all_bee)
 ```
 
-Both honey bee and all bee populations decreased or plateaued in the year 2007. 
+In the graphs above we identified changes in bee population over time, for honey bees specifically and all bees. Both honey bee and all bee populations decreased or plateaued in the year 2007. 
 
-One of the goals of this project, after these exploratory analyses was to determine if the stagnant bee population could be realted to the spike in pesticide use that is seen in 2007, specifically for the compounds Clhlorpyfiros and Chlorothalonil. 
+<br>
+
+# Spatial Analysis
+
+**Honey producing Colonies across the US**
+<br>
+
+<left>
+
+In addition to exploring pesticide use over time, it was important to have a general sense of changes in the bee populations over these same years. 
+
+Below, the map of the United States demonstrates the states with the highest population of bee producing colonies. 
+
+```{r, echo=FALSE, message=FALSE}
+
+library(choroplethrMaps)
+data(state.map)
+
+state.map = 
+  state.map %>%
+  filter(region != "alaska", region != "hawaii")
+
+merged_state_data = read_csv("./data/merged_state_data.csv")
+
+merged_state_data_map =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state)
+
+state_map_data = left_join(state.map, merged_state_data_map, by = "region")
+
+honey_bee_colony_map = 
+  ggplot(state_map_data, aes(long, lat, group = group, fill = honey_producing_colonies)) + 
+  geom_polygon(color = "black") + 
+  theme_void() + 
+  labs(title = "Honey Producing Colonies") + 
+  coord_map(projection = "bonne", lat0 = 50) + 
+  theme(plot.title = element_text(hjust = 0.5)) 
+  
+
+honey_bee_colony_map
+```
+
+
+<br>
+
+Further, we wanted to look at the correlation of state-level pesticide use accross all years.
+
+**Pearson Correlation Coefficients for mean persticide use across states**
+
+
+```{r,echo=FALSE, message=FALSE}
+
+matrix_state_2 = cor(corr_state, use = "complete.obs", method = c("pearson"))
+
+knitr::kable(matrix_state_2)
+```
+
+<br>
+
+One of the goals of this project, after these exploratory analyses was to determine if the stagnant bee population could be realted to the spike in pesticide use that is seen in 2007, specifically for the compounds Chlorpyfiros and Chlorothalonil. 
