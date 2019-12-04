@@ -23,20 +23,12 @@ pesticides = read_csv("./data/top_pesticides.csv") %>%
   mutate(state = recode(state_fips, "01" = "AL", "04" = "AZ", "05" = "AR", "06" = "CA", "08" = "CO", "09" = "CT", "10" = "DE", "12" = "FL", "13" = "GA", "16" = "ID", "17" = "IL", "18" = "IN", "19" = "IA", "20" = "KS", "21" = "KY", "22" = "LA", "23" = "ME", "24" = "MD", "25" = "MA", "26" = "MI", "27" = "MN", "28" = "MS", "29" = "MO", "30" = "MT", "31" = "NE", "32" = "NV", "33" = "NH", "34" = "NJ", "35" = "NM", "36" = "NY", "37" = "NC", "38" = "ND", "39" = "OH", "40" = "OK", "41" = "OR", "42" = "PA", "44" = "RI", "45" = "SC", "46" = "SD", "47" = "TN", "48" = "TX", "49" = "UT", "50" = "VT", "51" = "VA", "53" = "WA", "54" = "WV", "55" = "WI", "56" = "WY")) %>%
   select(-epest_low_kg)
 
-#Adding in merged data
-merged_county_data = read_csv("./data/merged_county_data.csv") %>%
-  janitor::clean_names() %>%
-  rename(year = year_x) %>%
-  mutate(
-    county = str_to_lower(county)
-  )
-
-merged_state_data = read_csv("./data/merged_state_data.csv") %>%
-  janitor::clean_names() %>%
-  rename(year = year_x)
+#Adding in honey bee data
+clean_bee_data = read_csv("./data/clean_bee_data.csv") 
+  
 ```
 
-Pesticide Use (Histogram) 
+Pesticide Use 
 =====================================
 
 Column {.sidebar}
@@ -60,7 +52,6 @@ selectInput(
   choices = states, selected = "AL")
 
 
-
 ```
 
 Column {.tabset}
@@ -78,73 +69,53 @@ renderPlotly({
   summarise(tot_pest_high = sum(epest_high_kg)) %>%
   plot_ly(x = ~compound, y = ~tot_pest_high, color = ~compound, type = "bar") %>%
   layout(xaxis = list(title = 'Pesticide'),
-         yaxis = list(title = 'Total Amount Used (Kg)'))
+         yaxis = list(title = 'Estimated Use (Kg)'))
   
 })
 ```
 
 
 
-Pesticide Use (Map)
+Honey Bees 
 =====================================
 
 Column {.sidebar}
 -----------------------------------------------------------------------
 ```{r, echo=FALSE}
 
-years_map = merged_state_data %>% distinct(year) %>% pull()
+state_honey_bee = clean_bee_data %>% distinct(state) %>% pull()
 
 # selectInput widget for year
 selectInput(
-  "year_choice_map", 
-  label = h3("Select Year"),
-  choices = years_map, selected = "2004")
+  "state_choice_honey_bee", 
+  label = h3("Select State"),
+  choices = state_honey_bee, selected = "Alabama")
 
-
-compound = merged_state_data %>% distinct(compound) %>% pull()
-
-# radioButtons widget
-radioButtons(
-"compound_choice", 
-label = h3("Choose Pesticide"),
-choices = compound, selected = "CHLOROTHALONIL")
 ```
 
 Column {.tabset}
 -----------------------------------------------------------------------
 
-### Map
+### Trend
 
 ```{r, echo=FALSE}
-
 renderPlotly({
   
-#Loading map
-data(state.map)
-
-state.map = 
-  state.map %>%
-  filter(region != "alaska", region != "hawaii")
-
-#Joining pesticide data to state map
-state_pesticide =
-  merged_state_data %>%
-  mutate(state = str_to_lower(state)) %>%
-  rename(region = state) 
-
-state_map_pesticide = left_join(state.map, state_pesticide, by = "region")
-
-#Creating interactive map 
-state_map_pesticide %>% 
-  filter(compound == input$compound_choice,
-         year == input$year_choice_map) %>%
-  ggplot(aes(long, lat, group = group, fill = high)) + 
-    geom_polygon(color = "black") + 
-    theme_void() + 
-    labs(title = "", 
-         fill = "Estimated Pesticide Use (Kg)") +  
-    coord_map(projection = "bonne", lat0 = 50) + 
-    theme(plot.title = element_text(hjust = 0.5))
+clean_bee_data %>%
+   filter(state == input$state_choice_honey_bee) %>%
+   mutate(year = as.numeric(year)) %>%
+   group_by(year) %>%
+   summarise(n = sum(honey_producing_colonies)) %>%
+   ggplot(aes(x = year, y = n)) + 
+   geom_point() + 
+   geom_smooth(se = FALSE) +
+   theme(axis.text.x = element_text(angle = 90)) +
+   labs(
+     title = "",
+     x = "Year",
+     y = "Honey Bee Colony Count") +
+   scale_x_continuous(
+      breaks = c(2002, 2007, 2012, 2017))
 
 })
 ```
