@@ -21,10 +21,10 @@ pesticides = read_csv("./data/top_pesticides.csv") %>%
   select(-epest_low_kg)
 
 #Adding in bee data
-
+merged_county_data = read_csv("./data/merged_county_data.csv")
 ```
 
-State Level Pesticide Use 
+County Level Pesticide Use 
 =====================================
 
 Column {.sidebar}
@@ -39,13 +39,13 @@ selectInput(
   label = h3("Select Year"),
   choices = years, selected = "2004")
 
-states = pesticides %>% distinct(state) %>% pull()
+county = pesticides %>% distinct(county) %>% pull()
 
 # selectInput widget
 selectInput(
-  "state_choice", 
-  label = h3("Select State"),
-  choices = states, selected = "AL")
+  "county_choice", 
+  label = h3("Select County"),
+  choices = county, selected = "003")
 
 #compound = pesticides %>% distinct(compound) %>% pull()
 
@@ -66,24 +66,24 @@ Column {.tabset}
 renderPlotly({
   pesticides %>%
   filter(year == input$year_choice, 
-        state == input$state_choice) %>%
-  group_by(state_fips, compound) %>%
+        state == input$county_choice) %>%
+  group_by(state_county_fips, compound) %>%
   summarise(tot_pest_high = sum(epest_high_kg)) %>%
   plot_ly(x = ~compound, y = ~tot_pest_high, color = ~compound, type = "bar") %>%
   layout(xaxis = list(title = 'Pesticide'),
          yaxis = list(title = 'Total Amount Used (Kg)'))
-  
 })
 ```
 
 ### Description 
 
-State Level Bee Count 
+County Level Bee Count 
 =====================================
 
 Column {.sidebar}
 -----------------------------------------------------------------------
 ```{r, echo=FALSE}
+years = merged_county_data %>% distinct(year) %>% pull()
 
 # selectInput widget
 selectInput(
@@ -91,13 +91,13 @@ selectInput(
   label = h3("Select Year"),
   choices = years, selected = "2004")
 
-states = pesticides %>% distinct(state) %>% pull()
+county = merged_county_data %>% distinct(county_fips) %>% pull()
 
 # selectInput widget
 selectInput(
-  "state_choice", 
-  label = h3("Select State"),
-  choices = states, selected = "AL")
+  "county_choice", 
+  label = h3("Select County"),
+  choices = county, selected = "001")
 
 ```
 
@@ -108,8 +108,20 @@ Column {.tabset}
 
 ```{r, echo=FALSE}
 
-
+renderPlotly({
+  merged_county_data %>%
+  filter(year == input$year_choice, 
+        county == input$county_choice) %>%
+  group_by(state_county_fips, compound) %>%
+  summarise(tot_pest_high = sum(epest_high_kg)) %>%
+  plot_ly(x = ~compound, y = ~tot_pest_high, color = ~compound, type = "bar") %>%
+  layout(xaxis = list(title = 'Year'),
+         yaxis = list(title = 'Bee Colony)'))
+})
 ```
+
+
+
 
 ### Description
 

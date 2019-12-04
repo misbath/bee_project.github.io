@@ -71,7 +71,6 @@ map_county <- counties_base + theme_nothing() +
   geom_polygon(data = county_2, aes(fill= epest_high_kg), color = "white") + geom_polygon(color = "black", fill = NA) +
       theme_void() + labs(title= "All Pesticides, All Years, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))
 
-map_county
 ```
 toggle: year, pesticide
 
