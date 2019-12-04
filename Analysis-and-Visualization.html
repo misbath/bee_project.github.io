@@ -299,7 +299,7 @@ $(document).ready(function () {
       <a href="motivation.html">Motivation</a>
     </li>
     <li>
-      <a href="initial.html">Initial Question/Data</a>
+      <a href="initial.html">Report</a>
     </li>
     <li>
       <a href="exploring.html">Exploratory Analysis</a>
@@ -470,7 +470,7 @@ clean_bee_data %&gt;%
 #get_admin1_regions(&quot;united states of america&quot;)</code></pre>
 <div id="state-and-pesticide-in-one-graph" class="section level1">
 <h1>state and pesticide in one graph</h1>
-<p>merged_state_data %&gt;% mutate(year = as.numeric(year.x)) %&gt;% group_by(year, compound) %&gt;% summarise(colonies = sum(honey_producing_colonies), pesticides = sum(high)) %&gt;% ggplot(aes(x = year, y = pesticides, color = compound) + geom_point() + geom_smooth(se = FALSE) + theme(axis.text.x = element_text(angle = 90)) + labs( title = “Honey Bee Colony Count in the US”, x = “Year”, y = “Honey Bee Colonies Across the US”)</p>
+<p>merged_state_data %&gt;% mutate(year = as.numeric(year.x)) %&gt;% group_by(year, compound) %&gt;% summarise(colonies = sum(honey_producing_colonies), pesticides = sum(high)) %&gt;% ggplot(aes(x = year, y = pesticides, color = compound)) + geom_point() + geom_smooth(se = FALSE) + theme(axis.text.x = element_text(angle = 90)) + labs( title = “Honey Bee Colony Count in the US”, x = “Year”, y = “Honey Bee Colonies Across the US”)</p>
 <pre class="r"><code>library(choroplethrMaps)
 data(state.map)
 
