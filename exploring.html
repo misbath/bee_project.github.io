@@ -340,46 +340,17 @@ $(document).ready(function () {
 
 <p><br></p>
 <p>To gauge the changes in the top six pesticides used in the entire country we looked at the pesticide use per year across over time:</p>
-<center>
 <div class="figure">
 <img src="add_analysis_files/figure-html/unnamed-chunk-1-1.gif" alt="Pesticide Use in the US by Year" />
 <p class="caption">Pesticide Use in the US by Year</p>
 </div>
 <p><br></p>
-<p>The graph above shows the continued weight of pesticide used in the United States from 2004-2016. As seen, two of the six compunds are much greatly used, Clhlorpyfiros and Chlorothalonil. These two compunds are known to be insecticides that can potentially lead to nervous fucntion loss in bees, as well as the loss of bee population loss.</p>
+<p><left> The graph above shows the continued weight of pesticide used in the United States from 2004-2016. As seen, two of the six compunds are much greatly used, Clhlorpyfiros and Chlorothalonil. These two compunds are known to be insecticides that can potentially lead to nervous fucntion loss in bees, as well as the loss of bee population loss.</p>
 <p><br> Further, we wanted to look at the correlation of state-level pesticide use accross all years.<br />
 <em>Pearson correlation is shown below</em></p>
 <p><br></p>
-<pre><code>##                CHLOROTHALONIL CHLORPYRIFOS CLOTHIANIDIN FIPRONIL
-## CHLOROTHALONIL      1.0000000    0.4802217    0.0571605       NA
-## CHLORPYRIFOS        0.4802217    1.0000000    0.5316680       NA
-## CLOTHIANIDIN        0.0571605    0.5316680    1.0000000       NA
-## FIPRONIL                   NA           NA           NA        1
-## IMIDACLOPRID        0.4953138    0.8741880    0.3934778       NA
-## THIACLOPRID                NA           NA           NA       NA
-##                IMIDACLOPRID THIACLOPRID
-## CHLOROTHALONIL    0.4953138          NA
-## CHLORPYRIFOS      0.8741880          NA
-## CLOTHIANIDIN      0.3934778          NA
-## FIPRONIL                 NA          NA
-## IMIDACLOPRID      1.0000000          NA
-## THIACLOPRID              NA           1</code></pre>
-<pre><code>##                CHLOROTHALONIL CHLORPYRIFOS CLOTHIANIDIN     FIPRONIL
-## CHLOROTHALONIL      1.0000000   0.70246745    0.3117681 -0.122623772
-## CHLORPYRIFOS        0.7024675   1.00000000    0.5756553  0.001349550
-## CLOTHIANIDIN        0.3117681   0.57565529    1.0000000  0.506889870
-## FIPRONIL           -0.1226238   0.00134955    0.5068899  1.000000000
-## IMIDACLOPRID        0.6541162   0.97497272    0.5498456 -0.003886203
-## THIACLOPRID         0.1766534   0.12367034   -0.1679516 -0.056247127
-##                IMIDACLOPRID  THIACLOPRID
-## CHLOROTHALONIL  0.654116214  0.176653447
-## CHLORPYRIFOS    0.974972715  0.123670345
-## CLOTHIANIDIN    0.549845616 -0.167951571
-## FIPRONIL       -0.003886203 -0.056247127
-## IMIDACLOPRID    1.000000000 -0.002073838
-## THIACLOPRID    -0.002073838  1.000000000</code></pre>
-<p><img src="exploring_files/figure-html/unnamed-chunk-2-1.png" width="90%" /></p>
-<p><br> <em>Correlation Coefficients for mean persticide use across states</em></p>
+<p><br> <strong>Correlation Coefficients for mean persticide use across states</strong></p>
+<p><img src="exploring_files/figure-html/unnamed-chunk-3-1.png" width="90%" /></p>
 <table>
 <thead>
 <tr class="header">
@@ -450,40 +421,7 @@ $(document).ready(function () {
 </tbody>
 </table>
 <p><br></p>
-<p><em>Honey producing Colonies across the US</em></p>
-<pre class="r"><code>library(choroplethrMaps)
-data(state.map)
-
-state.map = 
-  state.map %&gt;%
-  filter(region != &quot;alaska&quot;, region != &quot;hawaii&quot;)
-
-merged_state_data = read_csv(&quot;./data/merged_state_data.csv&quot;)</code></pre>
-<pre><code>## Parsed with column specification:
-## cols(
-##   X1 = col_double(),
-##   year.x = col_double(),
-##   state = col_character(),
-##   state_fips.x = col_double(),
-##   honey_producing_colonies = col_double(),
-##   yield_per_colony = col_double(),
-##   production = col_double(),
-##   compound = col_character(),
-##   low = col_double(),
-##   high = col_double()
-## )</code></pre>
-<pre class="r"><code>merged_state_data_map =
-  merged_state_data %&gt;%
-  mutate(state = str_to_lower(state)) %&gt;%
-  rename(region = state)
-
-state_map_data = left_join(state.map, merged_state_data_map, by = &quot;region&quot;)
-
-honey_bee_colony_map = 
-  ggplot(state_map_data, aes(long, lat, group = group, fill = honey_producing_colonies)) + geom_polygon(color = &quot;black&quot;) + theme_void() + labs(title = &quot;Honey Producing Colonies&quot;) + coord_map(projection = &quot;bonne&quot;, lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))
-
-honey_bee_colony_map</code></pre>
-<p><img src="exploring_files/figure-html/unnamed-chunk-4-1.png" width="90%" /></p>
+<p><strong>Honey producing Colonies across the US</strong> <img src="exploring_files/figure-html/unnamed-chunk-4-1.png" width="90%" /></p>
 
 
 
