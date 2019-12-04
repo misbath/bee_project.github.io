@@ -3,9 +3,7 @@ output_dir: "."
 navbar:
   title: "Home"
   right:
-    - text: "Bees"
-      href: dashboard.html
-    - text: "Pesticides"
+    - text: "Pesticide Use and Bee Trends"
       href: https://misbath.shinyapps.io/shiny_dashboard/
     - text: "Screencast"
       href: screen.html
