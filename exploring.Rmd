@@ -73,7 +73,6 @@ corrplot(matrix_state_2, order = "hclust", type = "full")
 **Correlation Coefficients for mean persticide use across states**
 
 ```{r,echo=FALSE, message=FALSE}
-corrplot(matrix_state_2, order = "hclust", type = "full")
 
 matrix_state_2 = cor(corr_state, use = "complete.obs", method = c("pearson"))
 

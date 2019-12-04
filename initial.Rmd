@@ -11,7 +11,7 @@ output:
 
 <br>
 
-# **Background**
+# **Background and Related Work**
 
 Exposure to insecticides can make bees more susceptible to pathogens as pesticides suppress their immune systems; studies suggest that this pesticide-pathogen interaction may be driving bees’ widespread collapse in the U.S. over recent decades (Sánchez-Bayo et al. 2016).
 
@@ -21,7 +21,7 @@ A survey of pesticides applied to agricultural areas in southern U.S. row crops 
 
 <br>
 
-# **Introduction**
+# **Initial Questions**
 
 In this report we examine county level data on pesticide use and county level data on bee colonies to see if there are any trends between certain chemical compounds and bee colony decline. We include information on the relationship between bee population over time as well as pesticide use over time controlling for seasonality. Additionally, we  examine bee population in the counties with the highest and lowest pesticide use. Based on these trends, we investigated pesticides that have stronger associations with bee colony population over time. We aim to identify pesticides that are associated with changes in bee populations, specifically those that might contribute to the recent decline in bee populations nationally.
 
