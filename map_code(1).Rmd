@@ -61,7 +61,7 @@ unique(county_2$compound)
 
 ```
 
-```{r making each pesticide data file, include=FASLE}
+```{r making each pesticide data file, include=FALSE}
 
 CHLORPYRIFOS =
   county_2 %>%
