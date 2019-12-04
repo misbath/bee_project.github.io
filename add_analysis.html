@@ -335,28 +335,6 @@ $(document).ready(function () {
 <p><br></p>
 <p><strong>Pearson Correlation Coefficients for Mean Persticide Use and Bee Population by State</strong></p>
 <p>To understand the effect of the pesticide use trends in the United States and the potential effect on bee population for each state, we calculated the Pearson Correlation for the time period of 2004-2016.</p>
-<pre class="r"><code>state_correlations= read_csv(&quot;./data/state_correlations.csv&quot;)</code></pre>
-<pre><code>## Parsed with column specification:
-## cols(
-##   X1 = col_character()
-## )</code></pre>
-<pre class="r"><code>state_correlations = 
-  state_correlations %&gt;%
-  ungroup(cor)
-
-edit_state_corr = read_csv(&quot;./data/working_cor_data.csv&quot;)</code></pre>
-<pre><code>## Parsed with column specification:
-## cols(
-##   cor = col_double(),
-##   state = col_character()
-## )</code></pre>
-<pre class="r"><code>edit_state_corr %&gt;%
-  mutate(state = fct_reorder(state, cor)) %&gt;%
-  ggplot(aes(x = state, y = cor)) +
-  geom_point() +
-  labs(x = &quot;State&quot;, y = &quot;Correlation&quot;, title= &quot;Correlation of Pesticide Use and Bee Population 2004-2016&quot;) + 
-  theme(axis.text.x = element_text(angle = 90)) +
-  geom_hline(yintercept = 0, col = &quot;red&quot;)</code></pre>
 <p><img src="add_analysis_files/figure-html/unnamed-chunk-2-1.png" width="90%" /></p>
 <p><br></p>
 The map below shows the correlations for pesticide use across the country.

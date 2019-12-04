@@ -33,7 +33,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 To understand the effect of the pesticide use trends in the United States and the potential effect on bee population for each state, we calculated the Pearson Correlation for the time period of 2004-2016.
 
-```{r}
+```{r,echo=FALSE, message=FALSE}
 
 state_correlations= read_csv("./data/state_correlations.csv")
 state_correlations = 
