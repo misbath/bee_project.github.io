@@ -1,5 +1,5 @@
 ---
-title: "Pesticide Use and Bee Trends in the US (2004-2016)"
+title: "Pesticide Use and Bee Trends in the US"
 output:
   flexdashboard::flex_dashboard:
     orientation: columns
@@ -17,6 +17,7 @@ library(ggmap)
 library(maps)
 library(choroplethrMaps)
 
+
 #Adding in pesticide data 
 pesticides = read_csv("./data/top_pesticides.csv") %>% 
   mutate(compound = capitalize(tolower(compound))) %>% 
@@ -25,7 +26,11 @@ pesticides = read_csv("./data/top_pesticides.csv") %>%
 
 #Adding in honey bee data
 clean_bee_data = read_csv("./data/clean_bee_data.csv") 
-  
+
+#Adding in bee data 
+bee_county = read_csv("./data/bee_county.csv") %>% 
+  mutate(state = capitalize(tolower(state))) %>% 
+  arrange(-desc(state_ansi))
 ```
 
 Pesticide Use 
@@ -57,7 +62,7 @@ selectInput(
 Column {.tabset}
 -----------------------------------------------------------------------
 
-### Histogram
+### Bar Plot
 
 ```{r, echo=FALSE}
 
@@ -74,7 +79,51 @@ renderPlotly({
 })
 ```
 
+All Bee Species
+=====================================
+  
+Column {.sidebar}
+-----------------------------------------------------------------------
+```{r, echo=FALSE}
 
+state_bee = bee_county %>% distinct(state) %>% pull()
+
+# selectInput widget for year
+selectInput(
+  "state_choice_bee", 
+  label = h3("Select State"),
+  choices = state_bee, selected = "Alabama")
+
+```
+
+Column {.tabset}
+-----------------------------------------------------------------------
+
+### Trend
+  
+```{r, echo=FALSE}
+renderPlotly({
+  
+  bee_county %>%
+    filter(state == input$state_choice_bee) %>%
+    mutate(colony_count = as.numeric(colony_count)) %>%
+    drop_na(colony_count) %>%
+    group_by(year) %>%
+    summarise(n = sum(colony_count)) %>%
+    ggplot(aes(x = year, y = n)) + 
+    geom_point() + 
+    geom_smooth() +
+    theme(axis.text.x = element_text(angle = 90)) +
+    labs(
+      title = "",
+      x = "Year",
+      y = "Bee Colony Count") + 
+    scale_x_continuous(
+      breaks = c(2002, 2007, 2012))
+  
+  
+})
+```
 
 Honey Bees 
 =====================================
