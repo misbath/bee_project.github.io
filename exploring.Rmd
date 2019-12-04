@@ -3,8 +3,17 @@ title: "**Exploratory Analysis**"
 ---
 <br>
 
-Initially we wanted to look at the correlation of state-level pesticide use accross all years.  
+To gauge the changes in the top six pesticides used in the entire country we looked at the  pesticide use per year across over time:
 
+<center>
+![Pesticide Use in the US by Year](add_analysis_files/figure-html/unnamed-chunk-1-1.gif)
+
+<br>
+
+The graph above shows the continued weight of pesticide used in the United States from 2004-2016. As seen, two of the six compunds are much greatly used, Clhlorpyfiros and Chlorothalonil. These two compunds are known to be insecticides that can potentially lead to nervous fucntion loss in bees, as well as the loss of bee population loss.
+
+<br>
+Further, we wanted to look at the correlation of state-level pesticide use accross all years.   
 Pearson correlation is shown below:
 
 ```{r, echo=FALSE, message=FALSE}

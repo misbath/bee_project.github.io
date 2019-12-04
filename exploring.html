@@ -339,9 +339,45 @@ $(document).ready(function () {
 
 
 <p><br></p>
-<p>Initially we wanted to look at the correlation of state-level pesticide use accross all years.</p>
-<p>Pearson correlation is shown below:</p>
+<p>To gauge the changes in the top six pesticides used in the entire country we looked at the pesticide use per year across over time:</p>
+<center>
+<div class="figure">
+<img src="add_analysis_files/figure-html/unnamed-chunk-1-1.gif" alt="Pesticide Use in the US by Year" />
+<p class="caption">Pesticide Use in the US by Year</p>
+</div>
 <p><br></p>
+<p>The graph above shows the continued weight of pesticide used in the United States from 2004-2016. As seen, two of the six compunds are much greatly used, Clhlorpyfiros and Chlorothalonil. These two compunds are known to be insecticides that can potentially lead to nervous fucntion loss in bees, as well as the loss of bee population loss.</p>
+<p><br> Further, we wanted to look at the correlation of state-level pesticide use accross all years.<br />
+Pearson correlation is shown below:</p>
+<p><br></p>
+<pre><code>##                CHLOROTHALONIL CHLORPYRIFOS CLOTHIANIDIN FIPRONIL
+## CHLOROTHALONIL      1.0000000    0.4802217    0.0571605       NA
+## CHLORPYRIFOS        0.4802217    1.0000000    0.5316680       NA
+## CLOTHIANIDIN        0.0571605    0.5316680    1.0000000       NA
+## FIPRONIL                   NA           NA           NA        1
+## IMIDACLOPRID        0.4953138    0.8741880    0.3934778       NA
+## THIACLOPRID                NA           NA           NA       NA
+##                IMIDACLOPRID THIACLOPRID
+## CHLOROTHALONIL    0.4953138          NA
+## CHLORPYRIFOS      0.8741880          NA
+## CLOTHIANIDIN      0.3934778          NA
+## FIPRONIL                 NA          NA
+## IMIDACLOPRID      1.0000000          NA
+## THIACLOPRID              NA           1</code></pre>
+<pre><code>##                CHLOROTHALONIL CHLORPYRIFOS CLOTHIANIDIN     FIPRONIL
+## CHLOROTHALONIL      1.0000000   0.70246745    0.3117681 -0.122623772
+## CHLORPYRIFOS        0.7024675   1.00000000    0.5756553  0.001349550
+## CLOTHIANIDIN        0.3117681   0.57565529    1.0000000  0.506889870
+## FIPRONIL           -0.1226238   0.00134955    0.5068899  1.000000000
+## IMIDACLOPRID        0.6541162   0.97497272    0.5498456 -0.003886203
+## THIACLOPRID         0.1766534   0.12367034   -0.1679516 -0.056247127
+##                IMIDACLOPRID  THIACLOPRID
+## CHLOROTHALONIL  0.654116214  0.176653447
+## CHLORPYRIFOS    0.974972715  0.123670345
+## CLOTHIANIDIN    0.549845616 -0.167951571
+## FIPRONIL       -0.003886203 -0.056247127
+## IMIDACLOPRID    1.000000000 -0.002073838
+## THIACLOPRID    -0.002073838  1.000000000</code></pre>
 <p><img src="exploring_files/figure-html/unnamed-chunk-2-1.png" width="90%" /></p>
 <p><br></p>
 <table>
