@@ -77,48 +77,11 @@ corrplot(matrix_state_2, order = "hclust", type = "full")
 
 <br>
 
+<center>
+![Honey Bee Colony Count in the US](Analysis-and-visualization_files/figure-html/unnamed-chunk-1-1.gif)
 
-```{r,echo=FALSE, message=FALSE}
-clean_bee_data = read_csv("./data/clean_bee_data.csv")
 
-# honey bee population for country by year
-honey_bee = 
-clean_bee_data %>%
-   mutate(year = as.numeric(year)) %>%
-   group_by(year) %>%
-   summarise(n = sum(honey_producing_colonies)) %>%
-   ggplot(aes(x = year, y = n)) + 
-   geom_point() + 
-   geom_smooth(se = FALSE) +
-   theme(axis.text.x = element_text(angle = 90)) +
-   labs(
-     title = "Honey Bee Colony Count in the US",
-     x = "Year",
-     y = "Honey Bee Colonies Across the US") +
-   scale_x_continuous(
-      breaks = c(2002, 2007, 2012, 2017))
-
-bee_county = read_csv("./data/bee_county.csv")
-
-all_bee = 
-bee_county %>%
-   mutate(colony_count = as.numeric(colony_count)) %>%
-   drop_na(colony_count) %>%
-   group_by(year) %>%
-   summarise(n = sum(colony_count)) %>%
-   ggplot(aes(x = year, y = n)) + 
-   geom_point() + 
-   geom_smooth() +
-     theme(axis.text.x = element_text(angle = 90)) +
-   labs(
-     title = "Bee Colony Count in the US",
-      x = "Year",
-     y = "Bee Colonies Across the US") + 
-   scale_x_continuous(
-      breaks = c(2002, 2007, 2012, 2017))
-
-(honey_bee + all_bee)
-```
+![Bee Colony Count in the US](Analysis-and-visualization_files/figure-html/unnamed-chunk-2-1.gif) 
 
 Similarly, the graphs above illustrate changes in bee population over time, for honey bees and all bees  respectively. Both honey bee and all bee populations decreased or plateaued in 2007-2008. 
 
@@ -180,12 +143,20 @@ state.map =
   state.map %>%
   filter(region != "alaska", region != "hawaii")
 
+<<<<<<< HEAD
 merged_state_data = read_csv("./data/merged_state_data.csv")
 
 state_all_pest =
   merged_state_data %>%
   mutate(state = str_to_lower(state)) %>%
   rename(region = state) 
+=======
+<br>
+# Correlations
+<br>
+
+**Pearson Correlation Coefficients for mean persticide use across states**
+>>>>>>> 770f5fa9d0be39fe95a01d80130dcefa06d1aefa
 
 state_all_pest_map = left_join(state.map, state_all_pest, by = "region")
 

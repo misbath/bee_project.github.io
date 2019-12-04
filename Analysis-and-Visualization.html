@@ -277,10 +277,7 @@ $(document).ready(function () {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="dashboard.html">Bees</a>
-</li>
-<li>
-  <a href="https://misbath.shinyapps.io/shiny_dashboard/">Pesticides</a>
+  <a href="https://misbath.shinyapps.io/shiny_dashboard/">Pesticide Use and Bee Trends</a>
 </li>
 <li>
   <a href="screen.html">Screencast</a>
@@ -293,13 +290,10 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="about.html">About</a>
-    </li>
-    <li>
       <a href="motivation.html">Motivation</a>
     </li>
     <li>
-      <a href="initial.html">Initial Question/Data</a>
+      <a href="initial.html">Project Details</a>
     </li>
     <li>
       <a href="exploring.html">Exploratory Analysis</a>
@@ -357,17 +351,17 @@ clean_bee_data %&gt;%
    group_by(year) %&gt;%
    summarise(n = sum(honey_producing_colonies)) %&gt;%
    ggplot(aes(x = year, y = n)) + 
-   geom_point() + 
-   geom_smooth(se = FALSE) +
+   geom_point() +
+   geom_line() +
    theme(axis.text.x = element_text(angle = 90)) +
    labs(
      title = &quot;Honey Bee Colony Count in the US&quot;,
      x = &quot;Year&quot;,
      y = &quot;Honey Bee Colonies Across the US&quot;) +
    scale_x_continuous(
-      breaks = c(2002, 2007, 2012, 2017))</code></pre>
-<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="Analysis-and-Visualization_files/figure-html/unnamed-chunk-1-1.png" width="90%" /></p>
+      breaks = c(2002, 2007, 2012, 2017))+
+   gganimate::transition_reveal(year)</code></pre>
+<p><img src="Analysis-and-Visualization_files/figure-html/unnamed-chunk-1-1.gif" width="90%" /></p>
 <pre class="r"><code>bee_county = read_csv(&quot;./data/bee_county.csv&quot;)</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
@@ -390,16 +384,16 @@ clean_bee_data %&gt;%
    summarise(n = sum(colony_count)) %&gt;%
    ggplot(aes(x = year, y = n)) + 
    geom_point() + 
-   geom_smooth() +
+   geom_line() +
      theme(axis.text.x = element_text(angle = 90)) +
    labs(
      title = &quot;Bee Colony Count in the US&quot;,
       x = &quot;Year&quot;,
      y = &quot;Bee Colonies Across the US&quot;) + 
    scale_x_continuous(
-      breaks = c(2002, 2007, 2012))</code></pre>
-<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="Analysis-and-Visualization_files/figure-html/unnamed-chunk-2-1.png" width="90%" /></p>
+      breaks = c(2002, 2007, 2012)) +
+   gganimate::transition_reveal(year)</code></pre>
+<p><img src="Analysis-and-Visualization_files/figure-html/unnamed-chunk-2-1.gif" width="90%" /></p>
 <pre class="r"><code>top_pesticides = read_csv(&quot;./data/top_pesticides.csv&quot;)</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
@@ -470,7 +464,7 @@ clean_bee_data %&gt;%
 #get_admin1_regions(&quot;united states of america&quot;)</code></pre>
 <div id="state-and-pesticide-in-one-graph" class="section level1">
 <h1>state and pesticide in one graph</h1>
-<p>merged_state_data %&gt;% mutate(year = as.numeric(year.x)) %&gt;% group_by(year, compound) %&gt;% summarise(colonies = sum(honey_producing_colonies), pesticides = sum(high)) %&gt;% ggplot(aes(x = year, y = pesticides, color = compound) + geom_point() + geom_smooth(se = FALSE) + theme(axis.text.x = element_text(angle = 90)) + labs( title = “Honey Bee Colony Count in the US”, x = “Year”, y = “Honey Bee Colonies Across the US”)</p>
+<p>merged_state_data %&gt;% mutate(year = as.numeric(year.x)) %&gt;% group_by(year, compound) %&gt;% summarise(colonies = sum(honey_producing_colonies), pesticides = sum(high)) %&gt;% ggplot(aes(x = year, y = pesticides, color = compound)) + geom_point() + geom_smooth(se = FALSE) + theme(axis.text.x = element_text(angle = 90)) + labs( title = “Honey Bee Colony Count in the US”, x = “Year”, y = “Honey Bee Colonies Across the US”)</p>
 <pre class="r"><code>library(choroplethrMaps)
 data(state.map)
 
