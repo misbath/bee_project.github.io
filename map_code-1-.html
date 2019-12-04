@@ -347,7 +347,11 @@ merged_county_data_for_join =
   rename(subregion = county)
 
 county_2 &lt;- merged_county_data_for_join %&gt;%
-  left_join(counties, &quot;subregion&quot;)</code></pre>
+  left_join(counties, &quot;subregion&quot;)
+
+unique(county_2$compound)</code></pre>
+<pre><code>## [1] &quot;CHLORPYRIFOS&quot;   &quot;CLOTHIANIDIN&quot;   &quot;IMIDACLOPRID&quot;   &quot;CHLOROTHALONIL&quot;
+## [5] &quot;FIPRONIL&quot;       &quot;THIACLOPRID&quot;</code></pre>
 <p>###COUNTY Maps</p>
 <p>##Pesticides</p>
 <pre class="r"><code>counties_base &lt;- ggplot(data = counties, mapping = aes(x = long, y = lat, group = group)) + 
@@ -358,7 +362,42 @@ map_county &lt;- counties_base + theme_nothing() +
   geom_polygon(data = county_2, aes(fill= epest_high_kg), color = &quot;white&quot;) + geom_polygon(color = &quot;black&quot;, fill = NA) +
       theme_void() + labs(title= &quot;All Pesticides, All Years, County Level Data&quot;, fill = &quot;Estimated Pesticide Use (Kg)&quot;) + coord_map(projection = &quot;bonne&quot;, lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))</code></pre>
 <pre><code>## Coordinate system already present. Adding new coordinate system, which will replace the existing one.</code></pre>
-<p>toggle: year, pesticide</p>
+<pre class="r"><code>CHLORPYRIFOS_map &lt;- counties_base + theme_nothing() + 
+  geom_polygon(data = CHLORPYRIFOS, aes(fill= epest_high_kg), color = &quot;white&quot;) + geom_polygon(color = &quot;black&quot;, fill = NA) +
+      theme_void() + labs(title= &quot;Chlorpyrifos, County Level Data&quot;, fill = &quot;Estimated Pesticide Use (Kg)&quot;) + coord_map(projection = &quot;bonne&quot;, lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<pre><code>## Coordinate system already present. Adding new coordinate system, which will replace the existing one.</code></pre>
+<pre class="r"><code>CLOTHIANIDIN_map &lt;- counties_base + theme_nothing() + 
+  geom_polygon(data = CLOTHIANIDIN, aes(fill= epest_high_kg), color = &quot;white&quot;) + geom_polygon(color = &quot;black&quot;, fill = NA) +
+      theme_void() + labs(title= &quot;Clothianidin, County Level Data&quot;, fill = &quot;Estimated Pesticide Use (Kg)&quot;) + coord_map(projection = &quot;bonne&quot;, lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<pre><code>## Coordinate system already present. Adding new coordinate system, which will replace the existing one.</code></pre>
+<pre class="r"><code>IMIDACLOPRID_map &lt;- counties_base + theme_nothing() + 
+  geom_polygon(data = IMIDACLOPRID, aes(fill= epest_high_kg), color = &quot;white&quot;) + geom_polygon(color = &quot;black&quot;, fill = NA) +
+      theme_void() + labs(title= &quot;Imidacloprid, County Level Data&quot;, fill = &quot;Estimated Pesticide Use (Kg)&quot;) + coord_map(projection = &quot;bonne&quot;, lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<pre><code>## Coordinate system already present. Adding new coordinate system, which will replace the existing one.</code></pre>
+<pre class="r"><code>CHLOROTHALONIL_map &lt;- counties_base + theme_nothing() + 
+  geom_polygon(data = CHLOROTHALONIL, aes(fill= epest_high_kg), color = &quot;white&quot;) + geom_polygon(color = &quot;black&quot;, fill = NA) +
+      theme_void() + labs(title= &quot;Chlorothalonil, County Level Data&quot;, fill = &quot;Estimated Pesticide Use (Kg)&quot;) + coord_map(projection = &quot;bonne&quot;, lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<pre><code>## Coordinate system already present. Adding new coordinate system, which will replace the existing one.</code></pre>
+<pre class="r"><code>FIPRONIL_map &lt;- counties_base + theme_nothing() + 
+  geom_polygon(data = FIPRONIL, aes(fill= epest_high_kg), color = &quot;white&quot;) + geom_polygon(color = &quot;black&quot;, fill = NA) +
+      theme_void() + labs(title= &quot;Fipronil, County Level Data&quot;, fill = &quot;Estimated Pesticide Use (Kg)&quot;) + coord_map(projection = &quot;bonne&quot;, lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<pre><code>## Coordinate system already present. Adding new coordinate system, which will replace the existing one.</code></pre>
+<pre class="r"><code>THIACLOPRID_map &lt;- counties_base + theme_nothing() + 
+  geom_polygon(data = THIACLOPRID, aes(fill= epest_high_kg), color = &quot;white&quot;) + geom_polygon(color = &quot;black&quot;, fill = NA) +
+      theme_void() + labs(title= &quot;Thiacloprid, County Level Data&quot;, fill = &quot;Estimated Pesticide Use (Kg)&quot;) + coord_map(projection = &quot;bonne&quot;, lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<pre><code>## Coordinate system already present. Adding new coordinate system, which will replace the existing one.</code></pre>
+<pre class="r"><code>CHLOROTHALONIL_map </code></pre>
+<p><img src="map_code-1-_files/figure-html/printing%20maps-1.png" width="90%" /></p>
+<pre class="r"><code>CHLORPYRIFOS_map </code></pre>
+<p><img src="map_code-1-_files/figure-html/printing%20maps-2.png" width="90%" /></p>
+<pre class="r"><code>CLOTHIANIDIN_map</code></pre>
+<p><img src="map_code-1-_files/figure-html/printing%20maps-3.png" width="90%" /></p>
+<pre class="r"><code>FIPRONIL_map</code></pre>
+<p><img src="map_code-1-_files/figure-html/printing%20maps-4.png" width="90%" /></p>
+<pre class="r"><code>IMIDACLOPRID_map</code></pre>
+<p><img src="map_code-1-_files/figure-html/printing%20maps-5.png" width="90%" /></p>
+<pre class="r"><code>THIACLOPRID_map</code></pre>
+<p><img src="map_code-1-_files/figure-html/printing%20maps-6.png" width="90%" /> toggle: year, pesticide</p>
 <p>I think the issue of missing data will be less so once we separate by years. I’m honestly not fully clear the difference between dark and light grey.</p>
 <p>##Bees</p>
 <pre class="r"><code>map_county_bees &lt;- counties_base + theme_nothing() + 
@@ -366,7 +405,7 @@ map_county &lt;- counties_base + theme_nothing() +
       theme_void() + labs(title= &quot;All Bees, All Years, County Level Data&quot;, fill = &quot;Number of Bee Colonies&quot;) + coord_map(projection = &quot;bonne&quot;, lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))</code></pre>
 <pre><code>## Coordinate system already present. Adding new coordinate system, which will replace the existing one.</code></pre>
 <pre class="r"><code>map_county_bees</code></pre>
-<p><img src="map-code_files/figure-html/unnamed-chunk-3-1.png" width="90%" /> toggle: year</p>
+<p><img src="map_code-1-_files/figure-html/unnamed-chunk-2-1.png" width="90%" /> toggle: year</p>
 <div id="state-maps" class="section level3">
 <h3>STATE MAPS</h3>
 <p>##Bees</p>
@@ -401,7 +440,7 @@ honey_bee_colony_map =
   ggplot(state_map_data, aes(long, lat, group = group, fill = honey_producing_colonies)) + geom_polygon(color = &quot;black&quot;) + theme_void() + labs(title = &quot;Honey Producing Colonies&quot;, fill = &quot;Honey Producing Colonies&quot;) + coord_map(projection = &quot;bonne&quot;, lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))
 
 honey_bee_colony_map</code></pre>
-<p><img src="map-code_files/figure-html/state%20honey%20production%20colonies-1.png" width="90%" /> toggle: year</p>
+<p><img src="map_code-1-_files/figure-html/state%20honey%20production%20colonies-1.png" width="90%" /> toggle: year</p>
 </div>
 <div id="pesticides" class="section level2">
 <h2>Pesticides</h2>
@@ -417,7 +456,7 @@ chlorpyrifos_map =
   ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = &quot;black&quot;) + theme_void() + labs(title = &quot;Chlorpyrifos&quot;, fill = &quot;Estimated Pesticide Use (Kg)&quot;) +  coord_map(projection = &quot;bonne&quot;, lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))
 
 chlorpyrifos_map</code></pre>
-<p><img src="map-code_files/figure-html/state%20chlorpyrifos%20use-1.png" width="90%" /> toggle: year, pesticide</p>
+<p><img src="map_code-1-_files/figure-html/state%20chlorpyrifos%20use-1.png" width="90%" /> toggle: year, pesticide</p>
 </div>
 
 

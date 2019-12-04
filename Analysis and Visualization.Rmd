@@ -136,12 +136,13 @@ top_pesticides %>%
 
 
 # state and pesticide in one graph
+
 merged_state_data %>%
   mutate(year = as.numeric(year.x)) %>%
   group_by(year, compound) %>%
   summarise(colonies = sum(honey_producing_colonies), 
             pesticides = sum(high)) %>%
-  ggplot(aes(x = year, y = pesticides, color = compound) + 
+  ggplot(aes(x = year, y = pesticides, color = compound)) + 
   geom_point() + 
   geom_smooth(se = FALSE) +
   theme(axis.text.x = element_text(angle = 90)) +

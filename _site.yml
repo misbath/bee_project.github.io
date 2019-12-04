@@ -15,7 +15,7 @@ navbar:
           href: about.html
         - text: "Motivation"
           href: motivation.html
-        - text: "Initial Question/Data"
+        - text: "Report"
           href: initial.html
         - text: "Exploratory Analysis"
           href: exploring.html
