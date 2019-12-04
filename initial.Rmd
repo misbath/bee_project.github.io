@@ -53,20 +53,21 @@ Chlorothalonil
 Fipronil  
 
 # **Methods**
-<br>
-
 
 *County-level Bee*
 <br>
+
 The dataset can be accessed [here](https://query.data.world/s/266nsnl3bnmozsl2xld7komsiyzp22). Cleaning involved using `select` and `mutate` from the `Tidyverse` package. Additionally, this dataset is very messy, with many missing values, thus we worked on managing these without loosing important information. Lastly, this dataset was intended to be merged by state using `state_county_fips` variables which had to be transformed into the right type and length. 
 <br>
 
 *State-level Bee*
 <br>
+
 The state-level honey bee dataset can be accessed [here](https://usda.library.cornell.edu/concern/publications/rn301137d?locale=en). Honey bee population data was reported in multiple csv files, 1 file for each year. The individual csv files were merged with a function. Two read_csv commands were incorporated into the function to read each data file but also to remove the first rows of the dataset that contained unnecessary headers. After unseating the data, column headers were renamed with `rename`, `separate`, and `select` to better describe the variables. All three of these functions are apart of the `Tidyverse`. State names within the datasets were also written as abbreviations before the year 2011, so states were recoded to represent the full state name. This dataset was exported as a csv for use in additional analyses throughout the working environment. This dataset was also merged with the `state_county_fips` dataset after some manipulation to the correct layout. 
 
 *Pesticide Data*
 <br>
+
 Pesticide data was obtained from [USGS](https://water.usgs.gov/nawqa/pnsp/usage/maps/county-level/) and was available at the county level. A function was used to read in data from each year, 2002, 2007, 2012, and 2017, located in separate csv files.  Data was filtered for the pesticides of interest so that the merged data file only contained data for those 7 pesticides. The pesticides data was merged to the county and state level bee colony files using the methods described below.
 
 *Merging Datasets*
@@ -83,6 +84,7 @@ Maps of state level bee populations and pesticide production were generated thro
 
 *County Maps*
 <br>
+
 Maps of county level pesticide use and bee colony counts were created using the merged files of pesticide use data and county colony count (for all bee populations) data. The base county map was built using the 'county' map provided by the `maps` package, for the conterminious United States. The `ggplot2` package was used to map county level pesticide use data and county level bee colony county data on top of the base county map.
 
 # **Results**
