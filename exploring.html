@@ -293,13 +293,10 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="about.html">About</a>
-    </li>
-    <li>
       <a href="motivation.html">Motivation</a>
     </li>
     <li>
-      <a href="initial.html">Report</a>
+      <a href="initial.html">Project Details</a>
     </li>
     <li>
       <a href="exploring.html">Exploratory Analysis</a>
@@ -339,7 +336,7 @@ $(document).ready(function () {
 
 
 <p><br></p>
-<p>To gauge the changes in the top six pesticides used in the entire country we looked at the pesticide use per year over time:</p>
+<p>The goal of this first analysis was to identify time-dependent trends and regional changes in pesticide use and bee populations in the United States since the early 2000’s.</p>
 <div id="temporal-analysis" class="section level1">
 <h1>Temporal Analysis</h1>
 <center>
@@ -348,24 +345,45 @@ $(document).ready(function () {
 <p class="caption">Pesticide Use in the US by Year</p>
 </div>
 <p><br></p>
-<p><left> The graph above shows the continued weight of pesticide used in the United States from 2004-2016. As seen, two of the six compunds are much greatly used, Clhlorpyfiros and Chlorothalonil. These two compunds are known to be insecticides that can potentially lead to nervous fucntion loss in bees, as well as the loss of bee population loss.</p>
+<p><left> The graph above shows the variations in use of the six most common pesticides in the United States from 2004 to 2016. Two of these compounds, Chlorpyfiros and Chlorothalonil, appear to be used to a much greater extent than the others. These two compounds are known to be insecticides that can potentially lead to nervous fucntion loss in bees, as well as bee population loss.</p>
 <p><br></p>
 <p><br></p>
 <p><br></p>
 <p><img src="exploring_files/figure-html/unnamed-chunk-3-1.png" width="90%" /></p>
-<p>In the graphs above we identified changes in bee population over time, for honey bees specifically and all bees. Both honey bee and all bee populations decreased or plateaued in the year 2007.</p>
+<p>Similarly, the graphs above illustrate changes in bee population over time, for honey bees and all bees respectively. Both honey bee and all bee populations decreased or plateaued in 2007-2008.</p>
 <p><br></p>
 </div>
 <div id="spatial-analysis" class="section level1">
 <h1>Spatial Analysis</h1>
-<p><strong>Honey producing Colonies across the US</strong> <br></p>
+<p><br></p>
 <p><left></p>
-<p>In addition to exploring pesticide use over time, it was important to have a general sense of changes in the bee populations over these same years.</p>
-<p>Below, the map of the United States demonstrates the states with the highest population of bee producing colonies.</p>
+<p>To supplement our time-dependent analysis, we aimed to understand how pesticide use and bee colonies varied across states during the same timeframe.</p>
+<p><strong>Honey Producing Colonies across the US</strong></p>
 <p><img src="exploring_files/figure-html/unnamed-chunk-4-1.png" width="90%" /></p>
 <p><br></p>
-<p>Further, we wanted to look at the correlation of state-level pesticide use accross all years.</p>
-<p><strong>Pearson Correlation Coefficients for mean persticide use across states</strong></p>
+<p><strong>Pesticide Use across the US</strong></p>
+<pre><code>## Parsed with column specification:
+## cols(
+##   X1 = col_double(),
+##   year.x = col_double(),
+##   state = col_character(),
+##   state_fips.x = col_double(),
+##   honey_producing_colonies = col_double(),
+##   yield_per_colony = col_double(),
+##   production = col_double(),
+##   compound = col_character(),
+##   low = col_double(),
+##   high = col_double()
+## )</code></pre>
+<p><img src="exploring_files/figure-html/unnamed-chunk-5-1.png" width="90%" /></p>
+<p><br></p>
+<p>The maps above indicate that a few states stand out in terms of having a lower honey bee colony count (ie, California, North Dakota, South Dakota, Florida) and/or a higher level of pesticide use (ie, Georgia, Florida, Texas, California) relative to other states.</p>
+<p><br></p>
+</div>
+<div id="correlation" class="section level1">
+<h1>Correlation</h1>
+<p><br></p>
+<p>In addition to the temporal and regional analyses, we also assessed correlation between the pesticides to avoid any collinarity issues.</p>
 <table>
 <thead>
 <tr class="header">
@@ -435,8 +453,9 @@ $(document).ready(function () {
 </tr>
 </tbody>
 </table>
+<p>This table indicates that Chlorothalonil and Chlorpyrifos are highly correlated. Further, Imidacloprid is highly correlated with these two compounds.</p>
 <p><br></p>
-<p>One of the goals of this project, after these exploratory analyses was to determine if the stagnant bee population could be realted to the spike in pesticide use that is seen in 2007, specifically for the compounds Chlorpyfiros and Chlorothalonil.</p>
+<p>These exploratory results lead us to question whether bee population loss could be related to increased pesticide use in general and as well as specifically in 2007-2008. We decided to look more closely at the two major pesticides (Chlorpyfiros and Chlorothalonil) and at states that stood out such as California, Florida, New Mexico, and North and South Dakota.</p>
 </div>
 
 
