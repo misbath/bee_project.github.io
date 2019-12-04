@@ -13,6 +13,10 @@ library(shiny)
 library(plotly)
 library(tidyverse)
 library(Hmisc)
+library(ggplot2)
+library(ggmap)
+library(maps)
+library(choroplethrMaps)
 
 #Adding in pesticide data 
 pesticides = read_csv("./data/top_pesticides.csv") %>% 
@@ -21,17 +25,39 @@ pesticides = read_csv("./data/top_pesticides.csv") %>%
   select(-epest_low_kg)
 
 #Adding in bee data
+merged_county_data = read_csv("./data/merged_county_data.csv") %>%
+  janitor::clean_names() %>%
+  rename(year = year_x) %>%
+  mutate(
+    county = str_to_lower(county)
+  )
 
 ```
 
-State Level Pesticide Use 
+```{r}
+state.map <- map_data("state")
+counties <- map_data("county")
+
+merged_county_data_for_join =
+  merged_county_data %>%
+  rename(subregion = county)
+
+county_2 <- merged_county_data_for_join %>%
+  left_join(counties, "subregion")
+
+```
+
+County Level Pesticide Use 
 =====================================
 
 Column {.sidebar}
 -----------------------------------------------------------------------
 
 ```{r, echo=FALSE}
-years = pesticides %>% distinct(year) %>% pull()
+years = 
+  pesticides %>% 
+  distinct(year) %>% 
+  pull()
 
 # selectInput widget
 selectInput(
@@ -39,21 +65,15 @@ selectInput(
   label = h3("Select Year"),
   choices = years, selected = "2004")
 
-states = pesticides %>% distinct(state) %>% pull()
+county = pesticides %>%
+  distinct(county) %>% 
+  pull()
 
 # selectInput widget
 selectInput(
-  "state_choice", 
-  label = h3("Select State"),
-  choices = states, selected = "AL")
-
-#compound = pesticides %>% distinct(compound) %>% pull()
-
-# radioButtons widget
-#radioButtons(
-#"compound_choice", 
-#label = h3("Choose pesticide"),
-#choices = compound, selected = "Chlorothalonil")
+  "county_choice", 
+  label = h3("Select County"),
+  choices = county, selected = "campbell")
 ```
 
 Column {.tabset}
@@ -66,38 +86,35 @@ Column {.tabset}
 renderPlotly({
   pesticides %>%
   filter(year == input$year_choice, 
-        state == input$state_choice) %>%
-  group_by(state_fips, compound) %>%
+        state == input$county_choice) %>%
+  group_by(state_county_fips, compound) %>%
   summarise(tot_pest_high = sum(epest_high_kg)) %>%
   plot_ly(x = ~compound, y = ~tot_pest_high, color = ~compound, type = "bar") %>%
   layout(xaxis = list(title = 'Pesticide'),
          yaxis = list(title = 'Total Amount Used (Kg)'))
-  
 })
 ```
 
-### Description 
+### Map
 
-State Level Bee Count 
-=====================================
+```{r}
+counties_base <- ggplot(data = counties, mapping = aes(x = long, y = lat, group = group)) + 
+  coord_fixed(1.3) + 
+  geom_polygon(color = "black", fill = "gray")
 
-Column {.sidebar}
------------------------------------------------------------------------
-```{r, echo=FALSE}
+map_county <- counties_base + theme_nothing() + 
+  geom_polygon(data = county_2, aes(fill= epest_high_kg), color = "white") + geom_polygon(color = "black", fill = NA) +
+      theme_void() + labs(title= "All Pesticides, All Years, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))
 
-# selectInput widget
-selectInput(
-  "year_choice", 
-  label = h3("Select Year"),
-  choices = years, selected = "2004")
+```
 
-states = pesticides %>% distinct(state) %>% pull()
+### Description
 
 # selectInput widget
 selectInput(
-  "state_choice", 
-  label = h3("Select State"),
-  choices = states, selected = "AL")
+  "county_choice", 
+  label = h3("Select County"),
+  choices = county, selected = "001")
 
 ```
 
@@ -106,10 +123,21 @@ Column {.tabset}
 
 ### Histogram
 
-```{r, echo=FALSE}
+{r, echo=FALSE}
+
+renderPlotly({
+  merged_county_data %>%
+  filter(year == input$year_choice, 
+        county == input$county_choice) %>%
+  group_by(state_county_fips, compound) %>%
+  summarise(tot_pest_high = sum(epest_high_kg)) %>%
+  plot_ly(x = ~compound, y = ~tot_pest_high, color = ~compound, type = "bar") %>%
+  layout(xaxis = list(title = 'Year'),
+         yaxis = list(title = 'Bee Colony)'))
+})
 
 
-```
+
+
 
 ### Description
-
