@@ -56,9 +56,6 @@ merged_county_data_for_join =
 county_2 <- merged_county_data_for_join %>%
   left_join(counties, "subregion")
 
-unique(county_2$compound)
-
-
 ```
 
 ```{r making each pesticide data file, include=FALSE}
@@ -106,27 +103,27 @@ map_county <- counties_base + theme_nothing() +
 
 CHLORPYRIFOS_map <- counties_base + theme_nothing() + 
   geom_polygon(data = CHLORPYRIFOS, aes(fill= epest_high_kg), color = "white") + geom_polygon(color = "black", fill = NA) +
-      theme_void() + labs(title= "Chlorpyrifos, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))
+      theme_void() + labs(title= "Chlorpyrifos, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + facet_grid(~year)
 
 CLOTHIANIDIN_map <- counties_base + theme_nothing() + 
   geom_polygon(data = CLOTHIANIDIN, aes(fill= epest_high_kg), color = "white") + geom_polygon(color = "black", fill = NA) +
-      theme_void() + labs(title= "Clothianidin, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))
+      theme_void() + labs(title= "Clothianidin, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + facet_grid(~year)
 
 IMIDACLOPRID_map <- counties_base + theme_nothing() + 
   geom_polygon(data = IMIDACLOPRID, aes(fill= epest_high_kg), color = "white") + geom_polygon(color = "black", fill = NA) +
-      theme_void() + labs(title= "Imidacloprid, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))
+      theme_void() + labs(title= "Imidacloprid, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + facet_grid(~year)
 
 CHLOROTHALONIL_map <- counties_base + theme_nothing() + 
   geom_polygon(data = CHLOROTHALONIL, aes(fill= epest_high_kg), color = "white") + geom_polygon(color = "black", fill = NA) +
-      theme_void() + labs(title= "Chlorothalonil, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))
+      theme_void() + labs(title= "Chlorothalonil, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + facet_grid(~year)
 
 FIPRONIL_map <- counties_base + theme_nothing() + 
   geom_polygon(data = FIPRONIL, aes(fill= epest_high_kg), color = "white") + geom_polygon(color = "black", fill = NA) +
-      theme_void() + labs(title= "Fipronil, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))
+      theme_void() + labs(title= "Fipronil, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + facet_grid(~year)
 
 THIACLOPRID_map <- counties_base + theme_nothing() + 
   geom_polygon(data = THIACLOPRID, aes(fill= epest_high_kg), color = "white") + geom_polygon(color = "black", fill = NA) +
-      theme_void() + labs(title= "Thiacloprid, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))
+      theme_void() + labs(title= "Thiacloprid, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + facet_grid(~year)
 ```
 
 ```{r printing maps}
@@ -148,7 +145,7 @@ I think the issue of missing data will be less so once we separate by years. I'm
 ```{r}
 map_county_bees <- counties_base + theme_nothing() + 
   geom_polygon(data = county_2, aes(fill= colony_count), color = "white") + geom_polygon(color = "black", fill = NA) +
-      theme_void() + labs(title= "All Bees, All Years, County Level Data", fill = "Number of Bee Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))
+      theme_void() + labs(title= "All Bees, All Years, County Level Data", fill = "Number of Bee Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + facet_grid(~year)
 
 map_county_bees
 
@@ -545,6 +542,9 @@ honey_bee_colony_map_2016 =
 
 ```
 
+```{r reading in merged state data}
+merged_state_data = read_csv("./data/merged_state_data.csv")
+```
 
 
 ### Chlorpyrifos by Year
