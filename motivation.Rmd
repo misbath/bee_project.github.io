@@ -59,15 +59,15 @@ ggplot() +
 ```
 
 
-Bee colony decline has made headlines in recent news reports. The decrease in bee survival has been linked to a decrease in crop diversity, loss of habitat, poor beekeeping practices, and widespread and intensive use of pesticides such as neonicotinoids. As a group we are interested in trends between pesticide use and bee populations. 
+Bee colony decline has made headlines in recent news reports. The decrease in bee survival has been linked to a decrease in crop diversity, loss of habitat, poor beekeeping practices, as well as widespread and intensive use of pesticides such as neonicotinoids. As a group, we are interested in trends between pesticide use and bee populations. 
 
-One of every three bites of food eaten worldwide depends on pollinators, especially bees, for a successful harvest. And in the recent years, states like California, have seen the effects that almond groves scarcity has meant for food production if the widespread — and still puzzling — decimation of bee colonies continues. 
+One in every three bites of food consumed worldwide depends on pollinators, especially bees, for a successful harvest. In recent years, states like California have seen the effects of a declining bee population in almond harvest. Almond groves that were once bountiful are now sparse in produce, a trend that might forshadow a widespread decrease in food production if decimation of bee colonies continues. 
 
-For much of the past 10 years, beekeepers, primarily in the United States and Europe, have been reporting annual hive losses of 30 percent or higher, substantially more than is considered normal or sustainable. But this winter, many U.S. beekeepers experienced losses of 40 to 50 percent or more, just as commercial bee operations prepared to transport their hives for the country’s largest pollinator event: the fertilizing of California’s almond trees. 
+For much of the past 10 years, beekeepers, primarily in the United States and Europe, have been reporting annual hive losses of 30 percent or higher, substantially more than is considered normal or sustainable. But this winter, many U.S. beekeepers experienced losses of 40 to 50 percent. These numbers were reported right before commercial bee operations prepared to transport their hives for the country’s largest pollinator event: the fertilizing of California’s almond trees. 
 
 Spread across 800,000 acres, California’s almond orchards typically require 1.6 million domesticated bee colonies to pollinate the flowering trees and produce what has become the state’s largest overseas agricultural export. But given the widespread bee losses to so-called “colony collapse disorder” this winter, California’s almond growers were able to pollinate their crop only through an intense, nationwide push to cobble together the necessary number of healthy bee colonies.
 
-If the bee population continues to decline, biodiversity of plants across the country will continue to decline, with potentially catastrophic implications to our food supply.
+If the bee population continues to decline, biodiversity of plants across the country will also decrease. This reduction in bees and plants has to potential to catastrophicly impact our food supply.
 
 <br>
 
@@ -75,7 +75,7 @@ If the bee population continues to decline, biodiversity of plants across the co
 # **Related Work**
 
 <br>
-One group that is playing an important role in terms of bee management and data driven information disemination, is [BeeInformed](https://beeinformed.org/). Their website includes a dynamic way of tracking bee colony loss across the U.S. for all seasons in an effort to take the guesswork out of bee management. This interactivity aspect of their website became something we were inspired by and want to create a similar layout.
+One group that is playing an important role in bee management and data driven information disemination, is [BeeInformed](https://beeinformed.org/). Their website includes a dynamic method of tracking bee colony loss across the U.S. for all seasons in an effort to remove the guesswork from bee management. The interactivity aspect of their website was inspiring for this project and motivated our group to try and create a similar layout.
 
 
 <br>
