@@ -10,6 +10,7 @@ library(ggplot2)
 library(ggmap)
 library(maps)
 library(choroplethrMaps)
+library(patchwork)
 
 knitr::opts_chunk$set(
 	echo = TRUE,
@@ -55,13 +56,44 @@ merged_county_data_for_join =
 county_2 <- merged_county_data_for_join %>%
   left_join(counties, "subregion")
 
+unique(county_2$compound)
+
+
+```
+
+```{r making each pesticide data file, include=FASLE}
+
+CHLORPYRIFOS =
+  county_2 %>%
+  filter(compound=="CHLORPYRIFOS")
+
+CLOTHIANIDIN =
+  county_2 %>%
+  filter(compound=="CLOTHIANIDIN")
+
+IMIDACLOPRID=
+  county_2 %>%
+  filter(compound=="IMIDACLOPRID")
+
+CHLOROTHALONIL =
+  county_2 %>%
+  filter(compound=="CHLOROTHALONIL")
+
+FIPRONIL =
+  county_2 %>%
+  filter(compound=="FIPRONIL")
+
+THIACLOPRID =
+  county_2 %>%
+  filter(compound=="THIACLOPRID")
+
 ```
 
 ###COUNTY Maps
 
 ##Pesticides 
 
-```{r}
+```{r building base and pesticide maps}
 
 counties_base <- ggplot(data = counties, mapping = aes(x = long, y = lat, group = group)) + 
   coord_fixed(1.3) + 
@@ -70,6 +102,41 @@ counties_base <- ggplot(data = counties, mapping = aes(x = long, y = lat, group 
 map_county <- counties_base + theme_nothing() + 
   geom_polygon(data = county_2, aes(fill= epest_high_kg), color = "white") + geom_polygon(color = "black", fill = NA) +
       theme_void() + labs(title= "All Pesticides, All Years, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))
+
+
+CHLORPYRIFOS_map <- counties_base + theme_nothing() + 
+  geom_polygon(data = CHLORPYRIFOS, aes(fill= epest_high_kg), color = "white") + geom_polygon(color = "black", fill = NA) +
+      theme_void() + labs(title= "Chlorpyrifos, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))
+
+CLOTHIANIDIN_map <- counties_base + theme_nothing() + 
+  geom_polygon(data = CLOTHIANIDIN, aes(fill= epest_high_kg), color = "white") + geom_polygon(color = "black", fill = NA) +
+      theme_void() + labs(title= "Clothianidin, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))
+
+IMIDACLOPRID_map <- counties_base + theme_nothing() + 
+  geom_polygon(data = IMIDACLOPRID, aes(fill= epest_high_kg), color = "white") + geom_polygon(color = "black", fill = NA) +
+      theme_void() + labs(title= "Imidacloprid, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))
+
+CHLOROTHALONIL_map <- counties_base + theme_nothing() + 
+  geom_polygon(data = CHLOROTHALONIL, aes(fill= epest_high_kg), color = "white") + geom_polygon(color = "black", fill = NA) +
+      theme_void() + labs(title= "Chlorothalonil, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))
+
+FIPRONIL_map <- counties_base + theme_nothing() + 
+  geom_polygon(data = FIPRONIL, aes(fill= epest_high_kg), color = "white") + geom_polygon(color = "black", fill = NA) +
+      theme_void() + labs(title= "Fipronil, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))
+
+THIACLOPRID_map <- counties_base + theme_nothing() + 
+  geom_polygon(data = THIACLOPRID, aes(fill= epest_high_kg), color = "white") + geom_polygon(color = "black", fill = NA) +
+      theme_void() + labs(title= "Thiacloprid, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))
+```
+
+```{r printing maps}
+
+CHLOROTHALONIL_map 
+CHLORPYRIFOS_map 
+CLOTHIANIDIN_map
+FIPRONIL_map
+IMIDACLOPRID_map
+THIACLOPRID_map
 
 ```
 toggle: year, pesticide
@@ -88,11 +155,11 @@ map_county_bees
 ```
 toggle: year
 
-### STATE MAPS
+### STATE MAPS All YEARS
 
 ##Bees
 
-```{r state honey production colonies}
+```{r state bees all years}
 data(state.map)
 
 state.map = 
@@ -109,15 +176,14 @@ merged_state_data_map =
 state_map_data = left_join(state.map, merged_state_data_map, by = "region")
 
 honey_bee_colony_map = 
-  ggplot(state_map_data, aes(long, lat, group = group, fill = honey_producing_colonies)) + geom_polygon(color = "black") + theme_void() + labs(title = "Honey Producing Colonies", fill = "Honey Producing Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))
+  ggplot(state_map_data, aes(long, lat, group = group, fill = honey_producing_colonies)) + geom_polygon(color = "black") + theme_void() + labs(title = "Honey Producing Colonies", fill = "Honey Producing Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
 
 honey_bee_colony_map
 ```
-toggle: year
 
 ## Pesticides 
 
-```{r state chlorpyrifos use}
+```{r state chlorpyrifos all years}
 state_chlorpyrifos =
   merged_state_data %>%
   mutate(state = str_to_lower(state)) %>%
@@ -127,11 +193,1357 @@ state_chlorpyrifos =
 state_map_chlorpyrifos = left_join(state.map, state_chlorpyrifos, by = "region") 
 
 chlorpyrifos_map =
-  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorpyrifos", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorpyrifos", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
 
 chlorpyrifos_map
 ```
-toggle: year, pesticide 
+
+```{r state chlorothalonil all years}
+state_chlorothalonil =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "CHLOROTHALONIL")
+
+state_map_chlorothalonil = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+chlorothalonil_map =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorothalonil", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+chlorothalonil_map
+```
+
+```{r state imidacloprid all years}
+state_imidacloprid =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "IMIDACLOPRID")
+
+state_map_imidacloprid = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+imidacloprid_map =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Imidacloprid", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+imidacloprid_map
+```
+
+```{r state thiacloprid all years}
+state_thiacloprid =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "THIACLOPRID")
+
+state_map_thiacloprid = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+thiacloprid_map =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Thiacloprid", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+thiacloprid_map
+```
+
+```{r state clothianidin all years}
+state_clothianidin =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "Clothianidin")
+
+state_map_clothianidin = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+clothianidin_map =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Clothianidin", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+clothianidin_map
+```
+
+
+### STATE BEES BY YEAR
+
+```{r state bees 2004}
+data(state.map)
+
+state.map = 
+  state.map %>%
+  filter(region != "alaska", region != "hawaii") 
+
+merged_state_data = read_csv("./data/merged_state_data.csv")
+
+merged_state_data_2004 =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(year.x == "2004")
+
+state_map_data = left_join(state.map, merged_state_data_map, by = "region")
+
+honey_bee_colony_map_2004 = 
+  ggplot(state_map_data, aes(long, lat, group = group, fill = honey_producing_colonies)) + geom_polygon(color = "black") + theme_void() + labs(title = "Honey Producing Colonies 2004", fill = "Honey Producing Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+honey_bee_colony_map_2004
+
+```
+
+```{r state bees 2005}
+data(state.map)
+
+state.map = 
+  state.map %>%
+  filter(region != "alaska", region != "hawaii") 
+
+merged_state_data = read_csv("./data/merged_state_data.csv")
+
+merged_state_data =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(year.x == "2005")
+
+state_map_data = left_join(state.map, merged_state_data_map, by = "region")
+
+honey_bee_colony_map_2005 = 
+  ggplot(state_map_data, aes(long, lat, group = group, fill = honey_producing_colonies)) + geom_polygon(color = "black") + theme_void() + labs(title = "Honey Producing Colonies 2005", fill = "Honey Producing Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+honey_bee_colony_map_2005
+```
+
+```{r state bees 2006}
+data(state.map)
+
+state.map = 
+  state.map %>%
+  filter(region != "alaska", region != "hawaii") 
+
+merged_state_data = read_csv("./data/merged_state_data.csv")
+
+merged_state_data =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(year.x == "2006")
+
+state_map_data = left_join(state.map, merged_state_data_map, by = "region")
+
+honey_bee_colony_map_2006 = 
+  ggplot(state_map_data, aes(long, lat, group = group, fill = honey_producing_colonies)) + geom_polygon(color = "black") + theme_void() + labs(title = "Honey Producing Colonies 2006", fill = "Honey Producing Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+honey_bee_colony_map_2006
+```
+
+```{r state bees 2007}
+data(state.map)
+
+state.map = 
+  state.map %>%
+  filter(region != "alaska", region != "hawaii") 
+
+merged_state_data = read_csv("./data/merged_state_data.csv")
+
+merged_state_data =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(year.x == "2007")
+
+state_map_data = left_join(state.map, merged_state_data_map, by = "region")
+
+honey_bee_colony_map_2007 = 
+  ggplot(state_map_data, aes(long, lat, group = group, fill = honey_producing_colonies)) + geom_polygon(color = "black") + theme_void() + labs(title = "Honey Producing Colonies 2007", fill = "Honey Producing Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+honey_bee_colony_map_2007
+```
+
+```{r state bees 2008}
+data(state.map)
+
+state.map = 
+  state.map %>%
+  filter(region != "alaska", region != "hawaii") 
+
+merged_state_data = read_csv("./data/merged_state_data.csv")
+
+merged_state_data =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(year.x == "2008")
+
+state_map_data = left_join(state.map, merged_state_data_map, by = "region")
+
+honey_bee_colony_map_2008 = 
+  ggplot(state_map_data, aes(long, lat, group = group, fill = honey_producing_colonies)) + geom_polygon(color = "black") + theme_void() + labs(title = "Honey Producing Colonies 2008", fill = "Honey Producing Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+honey_bee_colony_map_2008
+```
+
+```{r state bees 2009}
+data(state.map)
+
+state.map = 
+  state.map %>%
+  filter(region != "alaska", region != "hawaii") 
+
+merged_state_data = read_csv("./data/merged_state_data.csv")
+
+merged_state_data =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(year.x == "2009")
+
+state_map_data = left_join(state.map, merged_state_data_map, by = "region")
+
+honey_bee_colony_map_2009 = 
+  ggplot(state_map_data, aes(long, lat, group = group, fill = honey_producing_colonies)) + geom_polygon(color = "black") + theme_void() + labs(title = "Honey Producing Colonies 2009", fill = "Honey Producing Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+honey_bee_colony_map_2009
+```
+
+```{r state bees 2010}
+data(state.map)
+
+state.map = 
+  state.map %>%
+  filter(region != "alaska", region != "hawaii") 
+
+merged_state_data = read_csv("./data/merged_state_data.csv")
+
+merged_state_data =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(year.x == "2010")
+
+state_map_data = left_join(state.map, merged_state_data_map, by = "region")
+
+honey_bee_colony_map_2010 = 
+  ggplot(state_map_data, aes(long, lat, group = group, fill = honey_producing_colonies)) + geom_polygon(color = "black") + theme_void() + labs(title = "Honey Producing Colonies 2010", fill = "Honey Producing Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+honey_bee_colony_map_2010
+```
+
+```{r state bees 2011}
+data(state.map)
+
+state.map = 
+  state.map %>%
+  filter(region != "alaska", region != "hawaii") 
+
+merged_state_data = read_csv("./data/merged_state_data.csv")
+
+merged_state_data =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(year.x == "2011")
+
+state_map_data = left_join(state.map, merged_state_data_map, by = "region")
+
+honey_bee_colony_map_2011 = 
+  ggplot(state_map_data, aes(long, lat, group = group, fill = honey_producing_colonies)) + geom_polygon(color = "black") + theme_void() + labs(title = "Honey Producing Colonies 2011", fill = "Honey Producing Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+honey_bee_colony_map_2011
+```
+
+```{r state bees 2012}
+data(state.map)
+
+state.map = 
+  state.map %>%
+  filter(region != "alaska", region != "hawaii") 
+
+merged_state_data = read_csv("./data/merged_state_data.csv")
+
+merged_state_data =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(year.x == "2012")
+
+state_map_data = left_join(state.map, merged_state_data_map, by = "region")
+
+honey_bee_colony_map_2012 = 
+  ggplot(state_map_data, aes(long, lat, group = group, fill = honey_producing_colonies)) + geom_polygon(color = "black") + theme_void() + labs(title = "Honey Producing Colonies 2012", fill = "Honey Producing Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+honey_bee_colony_map_2012
+```
+
+```{r state bees 2013}
+data(state.map)
+
+state.map = 
+  state.map %>%
+  filter(region != "alaska", region != "hawaii") 
+
+merged_state_data = read_csv("./data/merged_state_data.csv")
+
+merged_state_data =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(year.x == "2013")
+
+state_map_data = left_join(state.map, merged_state_data_map, by = "region")
+
+honey_bee_colony_map_2013 = 
+  ggplot(state_map_data, aes(long, lat, group = group, fill = honey_producing_colonies)) + geom_polygon(color = "black") + theme_void() + labs(title = "Honey Producing Colonies 2013", fill = "Honey Producing Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+honey_bee_colony_map_2013
+```
+
+```{r state bees 2014}
+data(state.map)
+
+state.map = 
+  state.map %>%
+  filter(region != "alaska", region != "hawaii") 
+
+merged_state_data = read_csv("./data/merged_state_data.csv")
+
+merged_state_data =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(year.x == "2014")
+
+state_map_data = left_join(state.map, merged_state_data_map, by = "region")
+
+honey_bee_colony_map_2014 = 
+  ggplot(state_map_data, aes(long, lat, group = group, fill = honey_producing_colonies)) + geom_polygon(color = "black") + theme_void() + labs(title = "Honey Producing Colonies 2014", fill = "Honey Producing Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+honey_bee_colony_map_2014
+```
+
+```{r state bees 2015}
+data(state.map)
+
+state.map = 
+  state.map %>%
+  filter(region != "alaska", region != "hawaii") 
+
+merged_state_data = read_csv("./data/merged_state_data.csv")
+
+merged_state_data =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(year.x == "2015")
+
+state_map_data = left_join(state.map, merged_state_data_map, by = "region")
+
+honey_bee_colony_map_2015 = 
+  ggplot(state_map_data, aes(long, lat, group = group, fill = honey_producing_colonies)) + geom_polygon(color = "black") + theme_void() + labs(title = "Honey Producing Colonies 2015", fill = "Honey Producing Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+honey_bee_colony_map_2015
+```
+
+```{r state bees 2016}
+data(state.map)
+
+state.map = 
+  state.map %>%
+  filter(region != "alaska", region != "hawaii") 
+
+merged_state_data = read_csv("./data/merged_state_data.csv")
+
+merged_state_data =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(year.x == "2016")
+
+state_map_data = left_join(state.map, merged_state_data_map, by = "region")
+
+honey_bee_colony_map_2016 = 
+  ggplot(state_map_data, aes(long, lat, group = group, fill = honey_producing_colonies)) + geom_polygon(color = "black") + theme_void() + labs(title = "Honey Producing Colonies 2016", fill = "Honey Producing Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+honey_bee_colony_map_2016
+```
 
 
 
+### Chlorpyrifos by Year
+
+```{r state chlorpyrifos 2004}
+state_chlorpyrifos =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "CHLORPYRIFOS" & year.x == "2004")
+
+state_map_chlorpyrifos = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+chlorpyrifos_map_2004 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorpyrifos Use 2004", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+chlorpyrifos_map_2004
+```
+
+```{r state chlorpyrifos 2005}
+state_chlorpyrifos =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "CHLORPYRIFOS" & year.x == "2005")
+
+state_map_chlorpyrifos = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+chlorpyrifos_map_2004 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorpyrifos Use 2005", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+chlorpyrifos_map_2005
+```
+
+```{r state chlorpyrifos 2006}
+state_chlorpyrifos =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "CHLORPYRIFOS" & year.x == "2006")
+
+state_map_chlorpyrifos = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+chlorpyrifos_map_2004 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorpyrifos Use 2006", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+chlorpyrifos_map_2006
+```
+
+```{r state chlorpyrifos 2007}
+state_chlorpyrifos =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "CHLORPYRIFOS" & year.x == "2007")
+
+state_map_chlorpyrifos = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+chlorpyrifos_map_2004 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorpyrifos Use 2007", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+chlorpyrifos_map_2007
+```
+
+```{r state chlorpyrifos 2008}
+state_chlorpyrifos =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "CHLORPYRIFOS" & year.x == "2004")
+
+state_map_chlorpyrifos = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+chlorpyrifos_map_2008 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorpyrifos Use 2008", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+chlorpyrifos_map_2008
+```
+
+```{r state chlorpyrifos 2009}
+state_chlorpyrifos =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "CHLORPYRIFOS" & year.x == "2009")
+
+state_map_chlorpyrifos = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+chlorpyrifos_map_2004 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorpyrifos Use 2009", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+chlorpyrifos_map_2009
+```
+
+```{r state chlorpyrifos 2010}
+state_chlorpyrifos =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "CHLORPYRIFOS" & year.x == "2010")
+
+state_map_chlorpyrifos = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+chlorpyrifos_map_2010 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorpyrifos Use 2010", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+chlorpyrifos_map_2010
+```
+
+```{r state chlorpyrifos 2011}
+state_chlorpyrifos =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "CHLORPYRIFOS" & year.x == "2011")
+
+state_map_chlorpyrifos = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+chlorpyrifos_map_2011 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorpyrifos Use 2011", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+chlorpyrifos_map_2011
+```
+
+```{r state chlorpyrifos 2012}
+state_chlorpyrifos =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "CHLORPYRIFOS" & year.x == "2012")
+
+state_map_chlorpyrifos = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+chlorpyrifos_map_2012 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorpyrifos Use 2012", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+chlorpyrifos_map_2012
+```
+
+```{r state chlorpyrifos 2013}
+state_chlorpyrifos =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "CHLORPYRIFOS" & year.x == "2013")
+
+state_map_chlorpyrifos = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+chlorpyrifos_map_2013 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorpyrifos Use 2013", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+chlorpyrifos_map_2013
+```
+
+```{r state chlorpyrifos 2014}
+state_chlorpyrifos =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "CHLORPYRIFOS" & year.x == "2014")
+
+state_map_chlorpyrifos = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+chlorpyrifos_map_2014 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorpyrifos Use 2014", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+chlorpyrifos_map_2014
+```
+
+```{r state chlorpyrifos 2015}
+state_chlorpyrifos =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "CHLORPYRIFOS" & year.x == "2015")
+
+state_map_chlorpyrifos = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+chlorpyrifos_map_2015 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorpyrifos Use 2015", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+chlorpyrifos_map_2015
+```
+
+```{r state chlorpyrifos 2016}
+state_chlorpyrifos =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "CHLORPYRIFOS" & year.x == "2016")
+
+state_map_chlorpyrifos = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+chlorpyrifos_map_2016 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorpyrifos Use 2016", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+chlorpyrifos_map_2016
+```
+ 
+### Chloranthalonil by Year
+
+```{r state chlorothalonil 2004}
+state_chlorothalonil =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "CHLOROTHALONIL" & year.x == "2004")
+
+state_map_chlorothalonil = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+chlorothalonil_map_2004 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorothalonil Use 2004", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+chlorothalonil_map_2004
+```
+
+```{r state chlorothalonil 2005}
+state_chlorothalonil =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "CHLOROTHALONIL" & year.x == "2005")
+
+state_map_chlorothalonil = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+chlorothalonil_map_2005 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorothalonil Use 2005", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+chlorothalonil_map_2005
+```
+
+```{r state chlorothalonil 2006}
+state_chlorothalonil =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "CHLOROTHALONIL" & year.x == "2006")
+
+state_map_chlorothalonil = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+chlorothalonil_map_2006 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorothalonil Use 2006", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+chlorothalonil_map_2006
+```
+
+```{r state chlorothalonil 2007}
+state_chlorothalonil =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "CHLOROTHALONIL" & year.x == "2007")
+
+state_map_chlorothalonil = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+chlorothalonil_map_2007 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorothalonil Use 2007", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+chlorothalonil_map_2007
+```
+
+```{r state chlorothalonil 2008}
+state_chlorothalonil =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "CHLOROTHALONIL" & year.x == "2008")
+
+state_map_chlorothalonil = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+chlorothalonil_map_2008 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorothalonil Use 2008", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+chlorothalonil_map_2008
+```
+
+```{r state chlorothalonil 2009}
+state_chlorothalonil =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "CHLOROTHALONIL" & year.x == "2009")
+
+state_map_chlorothalonil = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+chlorothalonil_map_2009 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorothalonil Use 2009", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+chlorothalonil_map_2009
+```
+
+```{r state chlorothalonil 2010}
+state_chlorothalonil =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "CHLOROTHALONIL" & year.x == "2010")
+
+state_map_chlorothalonil = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+chlorothalonil_map_2010 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorothalonil Use 2010", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+chlorothalonil_map_2010
+```
+
+```{r state chlorothalonil 2011}
+state_chlorothalonil =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "CHLOROTHALONIL" & year.x == "2011")
+
+state_map_chlorothalonil = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+chlorothalonil_map_2011 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorothalonil Use 2011", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+chlorothalonil_map_2011
+```
+
+```{r state chlorothalonil 2012}
+state_chlorothalonil =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "CHLOROTHALONIL" & year.x == "2012")
+
+state_map_chlorothalonil = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+chlorothalonil_map_2012 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorothalonil Use 2012", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+chlorothalonil_map_2012
+```
+
+```{r state chlorothalonil 2013}
+state_chlorothalonil =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "CHLOROTHALONIL" & year.x == "2013")
+
+state_map_chlorothalonil = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+chlorothalonil_map_2013 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorothalonil Use 2013", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+chlorothalonil_map_2013
+```
+
+```{r state chlorothalonil 2014}
+state_chlorothalonil =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "CHLOROTHALONIL" & year.x == "2014")
+
+state_map_chlorothalonil = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+chlorothalonil_map_2014 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorothalonil Use 2014", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+chlorothalonil_map_2014
+```
+
+```{r state chlorothalonil 2015}
+state_chlorothalonil =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "CHLOROTHALONIL" & year.x == "2015")
+
+state_map_chlorothalonil = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+chlorothalonil_map_2015 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorothalonil Use 2015", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+chlorothalonil_map_2015
+```
+
+```{r state chlorothalonil 2016}
+state_chlorothalonil =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "CHLOROTHALONIL" & year.x == "2016")
+
+state_map_chlorothalonil = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+chlorothalonil_map_2016 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Chlorothalonil Use 20116", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+chlorothalonil_map_2016
+```
+
+### Imidacloprid By Year 
+
+```{r state imidacloprid 2004}
+state_imidacloprid =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "IMIDACLOPRID" & year.x == "2004")
+
+state_map_imidacloprid = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+imidacloprid_map_2004 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Imidacloprid Use 2004", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+imidacloprid_map_2004
+```
+
+```{r state imidacloprid 2005}
+state_imidacloprid =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "IMIDACLOPRID" & year.x == "2005")
+
+state_map_imidacloprid = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+imidacloprid_map_2005 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Imidacloprid Use 2005", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+imidacloprid_map_2005
+```
+
+```{r state imidacloprid 2006}
+state_imidacloprid =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "IMIDACLOPRID" & year.x == "2006")
+
+state_map_imidacloprid = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+imidacloprid_map_2006 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Imidacloprid Use 2006", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+imidacloprid_map_2006
+```
+
+```{r state imidacloprid 2007}
+state_imidacloprid =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "IMIDACLOPRID" & year.x == "2007")
+
+state_map_imidacloprid = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+imidacloprid_map_2007 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Imidacloprid Use 2007", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+imidacloprid_map_2007
+```
+
+```{r state imidacloprid 2008}
+state_imidacloprid =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "IMIDACLOPRID" & year.x == "2008")
+
+state_map_imidacloprid = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+imidacloprid_map_2008 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Imidacloprid Use 2008", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+imidacloprid_map_2008
+```
+
+```{r state imidacloprid 2009}
+state_imidacloprid =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "IMIDACLOPRID" & year.x == "2009")
+
+state_map_imidacloprid = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+imidacloprid_map_2009 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Imidacloprid Use 2009", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+imidacloprid_map_2009
+```
+
+```{r state imidacloprid 2010}
+state_imidacloprid =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "IMIDACLOPRID" & year.x == "2010")
+
+state_map_imidacloprid = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+imidacloprid_map_2010 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Imidacloprid Use 2010", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+imidacloprid_map_2010
+```
+
+```{r state imidacloprid 2011}
+state_imidacloprid =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "IMIDACLOPRID" & year.x == "2011")
+
+state_map_imidacloprid = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+imidacloprid_map_2011 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Imidacloprid Use 2011", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+imidacloprid_map_2011
+```
+
+```{r state imidacloprid 2012}
+state_imidacloprid =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "IMIDACLOPRID" & year.x == "2012")
+
+state_map_imidacloprid = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+imidacloprid_map_2012 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Imidacloprid Use 2012", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+imidacloprid_map_2012
+```
+
+```{r state imidacloprid 2013}
+state_imidacloprid =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "IMIDACLOPRID" & year.x == "2013")
+
+state_map_imidacloprid = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+imidacloprid_map_2013 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Imidacloprid Use 2013", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+imidacloprid_map_2013
+```
+
+```{r state imidacloprid 2014}
+state_imidacloprid =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "IMIDACLOPRID" & year.x == "2014")
+
+state_map_imidacloprid = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+imidacloprid_map_2014 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Imidacloprid Use 2014", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+imidacloprid_map_2014
+```
+
+```{r state imidacloprid 2015}
+state_imidacloprid =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "IMIDACLOPRID" & year.x == "2015")
+
+state_map_imidacloprid = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+imidacloprid_map_2015 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Imidacloprid Use 2015", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+imidacloprid_map_2015
+```
+
+```{r state imidacloprid 2016}
+state_imidacloprid =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "IMIDACLOPRID" & year.x == "2016")
+
+state_map_imidacloprid = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+imidacloprid_map_2016 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Imidacloprid Use 2016", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+imidacloprid_map_2016
+```
+
+### Thiacloprid by Year
+
+```{r state thiacloprid 2004}
+state_thiacloprid =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "THIACLOPRID" & year.x == "2004")
+
+state_map_thiacloprid = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+thiacloprid_map_2004 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Thiacloprid Use 2004", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+thiacloprid_map_2004
+```
+
+```{r state thiacloprid 2005}
+state_thiacloprid =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "THIACLOPRID" & year.x == "2005")
+
+state_map_thiacloprid = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+thiacloprid_map_2005 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Thiacloprid Use 2005", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+thiacloprid_map_2005
+```
+
+```{r state thiacloprid 2006}
+state_thiacloprid =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "THIACLOPRID" & year.x == "2006")
+
+state_map_thiacloprid = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+thiacloprid_map_2006 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Thiacloprid Use 2006", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+thiacloprid_map_2006
+```
+
+```{r state thiacloprid 2007}
+state_thiacloprid =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "THIACLOPRID" & year.x == "2007")
+
+state_map_thiacloprid = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+thiacloprid_map_2007 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Thiacloprid Use 2007", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+thiacloprid_map_2007
+```
+
+```{r state thiacloprid 2008}
+state_thiacloprid =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "THIACLOPRID" & year.x == "2008")
+
+state_map_thiacloprid = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+thiacloprid_map_2008 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Thiacloprid Use 2008", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+thiacloprid_map_2008
+```
+
+```{r state thiacloprid 2009}
+state_thiacloprid =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "THIACLOPRID" & year.x == "2009")
+
+state_map_thiacloprid = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+thiacloprid_map_2009 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Thiacloprid Use 2009", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+thiacloprid_map_2009
+```
+
+```{r state thiacloprid 2010}
+state_thiacloprid =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "THIACLOPRID" & year.x == "2010")
+
+state_map_thiacloprid = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+thiacloprid_map_2010 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Thiacloprid Use 2010", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+thiacloprid_map_2010
+```
+
+```{r state thiacloprid 2011}
+state_thiacloprid =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "THIACLOPRID" & year.x == "2011")
+
+state_map_thiacloprid = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+thiacloprid_map_2011 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Thiacloprid Use 2011", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+thiacloprid_map_2011
+```
+
+```{r state thiacloprid 2012}
+state_thiacloprid =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "THIACLOPRID" & year.x == "2012")
+
+state_map_thiacloprid = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+thiacloprid_map_2012 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Thiacloprid Use 2012", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+thiacloprid_map_2012
+```
+
+```{r state thiacloprid 2013}
+state_thiacloprid =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "THIACLOPRID" & year.x == "2013")
+
+state_map_thiacloprid = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+thiacloprid_map_2013 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Thiacloprid Use 2013", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+thiacloprid_map_2013
+```
+
+```{r state thiacloprid 2014}
+state_thiacloprid =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "THIACLOPRID" & year.x == "2014")
+
+state_map_thiacloprid = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+thiacloprid_map_2014 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Thiacloprid Use 2014", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+thiacloprid_map_2014
+```
+
+```{r state thiacloprid 2015}
+state_thiacloprid =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "THIACLOPRID" & year.x == "2015")
+
+state_map_thiacloprid = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+thiacloprid_map_2015 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Thiacloprid Use 2015", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+thiacloprid_map_2015
+```
+
+```{r state thiacloprid 2016}
+state_thiacloprid =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "THIACLOPRID" & year.x == "2016")
+
+state_map_thiacloprid = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+thiacloprid_map_2016 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Thiacloprid Use 2016", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+thiacloprid_map_2016
+```
+
+## Clothianidin By Year 
+
+```{r state clothianidin 2004}
+state_clothianidin =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "Clothianidin" & year.x == "2004")
+
+state_map_clothianidin = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+clothianidin_map_2004 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Clothianidin Use 2004", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+clothianidin_map_2004
+```
+
+```{r state clothianidin 2005}
+state_clothianidin =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "Clothianidin" & year.x == "2005")
+
+state_map_clothianidin = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+clothianidin_map_2005 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Clothianidin Use 2005", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+clothianidin_map_2005
+```
+
+```{r state clothianidin 2006}
+state_clothianidin =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "Clothianidin" & year.x == "2006")
+
+state_map_clothianidin = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+clothianidin_map_2006 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Clothianidin Use 2006", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+clothianidin_map_2006
+```
+
+```{r state clothianidin 2007}
+state_clothianidin =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "Clothianidin" & year.x == "2007")
+
+state_map_clothianidin = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+clothianidin_map_2007 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Clothianidin Use 2007", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+clothianidin_map_2007
+```
+
+```{r state clothianidin 2008}
+state_clothianidin =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "Clothianidin" & year.x == "2008")
+
+state_map_clothianidin = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+clothianidin_map_2008 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Clothianidin Use 2008", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+clothianidin_map_2008
+```
+
+```{r state clothianidin 2009}
+state_clothianidin =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "Clothianidin" & year.x == "2009")
+
+state_map_clothianidin = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+clothianidin_map_2009 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Clothianidin Use 2009", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+clothianidin_map_2009
+```
+
+```{r state clothianidin 2010}
+state_clothianidin =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "Clothianidin" & year.x == "2010")
+
+state_map_clothianidin = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+clothianidin_map_2010 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Clothianidin Use 2010", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+clothianidin_map_2010
+```
+
+```{r state clothianidin 2011}
+state_clothianidin =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "Clothianidin" & year.x == "2011")
+
+state_map_clothianidin = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+clothianidin_map_2011 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Clothianidin Use 2011", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+clothianidin_map_2011
+```
+
+```{r state clothianidin 2012}
+state_clothianidin =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "Clothianidin" & year.x == "2012")
+
+state_map_clothianidin = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+clothianidin_map_2012 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Clothianidin Use 2012", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+clothianidin_map_2012
+```
+
+```{r state clothianidin 2013}
+state_clothianidin =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "Clothianidin" & year.x == "2013")
+
+state_map_clothianidin = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+clothianidin_map_2013 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Clothianidin Use 2013", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+clothianidin_map_2013
+```
+
+```{r state clothianidin 2014}
+state_clothianidin =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "Clothianidin" & year.x == "2014")
+
+state_map_clothianidin = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+clothianidin_map_2014 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Clothianidin Use 2014", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+clothianidin_map_2014
+```
+
+```{r state clothianidin 2015}
+state_clothianidin =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "Clothianidin" & year.x == "2015")
+
+state_map_clothianidin = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+clothianidin_map_2015 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Clothianidin Use 2015", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+clothianidin_map_2015
+```
+
+```{r state clothianidin 2016}
+state_clothianidin =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) %>%
+  filter(compound == "Clothianidin" & year.x == "2016")
+
+state_map_clothianidin = left_join(state.map, state_chlorpyrifos, by = "region") 
+
+clothianidin_map_2016 =
+  ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Clothianidin Use 2016", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+clothianidin_map_2016
+```
