@@ -12,7 +12,7 @@ The goal of this first analysis was to identify time-dependent trends and region
 
 <br>
 
- <left>
+<left>
 The graph above shows the variations in use of the six most common pesticides in the United States from 2004 to 2016. Two of these compounds, Chlorpyfiros and Chlorothalonil, appear to be used to a much greater extent than the others. These two compounds are known to be insecticides that can potentially lead to nervous fucntion loss in bees, as well as bee population loss.
 
 <br>
@@ -83,6 +83,7 @@ corrplot(matrix_state_2, order = "hclust", type = "full")
 
 ![Bee Colony Count in the US](Analysis-and-visualization_files/figure-html/unnamed-chunk-2-1.gif) 
 
+<left>
 Similarly, the graphs above illustrate changes in bee population over time, for honey bees and all bees  respectively. Both honey bee and all bee populations decreased or plateaued in 2007-2008. 
 
 <br>
@@ -93,7 +94,6 @@ Similarly, the graphs above illustrate changes in bee population over time, for 
 <br>
 
 <left>
-
 To supplement our time-dependent analysis, we aimed to understand how pesticide use and bee colonies varied across states during the same timeframe. 
 
  
@@ -134,7 +134,7 @@ honey_bee_colony_map
 
 **Pesticide Use across the US**
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, message=FALSE}
 
 library(choroplethrMaps)
 data(state.map)
@@ -143,20 +143,13 @@ state.map =
   state.map %>%
   filter(region != "alaska", region != "hawaii")
 
-<<<<<<< HEAD
+
 merged_state_data = read_csv("./data/merged_state_data.csv")
 
 state_all_pest =
   merged_state_data %>%
   mutate(state = str_to_lower(state)) %>%
-  rename(region = state) 
-=======
-<br>
-# Correlations
-<br>
-
-**Pearson Correlation Coefficients for mean persticide use across states**
->>>>>>> 770f5fa9d0be39fe95a01d80130dcefa06d1aefa
+  rename(region = state)
 
 state_all_pest_map = left_join(state.map, state_all_pest, by = "region")
 
@@ -168,7 +161,8 @@ all_pest_map
 
 <br>
 
-The maps above indicate that a few states stand out in terms of having a lower honey bee colony count (ie, California, North Dakota, South Dakota, Florida) and/or a higher level of pesticide use (ie, Georgia, Florida, Texas, California) relative to other states. 
+<left>
+The maps above show that a few states stand out in terms of having a lower honey bee colony count (ie, California, North Dakota, South Dakota, Florida) and/or a higher level of pesticide use (ie, Georgia, Florida, Texas, California) relative to other states. 
 
 <br>
 
@@ -176,7 +170,10 @@ The maps above indicate that a few states stand out in terms of having a lower h
 
 <br>
 
+<left>
 In addition to the temporal and regional analyses, we also assessed correlation between the pesticides to avoid any collinarity issues. 
+
+**Pearson Correlation Coefficients for mean persticide use across states**
 
 ```{r,echo=FALSE, message=FALSE}
 
@@ -189,4 +186,5 @@ This table indicates that Chlorothalonil and Chlorpyrifos are highly correlated.
 
 <br>
 
-These exploratory results lead us to question whether bee population loss could be related to increased pesticide use in general and as well as specifically in 2007-2008. We decided to look more closely at the two major pesticides (Chlorpyfiros and Chlorothalonil) and at states that stood out such as California, Florida, New Mexico, and North and South Dakota. 
+<left>
+These exploratory results led us to question whether bee population loss could be related to increased pesticide use in general and as well as specifically in 2007-2008. We decided to look more closely at the two major pesticides (Chlorpyfiros and Chlorothalonil) and at states that stood out such as California, Florida, New Mexico, and North and South Dakota. 
