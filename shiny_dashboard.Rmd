@@ -13,6 +13,9 @@ library(shiny)
 library(plotly)
 library(tidyverse)
 library(Hmisc)
+library(ggmap)
+library(maps)
+library(choroplethrMaps)
 
 #Adding in pesticide data 
 pesticides = read_csv("./data/top_pesticides.csv") %>% 
@@ -20,8 +23,17 @@ pesticides = read_csv("./data/top_pesticides.csv") %>%
   mutate(state = recode(state_fips, "01" = "AL", "04" = "AZ", "05" = "AR", "06" = "CA", "08" = "CO", "09" = "CT", "10" = "DE", "12" = "FL", "13" = "GA", "16" = "ID", "17" = "IL", "18" = "IN", "19" = "IA", "20" = "KS", "21" = "KY", "22" = "LA", "23" = "ME", "24" = "MD", "25" = "MA", "26" = "MI", "27" = "MN", "28" = "MS", "29" = "MO", "30" = "MT", "31" = "NE", "32" = "NV", "33" = "NH", "34" = "NJ", "35" = "NM", "36" = "NY", "37" = "NC", "38" = "ND", "39" = "OH", "40" = "OK", "41" = "OR", "42" = "PA", "44" = "RI", "45" = "SC", "46" = "SD", "47" = "TN", "48" = "TX", "49" = "UT", "50" = "VT", "51" = "VA", "53" = "WA", "54" = "WV", "55" = "WI", "56" = "WY")) %>%
   select(-epest_low_kg)
 
-#Adding in bee data
+#Adding in merged data
+merged_county_data = read_csv("./data/merged_county_data.csv") %>%
+  janitor::clean_names() %>%
+  rename(year = year_x) %>%
+  mutate(
+    county = str_to_lower(county)
+  )
 
+merged_state_data = read_csv("./data/merged_state_data.csv") %>%
+  janitor::clean_names() %>%
+  rename(year = year_x)
 ```
 
 State Level Pesticide Use 
@@ -33,27 +45,36 @@ Column {.sidebar}
 ```{r, echo=FALSE}
 years = pesticides %>% distinct(year) %>% pull()
 
-# selectInput widget
+# selectInput widget for year
 selectInput(
   "year_choice", 
-  label = h3("Select Year"),
+  label = h3("Select Year (Histogram)"),
   choices = years, selected = "2004")
 
 states = pesticides %>% distinct(state) %>% pull()
 
-# selectInput widget
+# selectInput widget for state
 selectInput(
   "state_choice", 
   label = h3("Select State"),
   choices = states, selected = "AL")
 
-#compound = pesticides %>% distinct(compound) %>% pull()
+years_map = merged_state_data %>% distinct(year) %>% pull()
+
+# selectInput widget for year
+selectInput(
+  "year_choice_map", 
+  label = h3("Select Year (Map)"),
+  choices = years_map, selected = "2004")
+
+
+compound = merged_state_data %>% distinct(compound) %>% pull()
 
 # radioButtons widget
-#radioButtons(
-#"compound_choice", 
-#label = h3("Choose pesticide"),
-#choices = compound, selected = "Chlorothalonil")
+radioButtons(
+"compound_choice", 
+label = h3("Choose Pesticide"),
+choices = compound, selected = "CHLOROTHALONIL")
 ```
 
 Column {.tabset}
@@ -76,7 +97,42 @@ renderPlotly({
 })
 ```
 
-### Description 
+### Map
+
+```{r, echo=FALSE}
+
+#Loading map
+data(state.map)
+
+state.map = 
+  state.map %>%
+  filter(region != "alaska", region != "hawaii")
+
+#Joining pesticide data to state map
+state_pesticide =
+  merged_state_data %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) 
+
+state_map_pesticide = left_join(state.map, state_pesticide, by = "region")
+
+#Creating interactive map  
+renderPlot({
+state_map_pesticide %>% 
+  filter(compound == input$compound_choice,
+         year == input$year_choice_map)%>%
+  ggplot(aes(long, lat, group = group, fill = high)) + 
+    geom_polygon(color = "black") + 
+    theme_void() + 
+    labs(title = "", 
+         fill = "Estimated Pesticide Use (Kg)") +  
+    coord_map(projection = "bonne", lat0 = 50) + 
+    theme(plot.title = element_text(hjust = 0.5))
+
+})
+
+```
+
 
 State Level Bee Count 
 =====================================
@@ -111,5 +167,5 @@ Column {.tabset}
 
 ```
 
-### Description
+### Map
 
