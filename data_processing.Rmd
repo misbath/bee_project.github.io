@@ -266,14 +266,17 @@ merged_county_data %>%
 
 ```{r intrastate correlations of bees and pesticide over years}
 #alabama
-corr_al_data = 
+corr_data = 
   merged_state_data %>%
   filter(state == "Alabama") %>%
   group_by(year.x) %>%
   summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
   select(-year.x)
 
-cor1 = cor(corr_al_data, use = "everything", method = "pearson")
+cor1 = tibble(
+        cor = cor(corr_data, use = "complete.obs", method = "pearson"),
+      state = c("Alabama"))
+cor1 = cor1[-1,]
 
 #alaska
 corr_ak_data = 
@@ -283,57 +286,708 @@ corr_ak_data =
   summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
   select(-year.x)
 
-cor2 = cor(corr_ak_data, use = "everything", method = "pearson")
-
-#arkansas
-corr_as_data = 
-  merged_state_data %>%
-  filter(state == "Arkansas") %>%
-  group_by(year.x) %>%
-  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
-  select(-year.x)
-
-cor3 = cor(corr_as_data, use = "everything", method = "pearson")
+cor2 = tibble(
+          cor = cor(corr_ak_data, use = "complete.obs", method = "pearson"), 
+        state = c("Alaska"))
+cor2 = cor2[-1,]
 
 #arizona
-corr_ar_data = 
+corr_data = 
   merged_state_data %>%
   filter(state == "Arizona") %>%
   group_by(year.x) %>%
   summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
   select(-year.x)
 
-cor4 = cor(corr_ar_data, use = "everything", method = "pearson")
+cor3 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Arizona"))
+cor3 = cor3[-1,]
+
+#arkansas
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Arkansas") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor4 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Arkansas"))
+cor4 = cor4[-1,]
+
 
 #california
-corr_ca_data = 
+corr_data = 
   merged_state_data %>%
   filter(state == "Alabama") %>%
   group_by(year.x) %>%
   summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
   select(-year.x)
 
-cor5 = cor(corr_ca_data, use = "everything", method = "pearson")
+cor5 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("California"))
+cor5 = cor5[-1,]
 
-state_correlations = bind_rows(cor1, cor2, cor3, cor4, cor5)
-```
-
-```{r}
-correlation_function = function(x) {
-  corr_data = 
+#colorado
+corr_data = 
   merged_state_data %>%
-  filter(state_fips.x == x) %>%
+  filter(state == "Colorado") %>%
   group_by(year.x) %>%
   summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
   select(-year.x)
-  
-cor(corr_data, use = "everything", method = "pearson")
-  
-}
 
-correlations = map_dfr(.x = merged_state_data, ~correlation_function(.x))
+cor6 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Colorado"))
+cor6 = cor6[-1,]
+
+#connecticut
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Connecticut") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor7 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Connecticut"))
+cor7 = cor7[-1,]
+
+#delaware
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Delaware") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor8 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Delaware"))
+cor8 = cor8[-1,]
+
+#florida
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Florida") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor9 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Florida"))
+cor9 = cor9[-1,]
+
+#georgia
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Georgia") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor10 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Georgia"))
+cor10 = cor10[-1,]
+
+#hawaii
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Hawaii") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor11 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Hawaii"))
+cor11 = cor11[-1,]
+
+#idaho
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Idaho") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor12 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Idaho"))
+cor12 = cor12[-1,]
+
+#illinois
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Illinois") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor13 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Illinois"))
+cor13 = cor13[-1,]
+
+#indiana
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Indiana") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor14 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Indiana"))
+cor14 = cor14[-1,]
+
+#iowa
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Iowa") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor15 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Iowa"))
+cor15 = cor15[-1,]
+
+#kansas
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Kansas") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor16 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Kansas"))
+cor16 = cor16[-1,]
+
+#Kentucky
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Kentucky") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor17 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Kentucky"))
+cor17 = cor17[-1,]
+
+#Louisiana
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Louisiana") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor18 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Louisiana"))
+cor18 = cor18[-1,]
+
+#maine
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Maine") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor19 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Maine"))
+cor19 = cor19[-1,]
+
+#maryland
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Maryland") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor20 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Maryland"))
+cor20 = cor20[-1,]
+
+#Massachusettes
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Massachusettes") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor21 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Massachusettes"))
+cor21 = cor21[-1,]
+
+#michigan
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Michigan") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor22 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Michigan"))
+cor22 = cor22[-1,]
+
+#minnesota
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Minnesota") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor23 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Minnesota"))
+cor23 = cor23[-1,]
+
+#Mississippi
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Mississippi") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor24 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Mississippi"))
+cor24 = cor24[-1,]
+
+#missouri
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Missouri") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor25 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Missouri"))
+cor25 = cor25[-1,]
+
+#montana
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Montana") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor26 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Montana"))
+cor26 = cor26[-1,]
+
+#nebraska
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Nebraska") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor27 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Nebraska"))
+cor27 = cor27[-1,]
+
+#nevada
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Nevada") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor28 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Nevada"))
+cor28 = cor28[-1,]
+
+#new hampshire
+corr_data = 
+  merged_state_data %>%
+  filter(state == "New Hampshire") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor29 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("New Hampshire"))
+cor29 = cor29[-1,]
+
+#new jersey
+corr_data = 
+  merged_state_data %>%
+  filter(state == "New Jersey") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor30 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("New Jersey"))
+cor30 = cor30[-1,]
+
+#New Mexico
+corr_data = 
+  merged_state_data %>%
+  filter(state == "New Mexico") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor31 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("New Mexico"))
+cor31 = cor31[-1,]
+
+#new york
+corr_data = 
+  merged_state_data %>%
+  filter(state == "New York") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor32 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("New York"))
+cor32 = cor32[-1,]
+
+#north carolina
+corr_data = 
+  merged_state_data %>%
+  filter(state == "North Carolina") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor33 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("North Carolina"))
+cor33 = cor33[-1,]
+
+#north dakota
+corr_data = 
+  merged_state_data %>%
+  filter(state == "North Dakota") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor34 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("North Dakota"))
+cor34 = cor34[-1,]
+
+#Ohio
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Ohio") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor35 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Ohio"))
+cor35 = cor35[-1,]
+
+#oklahoma
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Oklahoma") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor36 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Oklahoma"))
+cor36 = cor36[-1,]
+
+#oregon
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Oregon") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor37 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Oregon"))
+cor37 = cor37[-1,]
+
+#pennsylvania
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Pennsylvania") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor38 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Pennsylvania"))
+cor38 = cor38[-1,]
+
+#rhode island
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Rhode Island") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor39 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Rhode Island"))
+cor39 = cor39[-1,]
+
+#south carolina
+corr_data = 
+  merged_state_data %>%
+  filter(state == "South Carolina") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor40 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("South Carolina"))
+cor40 = cor40[-1,]
+
+#south dakota
+corr_data = 
+  merged_state_data %>%
+  filter(state == "South Dakota") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor41 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("South Dakota"))
+cor41 = cor41[-1,]
+
+#tennessee
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Tennessee") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor42 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Tennessee"))
+cor42 = cor42[-1,]
+
+#texas
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Texas") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor43 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Texas"))
+cor43 = cor43[-1,]
+
+#utah
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Utah") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor44 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Utah"))
+cor44 = cor44[-1,]
+
+#vermont
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Vermont") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor45 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Vermont"))
+cor45 = cor45[-1,]
+
+#virginia
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Virginia") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor46 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Virginia"))
+cor46 = cor46[-1,]
+
+#washington
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Washington") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor47 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Washington"))
+cor47 = cor47[-1,]
+
+#west virginia
+corr_data = 
+  merged_state_data %>%
+  filter(state == "West Virginia") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor48 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("West Virginia"))
+cor48 = cor48[-1,]
+
+#wisconsin
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Wisconsin") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor49 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Wisconsin"))
+cor49 = cor49[-1,]
+
+#wyoming
+corr_data = 
+  merged_state_data %>%
+  filter(state == "Wyoming") %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/5)) %>%
+  select(-year.x)
+
+cor50 = tibble(
+          cor = cor(corr_data, use = "complete.obs", method = "pearson"), 
+          state = c("Wyoming"))
+cor50 = cor50[-1,]
+
+
+state_correlations = rbind(cor1, cor3, cor4, cor5, cor6, cor9, cor10,  cor12, cor13, cor14, cor15, cor16, cor17, cor18, cor19, cor20, cor22, cor23, cor24, cor25, cor26, cor27, cor28, cor30, cor31, cor32, cor33, cor34, cor35,  cor37, cor38, cor40, cor41, cor42, cor43, cor44, cor45, cor46, cor47, cor48, cor49, cor50) 
 
 ```
 
+```{r correlation plot}
+state_correlations = 
+  state_correlations %>%
+  ungroup(cor)
+
+edit_state_corr = read_csv("./data/working_cor_data.csv")
+edit_state_corr %>%
+  mutate(state = fct_reorder(state, cor)) %>%
+  ggplot(aes(x = state, y = cor)) +
+  geom_point() +
+  labs(x = "State", y = "Correlation", title= "Correlation of Pesticide Use and Bee Population 2004-2016") + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  geom_hline(yintercept = 0, col = "red")
+```
+
+```{r correlation map}
+
+edit_state_corr = read_csv("./data/working_cor_data.csv")
+
+edit_state_corr =
+  edit_state_corr %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) 
+
+state_map_correlations = left_join(state.map, edit_state_corr, by = "region") 
+
+correlations_map =
+  ggplot(state_map_correlations, aes(long, lat, group = group, fill = cor)) + geom_polygon(color = "black") + theme_void() + labs(title = "Correlations between Pesticide Use and Bee Population 2004-2016", fill = "Correlation Coefficient") +  coord_map(projection = "bonne", lat0 = 50) + scale_fill_gradient2(low = "red", mid = "white",high = "blue", midpoint = 0, space = "Lab",
+  na.value = "grey50", guide = "colourbar", aesthetics = "fill") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+correlations_map
+```
+
+
+```{r attempted correlation function }
+
+nested_state_data = 
+  merged_state_data %>%
+  select (state, high, honey_producing_colonies) %>%
+  drop_na() %>%
+  group_by(state) %>%
+  nest()
+
+correlation_function = function(x) {
+ 
+  nested_state_data %>%
+  filter(state == x) %>%
+  unnest() %>%
+  group_by(year.x) %>%
+  summarize(pesticide = sum(high), 
+            honey_producing_colonies = ((sum(honey_producing_colonies))/n_distinct(year.x))) %>%
+  drop_na()%>%
+  select(-year.x) %>%
+  cor(use = "complete.obs", method = "pearson")
+  
+}
+
+correlations = map_dfc(.x = nested_state_data, ~correlation_function(.x))
+
+```
+
+nested_state_data %>%
+  filter(state == "Alabama") %>%
+  unnest() %>%
+  group_by(year.x)summarize(pesticide = sum(high), honey_producing_colonies = ((sum(honey_producing_colonies))/n_distinct(year.x))) %>%
+  select(-year.x) %>%
+  cor(use = "everything", method = "pearson")
 
 
