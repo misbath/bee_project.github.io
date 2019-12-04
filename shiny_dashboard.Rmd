@@ -36,7 +36,7 @@ merged_state_data = read_csv("./data/merged_state_data.csv") %>%
   rename(year = year_x)
 ```
 
-State Level Pesticide Use 
+Pesticide Use (Histogram) 
 =====================================
 
 Column {.sidebar}
@@ -48,7 +48,7 @@ years = pesticides %>% distinct(year) %>% pull()
 # selectInput widget for year
 selectInput(
   "year_choice", 
-  label = h3("Select Year (Histogram)"),
+  label = h3("Select Year"),
   choices = years, selected = "2004")
 
 states = pesticides %>% distinct(state) %>% pull()
@@ -59,22 +59,8 @@ selectInput(
   label = h3("Select State"),
   choices = states, selected = "AL")
 
-years_map = merged_state_data %>% distinct(year) %>% pull()
-
-# selectInput widget for year
-selectInput(
-  "year_choice_map", 
-  label = h3("Select Year (Map)"),
-  choices = years_map, selected = "2004")
 
 
-compound = merged_state_data %>% distinct(compound) %>% pull()
-
-# radioButtons widget
-radioButtons(
-"compound_choice", 
-label = h3("Choose Pesticide"),
-choices = compound, selected = "CHLOROTHALONIL")
 ```
 
 Column {.tabset}
@@ -97,10 +83,42 @@ renderPlotly({
 })
 ```
 
+
+
+Pesticide Use (Map)
+=====================================
+
+Column {.sidebar}
+-----------------------------------------------------------------------
+```{r, echo=FALSE}
+
+years_map = merged_state_data %>% distinct(year) %>% pull()
+
+# selectInput widget for year
+selectInput(
+  "year_choice_map", 
+  label = h3("Select Year"),
+  choices = years_map, selected = "2004")
+
+
+compound = merged_state_data %>% distinct(compound) %>% pull()
+
+# radioButtons widget
+radioButtons(
+"compound_choice", 
+label = h3("Choose Pesticide"),
+choices = compound, selected = "CHLOROTHALONIL")
+```
+
+Column {.tabset}
+-----------------------------------------------------------------------
+
 ### Map
 
 ```{r, echo=FALSE}
 
+renderPlotly({
+  
 #Loading map
 data(state.map)
 
@@ -116,11 +134,10 @@ state_pesticide =
 
 state_map_pesticide = left_join(state.map, state_pesticide, by = "region")
 
-#Creating interactive map  
-renderPlot({
+#Creating interactive map 
 state_map_pesticide %>% 
   filter(compound == input$compound_choice,
-         year == input$year_choice_map)%>%
+         year == input$year_choice_map) %>%
   ggplot(aes(long, lat, group = group, fill = high)) + 
     geom_polygon(color = "black") + 
     theme_void() + 
@@ -130,42 +147,7 @@ state_map_pesticide %>%
     theme(plot.title = element_text(hjust = 0.5))
 
 })
-
 ```
 
 
-State Level Bee Count 
-=====================================
-
-Column {.sidebar}
------------------------------------------------------------------------
-```{r, echo=FALSE}
-
-# selectInput widget
-selectInput(
-  "year_choice", 
-  label = h3("Select Year"),
-  choices = years, selected = "2004")
-
-states = pesticides %>% distinct(state) %>% pull()
-
-# selectInput widget
-selectInput(
-  "state_choice", 
-  label = h3("Select State"),
-  choices = states, selected = "AL")
-
-```
-
-Column {.tabset}
------------------------------------------------------------------------
-
-### Histogram
-
-```{r, echo=FALSE}
-
-
-```
-
-### Map
 
