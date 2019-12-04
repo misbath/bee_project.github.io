@@ -5,11 +5,12 @@ title: "**Exploratory Analysis**"
 
 To gauge the changes in the top six pesticides used in the entire country we looked at the  pesticide use per year across over time:
 
-<center>
+
 ![Pesticide Use in the US by Year](add_analysis_files/figure-html/unnamed-chunk-1-1.gif)
 
 <br>
 
+ <left>
 The graph above shows the continued weight of pesticide used in the United States from 2004-2016. As seen, two of the six compunds are much greatly used, Clhlorpyfiros and Chlorothalonil. These two compunds are known to be insecticides that can potentially lead to nervous fucntion loss in bees, as well as the loss of bee population loss.
 
 <br>
@@ -42,7 +43,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 <br>
 
-```{r, echo=FALSE, message = FALSE}
+```{r, echo=FALSE, message=FALSE, include=FALSE}
 corr_state = read_csv("./data/top_pesticides.csv") %>% 
   group_by(compound, state_fips) %>%
   summarise(mean_pest_high = mean(epest_high_kg, na.rm = TRUE)) %>% 
@@ -68,16 +69,21 @@ corrplot(matrix_state_2, order = "hclust", type = "full")
 ```
 
 <br>
-*Correlation Coefficients for mean persticide use across states*
+**Correlation Coefficients for mean persticide use across states**
 
 ```{r,echo=FALSE, message=FALSE}
+corrplot(matrix_state_2, order = "hclust", type = "full")
+
+matrix_state_2 = cor(corr_state, use = "complete.obs", method = c("pearson"))
+
 knitr::kable(matrix_state_2)
 ```
 
 <br>
 
-*Honey producing Colonies across the US*
-```{r}
+**Honey producing Colonies across the US**
+```{r, echo=FALSE, message=FALSE}
+
 library(choroplethrMaps)
 data(state.map)
 
