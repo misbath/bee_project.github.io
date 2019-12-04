@@ -21,7 +21,13 @@ pesticides = read_csv("./data/top_pesticides.csv") %>%
   select(-epest_low_kg)
 
 #Adding in bee data
-merged_county_data = read_csv("./data/merged_county_data.csv")
+merged_county_data = read_csv("./data/merged_county_data.csv") %>%
+  janitor::clean_names() %>%
+  rename(year = year_x) %>%
+  mutate(
+    county = str_to_lower(county)
+  )
+
 ```
 
 County Level Pesticide Use 
@@ -31,7 +37,10 @@ Column {.sidebar}
 -----------------------------------------------------------------------
 
 ```{r, echo=FALSE}
-years = pesticides %>% distinct(year) %>% pull()
+years = 
+  pesticides %>% 
+  distinct(year) %>% 
+  pull()
 
 # selectInput widget
 selectInput(
@@ -39,13 +48,15 @@ selectInput(
   label = h3("Select Year"),
   choices = years, selected = "2004")
 
-county = pesticides %>% distinct(county) %>% pull()
+county = pesticides %>%
+  distinct(county) %>% 
+  pull()
 
 # selectInput widget
 selectInput(
   "county_choice", 
   label = h3("Select County"),
-  choices = county, selected = "003")
+  choices = county, selected = "campbell")
 
 #compound = pesticides %>% distinct(compound) %>% pull()
 
@@ -106,7 +117,7 @@ Column {.tabset}
 
 ### Histogram
 
-```{r, echo=FALSE}
+{r, echo=FALSE}
 
 renderPlotly({
   merged_county_data %>%
@@ -118,7 +129,7 @@ renderPlotly({
   layout(xaxis = list(title = 'Year'),
          yaxis = list(title = 'Bee Colony)'))
 })
-```
+
 
 
 
