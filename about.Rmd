@@ -3,6 +3,7 @@ title: "**About**"
 ---
 <br>
 
+###This has been copied to the initial report rmd.
 <center>
 ![FigName](images/Bumble_Bee_pic.jpg)
 </center>

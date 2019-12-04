@@ -1,10 +1,29 @@
 ---
-title: "**Initial Questions**" 
+title: "**Report**" 
+output: 
+  html_document:
+    toc: true
+    toc_float: true
 ---
+<center>
+![FigName](images/Bumble_Bee_pic.jpg)
+</center>
 
 <br>
 
-Here we examine county level data on pesticide use and county level data on bee colonies to see if there are any trends between certain chemical compounds and bee colony decline. We include information on the relationship between bee population over time as well as pesticide use over time controlling for seasonality. Additionally, we  examine bee population in the counties with the highest and lowest pesticide use. Based on these trends, we investigated pesticides that have stronger associations with bee colony population over time. We aim to identify pesticides that are associated with changes in bee populations, specifically those that might contribute to the recent decline in bee populations nationally.
+# **Background**
+
+Exposure to insecticides can make bees more susceptible to pathogens as pesticides suppress their immune systems; studies suggest that this pesticide-pathogen interaction may be driving bees’ widespread collapse in the U.S. over recent decades (Sánchez-Bayo et al. 2016).
+
+Nosema ceranae, a gut microsporidian that can infect bees and has contributed to widespread bee decline, was first found in the U.S. around the same time that neonicotinoids were introduced (Sánchez-Bayo et al. 2016). When bees infected with Nosema are exposed to imidacloprid, a neonicotinoid, they cannot sterilize the colony so the pathogen spreads within the colony (Sánchez-Bayo et al. 2016). Additionally, bees infected with N. ceranae that are exposed to another neonicotinoid, thiacloprid, or the phenyl-pyrazole, fripronil, have higher mortality than non-exposed bees (Sánchez-Bayo et al. 2016). Fipronil and imidacloprid suppress immunity-related genes in honey bees, leading to higher mortality rates for hives infected with Nosema (Sánchez-Bayo et al. 2016). There is a known mechanism of action for immune suppression for neonicotinoids, specifically clothianidin and imidacloprid (Di Prisco et al., 2013).
+
+A survey of pesticides applied to agricultural areas in southern U.S. row crops reported neonicotinoid seed treatments using clothianidin, imidacloprid, and thiacloprid in the high agriculture survey area, in 2014 and 2015 growing seasons (Zawislak et al. 2019). The distribution of foliar applied pesticides in the high-agriculture survey area included chlorpyrifos and clothianidin, among others. Pesticide residues detected in hive products include chlorothalonil and chlorpyrifos (Zawislak et al. 2019). A migratory beekeeper study from Florida to Maine was collected after the colony collapse disorder erupted in 2007, with colonies sampled after each stop along the route (Frazier et al. 2011). The study found the fungicide chlorothalonil and the insecticides chlorpyrifos and imidacloprid in bee-collected pollen (Frazier et al. 2011).
+
+<br>
+
+# **Introduction**
+
+In this report we examine county level data on pesticide use and county level data on bee colonies to see if there are any trends between certain chemical compounds and bee colony decline. We include information on the relationship between bee population over time as well as pesticide use over time controlling for seasonality. Additionally, we  examine bee population in the counties with the highest and lowest pesticide use. Based on these trends, we investigated pesticides that have stronger associations with bee colony population over time. We aim to identify pesticides that are associated with changes in bee populations, specifically those that might contribute to the recent decline in bee populations nationally.
 
 Initially we wanted to look a all the pesticides used accross the US, but the number of compunds exceded the thousands; thus we decided to narrow this number to the most commonly used. 
 
@@ -26,8 +45,8 @@ Based on the literature, the following pesticides were selected for analysis in 
 
 * Neonicotinoids:
 Imidacloprid, Thiacloprid, Clothianidin   
-* Organophosphates:
-Chlorpyrifos, Methyl parathion  
+* Organophosphate:
+Chlorpyrifos 
 * Fungicide:
 Chlorothalonil  
 * Other insecticide:
@@ -66,3 +85,8 @@ Maps of state level bee populations and pesticide production were generated thro
 <br>
 Maps of county level pesticide use and bee colony counts were created using the merged files of pesticide use data and county colony count (for all bee populations) data. The base county map was built using the 'county' map provided by the `maps` package, for the conterminious United States. The `ggplot2` package was used to map county level pesticide use data and county level bee colony county data on top of the base county map.
 
+# **Results**
+<br>
+
+# **Discussion**
+<br>
