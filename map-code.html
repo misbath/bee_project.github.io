@@ -299,9 +299,6 @@ $(document).ready(function () {
       <a href="motivation.html">Motivation</a>
     </li>
     <li>
-      <a href="related.html">Related Work</a>
-    </li>
-    <li>
       <a href="initial.html">Initial Question/Data</a>
     </li>
     <li>
@@ -341,8 +338,7 @@ $(document).ready(function () {
 </div>
 
 
-<div id="reading-in-data" class="section level1">
-<h1>Reading in data</h1>
+<p>#Reading in data</p>
 <pre class="r"><code>state.map &lt;- map_data(&quot;state&quot;)
 counties &lt;- map_data(&quot;county&quot;)
 
@@ -352,11 +348,8 @@ merged_county_data_for_join =
 
 county_2 &lt;- merged_county_data_for_join %&gt;%
   left_join(counties, &quot;subregion&quot;)</code></pre>
-<div id="county-maps" class="section level3">
-<h3>COUNTY Maps</h3>
-</div>
-<div id="pesticides" class="section level2">
-<h2>Pesticides</h2>
+<p>###COUNTY Maps</p>
+<p>##Pesticides</p>
 <pre class="r"><code>counties_base &lt;- ggplot(data = counties, mapping = aes(x = long, y = lat, group = group)) + 
   coord_fixed(1.3) + 
   geom_polygon(color = &quot;black&quot;, fill = &quot;gray&quot;)
@@ -365,12 +358,9 @@ map_county &lt;- counties_base + theme_nothing() +
   geom_polygon(data = county_2, aes(fill= epest_high_kg), color = &quot;white&quot;) + geom_polygon(color = &quot;black&quot;, fill = NA) +
       theme_void() + labs(title= &quot;All Pesticides, All Years, County Level Data&quot;, fill = &quot;Estimated Pesticide Use (Kg)&quot;) + coord_map(projection = &quot;bonne&quot;, lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))</code></pre>
 <pre><code>## Coordinate system already present. Adding new coordinate system, which will replace the existing one.</code></pre>
-<pre class="r"><code>map_county</code></pre>
-<p><img src="map-code_files/figure-html/unnamed-chunk-2-1.png" width="90%" /> toggle: year, pesticide</p>
+<p>toggle: year, pesticide</p>
 <p>I think the issue of missing data will be less so once we separate by years. I’m honestly not fully clear the difference between dark and light grey.</p>
-</div>
-<div id="bees" class="section level2">
-<h2>Bees</h2>
+<p>##Bees</p>
 <pre class="r"><code>map_county_bees &lt;- counties_base + theme_nothing() + 
   geom_polygon(data = county_2, aes(fill= colony_count), color = &quot;white&quot;) + geom_polygon(color = &quot;black&quot;, fill = NA) +
       theme_void() + labs(title= &quot;All Bees, All Years, County Level Data&quot;, fill = &quot;Number of Bee Colonies&quot;) + coord_map(projection = &quot;bonne&quot;, lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))</code></pre>
@@ -379,10 +369,7 @@ map_county &lt;- counties_base + theme_nothing() +
 <p><img src="map-code_files/figure-html/unnamed-chunk-3-1.png" width="90%" /> toggle: year</p>
 <div id="state-maps" class="section level3">
 <h3>STATE MAPS</h3>
-</div>
-</div>
-<div id="bees-1" class="section level2">
-<h2>Bees</h2>
+<p>##Bees</p>
 <pre class="r"><code>data(state.map)
 
 state.map = 
@@ -416,7 +403,7 @@ honey_bee_colony_map =
 honey_bee_colony_map</code></pre>
 <p><img src="map-code_files/figure-html/state%20honey%20production%20colonies-1.png" width="90%" /> toggle: year</p>
 </div>
-<div id="pesticides-1" class="section level2">
+<div id="pesticides" class="section level2">
 <h2>Pesticides</h2>
 <pre class="r"><code>state_chlorpyrifos =
   merged_state_data %&gt;%
@@ -431,7 +418,6 @@ chlorpyrifos_map =
 
 chlorpyrifos_map</code></pre>
 <p><img src="map-code_files/figure-html/state%20chlorpyrifos%20use-1.png" width="90%" /> toggle: year, pesticide</p>
-</div>
 </div>
 
 
