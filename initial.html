@@ -20,6 +20,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -250,6 +253,63 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -257,6 +317,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -338,8 +408,20 @@ $(document).ready(function () {
 </div>
 
 
+<center>
+<img src="images/Bumble_Bee_pic.jpg" alt="FigName" />
+</center>
 <p><br></p>
-<p>Here we examine county level data on pesticide use and county level data on bee colonies to see if there are any trends between certain chemical compounds and bee colony decline. We include information on the relationship between bee population over time as well as pesticide use over time controlling for seasonality. Additionally, we examine bee population in the counties with the highest and lowest pesticide use. Based on these trends, we investigated pesticides that have stronger associations with bee colony population over time. We aim to identify pesticides that are associated with changes in bee populations, specifically those that might contribute to the recent decline in bee populations nationally.</p>
+<div id="background" class="section level1">
+<h1><strong>Background</strong></h1>
+<p>Exposure to insecticides can make bees more susceptible to pathogens as pesticides suppress their immune systems; studies suggest that this pesticide-pathogen interaction may be driving bees’ widespread collapse in the U.S. over recent decades (Sánchez-Bayo et al. 2016).</p>
+<p>Nosema ceranae, a gut microsporidian that can infect bees and has contributed to widespread bee decline, was first found in the U.S. around the same time that neonicotinoids were introduced (Sánchez-Bayo et al. 2016). When bees infected with Nosema are exposed to imidacloprid, a neonicotinoid, they cannot sterilize the colony so the pathogen spreads within the colony (Sánchez-Bayo et al. 2016). Additionally, bees infected with N. ceranae that are exposed to another neonicotinoid, thiacloprid, or the phenyl-pyrazole, fripronil, have higher mortality than non-exposed bees (Sánchez-Bayo et al. 2016). Fipronil and imidacloprid suppress immunity-related genes in honey bees, leading to higher mortality rates for hives infected with Nosema (Sánchez-Bayo et al. 2016). There is a known mechanism of action for immune suppression for neonicotinoids, specifically clothianidin and imidacloprid (Di Prisco et al., 2013).</p>
+<p>A survey of pesticides applied to agricultural areas in southern U.S. row crops reported neonicotinoid seed treatments using clothianidin, imidacloprid, and thiacloprid in the high agriculture survey area, in 2014 and 2015 growing seasons (Zawislak et al. 2019). The distribution of foliar applied pesticides in the high-agriculture survey area included chlorpyrifos and clothianidin, among others. Pesticide residues detected in hive products include chlorothalonil and chlorpyrifos (Zawislak et al. 2019). A migratory beekeeper study from Florida to Maine was collected after the colony collapse disorder erupted in 2007, with colonies sampled after each stop along the route (Frazier et al. 2011). The study found the fungicide chlorothalonil and the insecticides chlorpyrifos and imidacloprid in bee-collected pollen (Frazier et al. 2011).</p>
+<p><br></p>
+</div>
+<div id="introduction" class="section level1">
+<h1><strong>Introduction</strong></h1>
+<p>In this report we examine county level data on pesticide use and county level data on bee colonies to see if there are any trends between certain chemical compounds and bee colony decline. We include information on the relationship between bee population over time as well as pesticide use over time controlling for seasonality. Additionally, we examine bee population in the counties with the highest and lowest pesticide use. Based on these trends, we investigated pesticides that have stronger associations with bee colony population over time. We aim to identify pesticides that are associated with changes in bee populations, specifically those that might contribute to the recent decline in bee populations nationally.</p>
 <p>Initially we wanted to look a all the pesticides used accross the US, but the number of compunds exceded the thousands; thus we decided to narrow this number to the most commonly used.</p>
 <p>In this report we present:</p>
 <ul>
@@ -350,6 +432,7 @@ $(document).ready(function () {
 <li>Correlations for bee population and pesticide use over time within states and counties</li>
 </ul>
 <p><br></p>
+</div>
 <div id="data-sources-and-availability" class="section level1">
 <h1><strong>Data sources and availability</strong></h1>
 <ul>
@@ -360,8 +443,7 @@ $(document).ready(function () {
 <ul>
 <li>Neonicotinoids: Imidacloprid, Thiacloprid, Clothianidin<br />
 </li>
-<li>Organophosphates: Chlorpyrifos, Methyl parathion<br />
-</li>
+<li>Organophosphate: Chlorpyrifos</li>
 <li>Fungicide: Chlorothalonil<br />
 </li>
 <li>Other insecticide: Fipronil</li>
@@ -379,9 +461,19 @@ $(document).ready(function () {
 <p>Maps of state level bee populations and pesticide production were generated through use of the<code>choroplethrMaps</code> package and ggplot. The <code>states.map</code> dataframe in the <code>choroplethrMaps</code> package provided the underlying map which the state level data was merged with using state name. All maps were modified to the void theme with a bonne projection for asthetic purposes. <br></p>
 <p><em>County Maps</em> <br> Maps of county level pesticide use and bee colony counts were created using the merged files of pesticide use data and county colony count (for all bee populations) data. The base county map was built using the ‘county’ map provided by the <code>maps</code> package, for the conterminious United States. The <code>ggplot2</code> package was used to map county level pesticide use data and county level bee colony county data on top of the base county map.</p>
 </div>
+<div id="results" class="section level1">
+<h1><strong>Results</strong></h1>
+<p><br></p>
+</div>
+<div id="discussion" class="section level1">
+<h1><strong>Discussion</strong></h1>
+<p><br></p>
+</div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -414,6 +506,32 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
