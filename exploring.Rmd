@@ -6,14 +6,14 @@ title: "**Exploratory Analysis**"
 The goal of this first analysis was to identify time-dependent trends and regional changes in pesticide use and bee populations in the United States since the early 2000's. 
 
 # Temporal Analysis
-
-<center>
-![Figure1: Pesticide Use in the US by Year](add_analysis_files/figure-html/unnamed-chunk-1-1.gif)
-
 <br>
 
 <left>
-The graph above shows the variations in use of the six most common pesticides in the United States from 2004 to 2016. Two of these compounds, Chlorpyfiros and Chlorothalonil, appear to be used to a much greater extent than the others. These two compounds are known to be insecticides that can potentially lead to nervous fucntion loss in bees, as well as bee population loss.
+
+The graph below shows the variations in use of the six most common pesticides in the United States from 2004 to 2016. Two of these compounds, Chlorpyfiros and Chlorothalonil, appear to be used to a much greater extent than the others. These two compounds are known to be insecticides that can potentially lead to nervous function loss in bees, as well as bee population loss.
+
+<center>
+![Figure1: Pesticide Use in the US by Year](add_analysis_files/figure-html/unnamed-chunk-1-1.gif)
 
 <br>
 
@@ -49,7 +49,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 <br>
 
-```{r, echo=FALSE, message=FALSE, include=FALSE}
+```{r, echo=FALSE, message=FALSE, include=FALSE, fig.align= "center"}
 corr_state = read_csv("./data/top_pesticides.csv") %>% 
   group_by(compound, state_fips) %>%
   summarise(mean_pest_high = mean(epest_high_kg, na.rm = TRUE)) %>% 
@@ -76,7 +76,7 @@ corrplot(matrix_state_2, order = "hclust", type = "full")
 
 
 
-```{r}
+```{r, echo=FALSE, message=FALSE}
 merged_county_data = read_csv("./data/merged_county_data.csv") %>%
   janitor::clean_names() %>%
   rename(year = year_x) %>%
