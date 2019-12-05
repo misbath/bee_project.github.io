@@ -48,14 +48,15 @@ Chlorothalonil
 * Other insecticide:
 Fipronil  
 
-# **Methods**
 <br>
+
+# **Methods**
 
 
 *County-level Bee*
 <br>
 The dataset can be accessed [here](https://query.data.world/s/266nsnl3bnmozsl2xld7komsiyzp22). Cleaning involved using `select` and `mutate` from the `Tidyverse` package. Additionally, this dataset is very messy, with many missing values, thus we worked on managing these without loosing important information. Lastly, this dataset was intended to be merged by state using `state_county_fips` variables which had to be transformed into the right type and length. 
-<br>
+
 
 *State-level Bee*
 <br>
@@ -63,17 +64,14 @@ The state-level honey bee dataset can be accessed [here](https://usda.library.co
 
 *Pesticide Data*
 <br>
-Pesticide data was obtained from [USGS](https://water.usgs.gov/nawqa/pnsp/usage/maps/county-level/) and was available at the county level. A function was used to read in data from each year, 2002, 2007, 2012, and 2017, located in separate csv files.  Data was filtered for the pesticides of interest so that the merged data file only contained data for those 7 pesticides. The pesticides data was merged to the county and state level bee colony files using the methods described below.
+Pesticide data was obtained from [USGS](https://water.usgs.gov/nawqa/pnsp/usage/maps/county-level/) and was available at the county level. A function was used to read in data from each year from 2004 to 2016, which were located in separate csv files.  Data was filtered for the pesticides of interest so that the merged data file only contained data for those 6 pesticides. The pesticides data was merged to the county and state level bee colony files using the methods described below.
 
 *Merging Datasets*
 <br>
-
 In order to merge the data on pesticide use and bee data sets we required a vector common to both data sets but unique to each geographic area and year of data. To create this field we merged the bee data by state/county with a file of FIPS codes. We then merged the unique FIPS for each county with the year to generate a unique number identifying data from each county/state in each year (e.g. 200201001 uniquely identifies the 2002 data from Atauga County, Alabama). This value was then used to merge the pesticide data to both the county and state level bee data. 
-<br>
 
 *State Maps*
 <br>
-
 Maps of state level bee populations and pesticide production were generated through use of the`choroplethrMaps` package and ggplot. The `states.map` dataframe in the `choroplethrMaps` package provided the underlying map which the state level data was merged with using state name. All maps were modified to the void theme with a bonne projection for asthetic purposes. 
 <br>
 
