@@ -134,7 +134,7 @@ Similarly, the graphs above illustrate changes in bee population over time, for 
 <left>
 To supplement our time-dependent analysis, we aimed to understand how pesticide use and bee colonies varied across states during the same timeframe. 
 
-```{r, echo=FALSE, message=FALSE, fig.align= "center"}
+```{r, echo=FALSE, message=FALSE, include=FALSE, fig.align= "center"}
 merged_county_data = read_csv("./data/merged_county_data.csv") %>%
   janitor::clean_names() %>%
   rename(year = year_x) %>%
@@ -163,7 +163,43 @@ map_county_bees <- counties_base + theme_nothing() +
 
 map_county_bees
 ```
-Figure 3: Map of All Bee Population Across the US
+
+```{r, echo=FALSE, message=FALSE, fig.align= "center"}
+
+data(state.map)
+
+state.map = 
+  state.map %>%
+  filter(region != "alaska", region != "hawaii") 
+
+state_data_1 = read_csv("./data/merged_county_data.csv") %>%
+  mutate(state = str_to_lower(state)) %>%
+  group_by(state)
+
+state_data_2 = read_csv("./data/merged_county_data.csv") %>%
+  mutate(state = str_to_lower(state)) %>%
+  group_by(state) %>% 
+  summarize(colony_count_state = sum(colony_count, na.rm = TRUE))
+
+state_data = left_join(state_data_1, state_data_2, by = "state") %>% 
+  select(year.x, state, colony_count_state) %>%
+  rename(region = state) %>% 
+  distinct 
+  
+state_map_data = left_join(state.map, state_data, by = "region")
+
+all_bees_state = 
+  ggplot(state_map_data, aes(long, lat, group = group, fill = colony_count_state)) + 
+  geom_polygon(color = "black") + theme_void() + 
+  labs(title = "All Bee Colonies by State", fill = "All Bee Colonies") + 
+  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + 
+  scale_fill_gradient(low = "white", high = "red")
+
+all_bees_state
+
+```
+
+Figure 3: Map of All Bee Populations Across the US
 <br>
 
 ```{r, echo=FALSE, message=FALSE}
