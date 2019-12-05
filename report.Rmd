@@ -3,6 +3,11 @@ title: "**Discussion**"
 
 ---
 
+The main goal of our analysis was to investigate the potential relationship between pesticide use and bee populations. We found that there is a small, but measurable, effect from pesticides on the bee population. This relationship, as evident by the Pearson correlation coefficient plot within our [Additional Analysis](https://misbath.github.io/bee_project.github.io/add_analysis.html) is quite variable across States.
+
+The [Exploratory Analyses](https://misbath.github.io/bee_project.github.io/exploring.html) yielded information on pesticide use and bee population change over time. 
+
+**will add more
 
 
 <br>
