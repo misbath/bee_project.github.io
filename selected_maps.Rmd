@@ -124,7 +124,7 @@ THIACLOPRID_map <- counties_base + theme_nothing() +
 ```
 
 
-```{r printing maps of top two pesticides}
+```{r printing maps of top two pesticides, echo=FALSE, message=FALSE}
 CHLOROTHALONIL_map 
 CHLORPYRIFOS_map 
 ```
@@ -138,7 +138,7 @@ map_county_bees <- counties_base + theme_nothing() +
       theme_void() + labs(title= "All Bees, County Level Data", fill = "Number of Bee Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + facet_grid(~year) + scale_fill_gradient(low = "blue", high = "red")
 ```
 
-```{r}
+```{r, echo = FALSE, message=FALSE}
 map_county_bees
 
 ```
@@ -232,7 +232,7 @@ clothianidin_map_state =
 ```
 
 
-```{r printing state maps of top two pesticides}
+```{r printing state maps of top two pesticides, echo=FALSE, message=FALSE}
 
 chlorothalonil_map_state
 chlorpyrifos_map_state
@@ -262,8 +262,7 @@ honey_bee_colony_map =
 
 ```
 
-```{r}
-
+```{r, echo=FALSE, message=FALSE}
 honey_bee_colony_map
 
 ```
