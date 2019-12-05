@@ -5,7 +5,7 @@ title: "**Discussion**"
 <br>
 
 The main goal of our analysis was to investigate the potential relationship between pesticide use and bee populations. We found that there is a small, but measurable, effect from pesticides on the bee population. This relationship, as evident by the Pearson correlation coefficient plot within our [Exploratory Analyses](https://misbath.github.io/bee_project.github.io/exploring.html) yielded information on pesticide use and bee population change over time. We found that compunds  Chlorpyrifos and Chlorothalonil are used in much higher quantities across all years. These two compunds specifically, have formualations and solvents that are known to be highly oral toxic to bee larvae [Zhu et. al](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0077547).
-As seen on figures 1 and 2, the increase in pesticide corresponds almost perfectly to the drops in honey bee and bee populations plotted. However, as shown in figure 3, the number of colonies does not seem to be affected by the variation in pesticide use. 
+As seen on figures 1 and 2, the increase in pesticide corresponds almost perfectly to the drops in honey bee and bee populations plotted. However, as shown in figure 3, the number of colonies does not seem to be affected by the variation in pesticide use.
 
 <br>
 
