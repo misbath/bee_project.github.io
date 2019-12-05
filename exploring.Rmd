@@ -97,7 +97,7 @@ Similarly, the graphs above illustrate changes in bee population over time, for 
 To supplement our time-dependent analysis, we aimed to understand how pesticide use and bee colonies varied across states during the same timeframe. 
 
  
-**Figure 3: Honey Producing Colonies across the US**
+**Figure 4: Honey Producing Colonies across the US**
 
 ```{r, echo=FALSE, message=FALSE}
 
@@ -132,7 +132,7 @@ honey_bee_colony_map
 
 <br>
 
-**Figure 4: Pesticide Use across the US**
+**Figure 5: Pesticide Use across the US**
 
 ```{r, echo=FALSE, message=FALSE}
 

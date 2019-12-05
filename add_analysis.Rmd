@@ -33,6 +33,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 To understand the effect of the pesticide use trends in the United States and the potential effect on bee population for each state, we calculated the Pearson Correlation for the time period of 2004-2016.
 
+*Figure 6: Correlation of Pesticide Use and Bee Population*
+
 ```{r,echo=FALSE, message=FALSE}
 
 state_correlations= read_csv("./data/state_correlations.csv")
@@ -54,7 +56,7 @@ edit_state_corr %>%
 
 The map below shows the correlations for pesticide use across the country.
 <center>
-![Pesticide Use in the US by Year](Rplot01.png)
+![Figure 7: Pesticide Use in the US by Year](Rplot01.png)
 
 ```{r}
 merged_state_data = read.csv("./data/merged_state_data.csv")
