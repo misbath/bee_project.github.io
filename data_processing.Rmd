@@ -142,9 +142,11 @@ county_pest_yrfips =
 
 merged_county_data = full_join(county_bee_yrfips, county_pest_yrfips, by = "yearfips") %>%
   select(year.x, state, county, county_fips, colony_count, compound, epest_low_kg, epest_high_kg) %>%
-  drop_na(year.x, state, county, colony_count, compound, epest_high_kg)
+  drop_na(year.x, state, county, compound, epest_high_kg)
 
 write.csv(merged_county_data, file = "merged_county_data.csv")
+
+
 
 ```
 
