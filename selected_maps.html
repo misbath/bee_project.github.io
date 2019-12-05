@@ -10,10 +10,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Lizbeth Gomez" />
 
 
-<title>annimated plots</title>
+<title>selected_maps</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -278,18 +277,9 @@ $(document).ready(function () {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-<<<<<<< HEAD
-  <a href="dashboard.html">Bees</a>
-</li>
-<li>
-  <a href="https://misbath.shinyapps.io/shiny_dashboard/">Pesticides</a>
-</li>
-<li>
-=======
   <a href="https://misbath.shinyapps.io/shiny_dashboard/">Pesticide Use and Bee Trends</a>
 </li>
 <li>
->>>>>>> 719419b00ffb5ce80ab425728a1441711d754a8e
   <a href="screen.html">Screencast</a>
 </li>
 <li class="dropdown">
@@ -300,20 +290,10 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-<<<<<<< HEAD
-      <a href="about.html">About</a>
-    </li>
-    <li>
-      <a href="motivation.html">Motivation</a>
-    </li>
-    <li>
-      <a href="initial.html">Report</a>
-=======
       <a href="motivation.html">Motivation</a>
     </li>
     <li>
       <a href="initial.html">Project Details</a>
->>>>>>> 719419b00ffb5ce80ab425728a1441711d754a8e
     </li>
     <li>
       <a href="exploring.html">Exploratory Analysis</a>
@@ -323,6 +303,9 @@ $(document).ready(function () {
     </li>
     <li>
       <a href="report.html">Discussion</a>
+    </li>
+    <li>
+      <a href="selected_maps.html">Selected Maps</a>
     </li>
   </ul>
 </li>
@@ -347,39 +330,51 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">annimated plots</h1>
-<h4 class="author">Lizbeth Gomez</h4>
-<h4 class="date">12/3/2019</h4>
+<h1 class="title toc-ignore">selected_maps</h1>
 
 </div>
 
 
-<pre class="r"><code>top_pesticides = read_csv(&quot;./data/top_pesticides.csv&quot;)</code></pre>
-<pre><code>## Parsed with column specification:
-## cols(
-##   X1 = col_double(),
-##   compound = col_character(),
-##   year = col_double(),
-##   epest_low_kg = col_double(),
-##   epest_high_kg = col_double(),
-##   state_fips = col_character(),
-##   county_fips = col_character(),
-##   state_county_fips = col_character()
-## )</code></pre>
-<pre class="r"><code>top_pesticides %&gt;%
-  group_by(compound, year) %&gt;%
-  na.omit(epest_high_kg) %&gt;%
-  summarise(n = sum(epest_high_kg)) %&gt;%
-  ggplot(aes(x = year, y = n, color = compound)) + 
-  geom_point() + 
-  geom_line() +
-    theme(axis.text.x = element_text(angle = 90)) +
-    labs(
-    title = &quot;Pesticide Use in the US&quot;,
-    x = &quot;Year&quot;,
-    y = &quot;Weight of Pesticide used in the US (kg)&quot;) +
-  transition_reveal(year)</code></pre>
-<pre><code>## NULL</code></pre>
+<p>#Reading in data</p>
+<p>#2012 and 2007 data</p>
+<div id="county-level-maps" class="section level1">
+<h1><strong>County Level Maps</strong></h1>
+<p><em>Pesticides</em></p>
+<pre class="r"><code>CHLOROTHALONIL_map </code></pre>
+<p><img src="selected_maps_files/figure-html/printing%20maps-1.png" width="90%" /></p>
+<pre class="r"><code>CHLORPYRIFOS_map </code></pre>
+<p><img src="selected_maps_files/figure-html/printing%20maps-2.png" width="90%" /></p>
+<pre class="r"><code>CLOTHIANIDIN_map</code></pre>
+<p><img src="selected_maps_files/figure-html/printing%20maps-3.png" width="90%" /></p>
+<pre class="r"><code>FIPRONIL_map</code></pre>
+<p><img src="selected_maps_files/figure-html/printing%20maps-4.png" width="90%" /></p>
+<pre class="r"><code>IMIDACLOPRID_map</code></pre>
+<p><img src="selected_maps_files/figure-html/printing%20maps-5.png" width="90%" /></p>
+<pre class="r"><code>THIACLOPRID_map</code></pre>
+<p><img src="selected_maps_files/figure-html/printing%20maps-6.png" width="90%" /></p>
+<p><em>All Bees</em></p>
+<pre class="r"><code>map_county_bees</code></pre>
+<p><img src="selected_maps_files/figure-html/unnamed-chunk-3-1.png" width="90%" /></p>
+<p><br></p>
+</div>
+<div id="state-level-maps" class="section level1">
+<h1><strong>State level maps</strong></h1>
+<p><em>Pesticides</em></p>
+<pre class="r"><code>chlorothalonil_map_state</code></pre>
+<p><img src="selected_maps_files/figure-html/printing%20state%20maps-1.png" width="90%" /></p>
+<pre class="r"><code>chlorpyrifos_map_state</code></pre>
+<p><img src="selected_maps_files/figure-html/printing%20state%20maps-2.png" width="90%" /></p>
+<pre class="r"><code>clothianidin_map_state</code></pre>
+<p><img src="selected_maps_files/figure-html/printing%20state%20maps-3.png" width="90%" /></p>
+<pre class="r"><code>imidacloprid_map_state</code></pre>
+<p><img src="selected_maps_files/figure-html/printing%20state%20maps-4.png" width="90%" /></p>
+<pre class="r"><code>thiacloprid_map_state</code></pre>
+<p><img src="selected_maps_files/figure-html/printing%20state%20maps-5.png" width="90%" /></p>
+<p><br></p>
+<p><em>Honey Bees</em></p>
+<pre class="r"><code>honey_bee_colony_map</code></pre>
+<p><img src="selected_maps_files/figure-html/unnamed-chunk-4-1.png" width="90%" /></p>
+</div>
 
 
 

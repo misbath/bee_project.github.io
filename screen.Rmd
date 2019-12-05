@@ -1,8 +1,5 @@
 ---
-title: "screen"
-author: "Lizbeth Gomez"
-date: "12/3/2019"
-output: html_document
+title: "**Screencast**"
 ---
 
-
+This screencast illustrates our project, emphasizing our motivation, data analysis, and discussions.

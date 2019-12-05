@@ -34,15 +34,16 @@ clean_bee_data %>%
    group_by(year) %>%
    summarise(n = sum(honey_producing_colonies)) %>%
    ggplot(aes(x = year, y = n)) + 
-   geom_point() + 
-   geom_smooth(se = FALSE) +
+   geom_point() +
+   geom_line() +
    theme(axis.text.x = element_text(angle = 90)) +
    labs(
      title = "Honey Bee Colony Count in the US",
      x = "Year",
      y = "Honey Bee Colonies Across the US") +
    scale_x_continuous(
-      breaks = c(2002, 2007, 2012, 2017))
+      breaks = c(2002, 2007, 2012, 2017))+
+   gganimate::transition_reveal(year)
 ```
 
 ```{r}
@@ -55,14 +56,15 @@ bee_county %>%
    summarise(n = sum(colony_count)) %>%
    ggplot(aes(x = year, y = n)) + 
    geom_point() + 
-   geom_smooth() +
+   geom_line() +
      theme(axis.text.x = element_text(angle = 90)) +
    labs(
      title = "Bee Colony Count in the US",
       x = "Year",
      y = "Bee Colonies Across the US") + 
    scale_x_continuous(
-      breaks = c(2002, 2007, 2012))
+      breaks = c(2002, 2007, 2012)) +
+   gganimate::transition_reveal(year)
 ```
 
 ```{r}
@@ -191,3 +193,32 @@ chlorpyrifos_map =
 
 chlorpyrifos_map
 ```
+
+
+** Linear Regression Models **
+
+
+```{r, echo=FALSE, message=FALSE}
+merged_state_data = read.csv("./data/merged_state_data.csv")
+
+merged_state_data %>%
+  lm(honey_producing_colonies ~ high, data = .) %>%
+  broom::tidy() %>%
+  knitr::kable(digits = 2)
+```
+
+# Do we want to include a linear model like below? For every increase in kg pesticide, bee colony population is expected to vary by x amount?
+```{r, echo=FALSE, message=FALSE}
+state_data_lm =
+merged_state_data %>%
+   filter(year.x == 2007 | year.x == 2008) %>%
+   group_by(state) %>%
+   mutate(total_pest = sum(high))
+
+merged_state_data %>%
+  lm(honey_producing_colonies ~ high + state, data = .) %>%
+  broom::tidy() %>%
+  knitr::kable(digits = 2)
+
+```
+

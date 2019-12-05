@@ -3,19 +3,15 @@ output_dir: "."
 navbar:
   title: "Home"
   right:
-    - text: "Bees"
-      href: dashboard.html
-    - text: "Pesticides"
+    - text: "Pesticide Use and Bee Trends"
       href: https://misbath.shinyapps.io/shiny_dashboard/
     - text: "Screencast"
       href: screen.html
     - text: "Report"
       menu:
-        - text: "About"
-          href: about.html
         - text: "Motivation"
           href: motivation.html
-        - text: "Report"
+        - text: "Project Details"
           href: initial.html
         - text: "Exploratory Analysis"
           href: exploring.html
@@ -23,6 +19,8 @@ navbar:
           href: add_analysis.html
         - text: "Discussion"
           href: report.html
+        - text: "Selected Maps"
+          href: selected_maps.html
     - icon: fa-envelope fa-lg
       href: mailto:<lg2982@columbia.edu>
     - icon: fa-github fa-lg

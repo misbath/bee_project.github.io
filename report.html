@@ -277,10 +277,7 @@ $(document).ready(function () {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="dashboard.html">Bees</a>
-</li>
-<li>
-  <a href="https://misbath.shinyapps.io/shiny_dashboard/">Pesticides</a>
+  <a href="https://misbath.shinyapps.io/shiny_dashboard/">Pesticide Use and Bee Trends</a>
 </li>
 <li>
   <a href="screen.html">Screencast</a>
@@ -293,16 +290,10 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="about.html">About</a>
-    </li>
-    <li>
       <a href="motivation.html">Motivation</a>
     </li>
     <li>
-      <a href="related.html">Related Work</a>
-    </li>
-    <li>
-      <a href="initial.html">Initial Question/Data</a>
+      <a href="initial.html">Project Details</a>
     </li>
     <li>
       <a href="exploring.html">Exploratory Analysis</a>
@@ -342,6 +333,23 @@ $(document).ready(function () {
 
 
 <p><br></p>
+<p>The main goal of our analysis was to investigate the potential relationship between pesticide use and bee populations. We found that there is a small, but measurable, effect from pesticides on the bee population. This relationship, as evident by the Pearson correlation coefficient plot within our <a href="https://misbath.github.io/bee_project.github.io/exploring.html">Exploratory Analyses</a> yielded information on pesticide use and bee population change over time. We found that compunds Chlorpyrifos and Chlorothalonil are used in much higher quantities across all years. These two compunds specifically, have formualations and solvents that are known to be highly oral toxic to bee larvae <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0077547">Zhu et. al</a>. As seen on figures 1 and 2, the increase in pesticide corresponds almost perfectly to the drops in honey bee and bee populations plotted. However, as shown in figure 3, the number of colonies does not seem to be affected by the variation in pesticide use.</p>
+<p><br></p>
+<p>Additionally we wanted to visually represent the use of pesticides and colonies across spatially by state. Figures 4 and 5 show number of colonies and cumulative pesticide use by state. As seen in these maps, California has a high number of honey producing colonies and a moderate use of cumulative pesticides. However, states like Georgia, which use quite a large amount of pesticides has a small number of honey producing colonies. States along central United States do not show a clear relationship between the exposure and outcome. We presume other environmental factors, such as climate are at play here.</p>
+<p><br></p>
+<p>Lastly during our exploratory analysis, we wanted to look at the correlation among the selected six compounds. Table 1 shows the correlation coefficients; specifically we oberved a highly positive correlation between Chlorpyfiros, Imidacloprid and Chlorothalonil use, which is confirmed by the plotted use in Figure 1.</p>
+<p><br></p>
+<p>The <a href="https://misbath.github.io/bee_project.github.io/add_analysis.html">Additional Analysis</a> shows this correlation is quite variable across States, evident by the Pearson correlation coefficient plot. As shown in Figure 6, states like Maryland and South Carolina, where the correlation between pesticide use and bee decline is quite strong, the government is <a href="https://dnr.maryland.gov/wildlife/Pages/habitat/wabees.aspx">publishing information</a> on bees and conservation efforts, stating that bee decline can be attributed to loss of native plants and pesticides.</p>
+<p><br></p>
+<p>Future analysis could examine the effects of weather on bee population. This could range from looking at changes in temperature over time to the effect of precipitation. Linear models adjusting for all of these variables could be built as well as non-linear models such as segmented regression or generalized additive models to best test a threshold for bee colony decline.</p>
+<p>While this analysis does not demonstrate a very strong effect of pesticides on bee population, please consider taking the following precautions to conserve the bee ecosystem!</p>
+<ul>
+<li>Plant a pollinator garden</li>
+<li>Avoid pesticide use in the yard</li>
+<li>Conserve bee nesting habitats</li>
+<li>Educate others!</li>
+</ul>
+<p><br></p>
 <div id="references" class="section level1">
 <h1><strong>References</strong></h1>
 <p>Frazier, J., Mullin, C., Frazier, M., &amp; Ashcraft, S. (2011). Pesticides and their involvement in colony collapse disorder. Am Bee J, 151, 779-781. <a href="https://bee-health.extension.org/pesticides-and-their-involvement-in-colony-collapse-disorder/" class="uri">https://bee-health.extension.org/pesticides-and-their-involvement-in-colony-collapse-disorder/</a></p>
@@ -349,6 +357,7 @@ $(document).ready(function () {
 <p>G. Di Prisco, V. Cavaliere, D. Annoscia, P. Varricchio, E. Caprio, F. Nazzi, G. Gargiulo, F. Pennacchio Neonicotinoid clothianidin adversely affects insect immunity and promotes replication of a viral pathogen in honey bees, PNAS, 110 (2013), pp. 18466-18471</p>
 <p>van Lexmond, M.B., Bonmatin, JM., Goulson, D. et al. Environ Sci Pollut Res (2015) 22: 1. <a href="https://doi.org/10.1007/s11356-014-3220-1" class="uri">https://doi.org/10.1007/s11356-014-3220-1</a></p>
 <p>Zawislak, J., Adamczyk, J., Johnson, D. R., Lorenz, G., Black, J., Hornsby, Q., … &amp; Joshi, N. (2019). Comprehensive Survey of Area-Wide Agricultural Pesticide Use in Southern United States Row Crops and Potential Impact on Honey Bee Colonies. Insects, 10(9), 280. <a href="https://www.mdpi.com/2075-4450/10/9/280/htm" class="uri">https://www.mdpi.com/2075-4450/10/9/280/htm</a></p>
+<p>Zhu W, Schmehl DR, Mullin CA, Frazier JL. Four Common Pesticides, Their Mixtures and a Formulation Solvent in the Hive Environment Have High Oral Toxicity to Honey Bee Larvae. PLOS ONE. 2014;9(1):e77547. <a href="doi:10.1371/journal.pone.0077547" class="uri">doi:10.1371/journal.pone.0077547</a></p>
 <p>Image: <a href="https://commons.wikimedia.org/wiki/File:Bumble_Bee_(4849358448).jpg" class="uri">https://commons.wikimedia.org/wiki/File:Bumble_Bee_(4849358448).jpg</a></p>
 </div>
 

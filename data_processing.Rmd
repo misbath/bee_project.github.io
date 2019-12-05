@@ -25,6 +25,7 @@ scale_fill_discrete = scale_fill_viridis_d
 theme_set(theme_bw() + theme(legend.position = "bottom"))
 ```
 
+
 ```{r, FIPS data}
 county_fips = read_csv("./data/all-geocodes-v2016.csv", skip = 4) %>%
   janitor::clean_names() %>%
@@ -54,7 +55,7 @@ bee_county = read_csv("./data/bee_county/Bee_Colony_Census_Data_by_County 2.csv"
          value, 
          cv_percent) 
 
- bee_county$state_ansi = stringr::str_pad(bee_county$state_ansi,2 , pad = "0")
+bee_county$state_ansi = stringr::str_pad(bee_county$state_ansi,2 , pad = "0")
 bee_county$county_ansi = stringr::str_pad(bee_county$county_ansi,3 , pad = "0")
 
 bee_county = bee_county%>% 
@@ -98,27 +99,6 @@ clean_bee_data =
 write.csv(clean_bee_data, file = "clean_bee_data.csv")
 ```
 
-
-```{r, pesticide data, eval=FALSE}
-
-pest_2002 = read_excel("./data/pesticides_csv/EPest.county.estimates.2002.xlsx") %>% 
-  janitor::clean_names() %>% 
-  mutate(
-    state_fips = state_fips_code,
-    county_fips = county_fips_code,
-    state_county_fips = paste0(state_fips, county_fips),
-    epest_low_kg = round(epest_low_kg),
-    epest_high_kg = round(epest_high_kg)) %>%
-  select(-state_fips_code, -county_fips_code)
-    
-pest_2002 %>% 
-  group_by(year, state_county_fips, compound) %>% 
-  ggplot(aes(x = compound, y = epest_high_kg)) + 
-  geom_col() 
-
-unique(pull(pest_2002, compound))
-
-```
 
 ```{r Aggregate county data to state}
 state_bee_fips = full_join(clean_bee_data, state_fips, by = "state")
@@ -177,11 +157,7 @@ pest = read_csv("./data/top_pesticides.csv") %>%
 ```
 
 
-```{r, correlation pesticides}
-
-#correlation of state level means across all years 
-#use this one and matrix 2
-
+```{r, pesticide correlatio}
 
 corr_state = read_csv("./data/top_pesticides.csv") %>% 
   group_by(compound, state_fips) %>%
@@ -195,8 +171,6 @@ corr_state = read_csv("./data/top_pesticides.csv") %>%
 corr_state %>%
   view()
 
-matrix_state_1 = cor(corr_state, use = "everything", method = c("pearson"))
-matrix_state_1
 
 matrix_state_2 = cor(corr_state, use = "complete.obs", method = c("pearson"))
 matrix_state_2
@@ -207,7 +181,7 @@ corrplot(matrix_state_2, order = "hclust", type = "full")
 
 ```
 
-```{r trends pesticides}
+```{r pesticide trends}
 
 pest_country = read_csv("./data/top_pesticides.csv") %>% 
   group_by(compound, year) %>%

@@ -5,6 +5,6 @@ account: misbath
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 1556473
-bundleId: 2640639
+bundleId: 2641627
 url: https://misbath.shinyapps.io/shiny_dashboard/
-when: 1575474502.73813
+when: 1575493087.25959
