@@ -31,7 +31,7 @@ scale_fill_discrete = scale_fill_viridis_d
 theme_set(theme_bw() + theme(legend.position = "bottom"))
 ```
 
-#Reading in data
+
 
 ```{r read in data,include=FALSE}
 merged_county_data = read_csv("./data/merged_county_data.csv") %>%
@@ -61,8 +61,6 @@ county_2 <- merged_county_data_for_join %>%
 
 ```
 
-
-#2012 and 2007 data
 
 ```{r making each pesticide data file, include=FALSE}
 
