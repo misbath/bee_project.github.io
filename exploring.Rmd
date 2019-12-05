@@ -5,6 +5,7 @@ title: "**Exploratory Analysis**"
 
 The goal of this first analysis was to identify time-dependent trends and regional changes in pesticide use and bee populations in the United States since the early 2000's. 
 
+
 # Temporal Analysis
 <br>
 
@@ -47,7 +48,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 <br>
-
 ```{r, echo=FALSE, message=FALSE, include=FALSE, fig.align= "center"}
 corr_state = read_csv("./data/top_pesticides.csv") %>% 
   group_by(compound, state_fips) %>%
@@ -72,7 +72,6 @@ matrix_state_2
 corrplot(matrix_state_2, order = "hclust", type = "full")
 
 ```
-
 
 ```{r, echo=FALSE, message=FALSE, fig.align= "center"}
 merged_county_data = read_csv("./data/merged_county_data.csv") %>%
@@ -152,6 +151,7 @@ all_bee_year =
 <br>
 
 Figure 3: Change in Bee Population Across the US
+<br>
 
 <left>
 Similarly, the graphs above illustrate changes in bee population over time, for honey bees and all bees  respectively. The honey bee population decreased in 2007-2008 while the growth rate of all bee populations slowed at this same time point.  
@@ -159,13 +159,10 @@ Similarly, the graphs above illustrate changes in bee population over time, for 
 <br>
 
 # Spatial Analysis
-
-
 <br>
 
 <left>
 To supplement our time-dependent analysis, we aimed to understand how pesticide use and bee colonies varied across states during the same timeframe. 
-
 
 ```{r, echo=FALSE, message=FALSE}
 
@@ -195,7 +192,6 @@ honey_bee_colony_map
 Figure 6: Honey Producing Colonies across the US
 
 <br>
-
 ```{r, echo=FALSE, message=FALSE}
 
 library(choroplethrMaps)
@@ -224,7 +220,6 @@ all_pest_map
 Figure 7: Pesticide Use across the US
 
 <br>
-
 <left>
 The maps above show that a few states stand out in terms of having a higher honey bee colony count (ie, California, North Dakota, South Dakota, Florida) and/or a higher level of pesticide use (ie, Georgia, Florida, Texas, California) relative to other states. 
 
