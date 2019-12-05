@@ -4,7 +4,7 @@ title: "**Discussion**"
 ---
 <br>
 
-The main goal of our analysis was to investigate the potential relationship between pesticide use and bee populations. We found that there is a small, but measurable, effect from pesticides on the bee population. The [Additional Analysis](https://misbath.github.io/bee_project.github.io/add_analysis.html) shows this correlation is quite variable across States, evident by the Pearson correlation coefficient plot. For some States, this correlation is moderate while for other states, it is non-existant or even the opposite of what we expected to see.
+The main goal of our analysis was to investigate the potential relationship between pesticide use and bee populations. We found that there is a small, but measurable, effect from pesticides on the bee population. The [Additional Analysis](https://misbath.github.io/bee_project.github.io/add_analysis.html) shows this correlation is quite variable across states, evident by the Pearson correlation coefficient plot. Based on previous research, we hypothesized that the correlation between pesticides and bee population would be negative, the more pesticides in use, the smaller the bee population. For some States, this correlation is moderate while for other states, it is non-existant or even positive, the opposite of what we expected. 
 
 <br>
 
@@ -30,8 +30,13 @@ While this analysis does not demonstrate a very strong effect of pesticides on b
 * Conserve bee nesting habitats
 * Educate others!
 
+<br>
+
+<img src="./images/confused_bee.jpg" style="width:25%" style="height:25%">
 
 <br>
+
+<left>
 
 # **References**
 
