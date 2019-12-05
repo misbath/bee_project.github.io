@@ -1,6 +1,10 @@
 ---
 title: "Map Code"
 output: html_document
+output: 
+  html_document:
+    toc: true
+    toc_float: true
 ---
 
 ```{r setup, include=FALSE}
@@ -140,7 +144,7 @@ toggle: year, pesticide
 
 I think the issue of missing data will be less so once we separate by years. I'm honestly not fully clear the difference between dark and light grey. 
 
-##Bees
+*Bees*
 
 ```{r}
 map_county_bees <- counties_base + theme_nothing() + 
