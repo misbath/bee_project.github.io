@@ -345,88 +345,61 @@ $(document).ready(function () {
 <p><left> The graph above shows the variations in use of the six most common pesticides in the United States from 2004 to 2016. Two of these compounds, Chlorpyfiros and Chlorothalonil, appear to be used to a much greater extent than the others. These two compounds are known to be insecticides that can potentially lead to nervous fucntion loss in bees, as well as bee population loss.</p>
 <p><br></p>
 <p><br></p>
+<pre class="r"><code>merged_county_data = read_csv(&quot;./data/merged_county_data.csv&quot;) %&gt;%
+  janitor::clean_names() %&gt;%
+  rename(year = year_x) %&gt;%
+  mutate(
+    county = str_to_lower(county)
+  )</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   X1 = col_double(),
+##   year.x = col_double(),
+##   state = col_character(),
+##   county = col_character(),
+##   county_fips = col_character(),
+##   colony_count = col_number(),
+##   compound = col_character(),
+##   epest_low_kg = col_double(),
+##   epest_high_kg = col_double()
+## )</code></pre>
+<pre class="r"><code>counties &lt;- map_data(&quot;county&quot;)
+
+merged_county_data_for_join =
+  merged_county_data %&gt;%
+  rename(subregion = county)
+
+county_2 &lt;- merged_county_data_for_join %&gt;%
+  left_join(counties, &quot;subregion&quot;)
+
+
+counties_base &lt;- ggplot(data = counties, mapping = aes(x = long, y = lat, group = group)) + 
+  coord_fixed(1.3) + 
+  geom_polygon(color = &quot;black&quot;, fill = &quot;gray&quot;)
+
+
+map_county_bees &lt;- counties_base + theme_nothing() + 
+  geom_polygon(data = county_2, aes(fill= colony_count), color = &quot;white&quot;) + geom_polygon(color = &quot;gray&quot;, fill = NA) +
+      theme_void() + labs(title= &quot;All Bees&quot;, fill = &quot;Number of Bee Colonies&quot;) + coord_map(projection = &quot;bonne&quot;, lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = &quot;blue&quot;, high = &quot;red&quot;)</code></pre>
+<pre><code>## Coordinate system already present. Adding new coordinate system, which will replace the existing one.</code></pre>
+<pre class="r"><code>map_county_bees</code></pre>
+<p><img src="exploring_files/figure-html/unnamed-chunk-3-1.png" width="90%" /></p>
 <p><br></p>
 <center>
 <p>Figure 2: Honey Bee Colony Count in the US</p>
-<pre class="r"><code>clean_bee_data = read_csv(&quot;./data/clean_bee_data.csv&quot;)</code></pre>
-<pre><code>## Parsed with column specification:
-## cols(
-##   X1 = col_double(),
-##   year = col_double(),
-##   state = col_character(),
-##   honey_producing_colonies = col_double(),
-##   yield_per_colony = col_double(),
-##   production = col_double(),
-##   stocks = col_double(),
-##   price_per_pound = col_double(),
-##   production_value = col_double()
-## )</code></pre>
-<pre class="r"><code># honey bee population for country by year
-honey_bee_year = 
-  clean_bee_data %&gt;%
-   mutate(year = as.numeric(year)) %&gt;%
-   group_by(year) %&gt;%
-   summarise(n = sum(honey_producing_colonies)) %&gt;%
-   ggplot(aes(x = year, y = n)) + 
-   geom_point() +
-   geom_smooth(se = FALSE) +
-   theme(axis.text.x = element_text(angle = 90)) +
-   labs(
-     title = &quot;Honey Bee Colony Count in the US&quot;,
-     x = &quot;Year&quot;,
-     y = &quot;Honey Bee Colonies Across the US&quot;) +
-   scale_x_continuous(
-      breaks = c(2002, 2007, 2012, 2017))
-
-bee_county = read_csv(&quot;./data/bee_county.csv&quot;)</code></pre>
-<pre><code>## Parsed with column specification:
-## cols(
-##   X1 = col_double(),
-##   year = col_double(),
-##   state = col_character(),
-##   state_ansi = col_character(),
-##   ag_district = col_character(),
-##   ag_district_code = col_double(),
-##   county = col_character(),
-##   county_ansi = col_character(),
-##   colony_count = col_number(),
-##   cv_percent = col_character(),
-##   state_county_fips = col_character()
-## )</code></pre>
-<pre class="r"><code>all_bee_year = 
-  bee_county %&gt;%
-   mutate(colony_count = as.numeric(colony_count)) %&gt;%
-   drop_na(colony_count) %&gt;%
-   group_by(year) %&gt;%
-   summarise(n = sum(colony_count)) %&gt;%
-   ggplot(aes(x = year, y = n)) + 
-   geom_point() + 
-   geom_smooth() +
-     theme(axis.text.x = element_text(angle = 90)) +
-   labs(
-     title = &quot;Bee Colony Count in the US&quot;,
-      x = &quot;Year&quot;,
-     y = &quot;Bee Colonies Across the US&quot;) + 
-   scale_x_continuous(
-      breaks = c(2002, 2007, 2012))
-
-(honey_bee_year + all_bee_year)</code></pre>
-<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="exploring_files/figure-html/unnamed-chunk-3-1.png" width="90%" /></p>
 <p><br></p>
-<p><left> Similarly, the graphs above illustrate changes in bee population over time, for honey bees and all bees respectively. Both honey bee and all bee populations decreased or plateaued in 2007-2008.</p>
+<p><left> Similarly, the graphs above illustrate changes in bee population over time, for honey bees and all bees respectively. The honey bee population decreased in 2007-2008 while the growth rate of all bee populations slowed at this same time point.</p>
 <p><br></p>
 </div>
 <div id="spatial-analysis" class="section level1">
 <h1>Spatial Analysis</h1>
 <p><br></p>
 <p><left> To supplement our time-dependent analysis, we aimed to understand how pesticide use and bee colonies varied across states during the same timeframe.</p>
-<img src="exploring_files/figure-html/unnamed-chunk-4-1.png" width="90%" />
+<img src="exploring_files/figure-html/unnamed-chunk-5-1.png" width="90%" />
 <center>
 <p>Figure 4: Honey Producing Colonies across the US</p>
 <p><br></p>
-<img src="exploring_files/figure-html/unnamed-chunk-5-1.png" width="90%" />
+<img src="exploring_files/figure-html/unnamed-chunk-6-1.png" width="90%" />
 <center>
 <p>Figure 5: Pesticide Use across the US</p>
 <p><br></p>
