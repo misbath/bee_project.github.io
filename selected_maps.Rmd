@@ -1,6 +1,9 @@
 ---
 title: "selected_maps"
-output: html_document
+output: 
+  html_document:
+    toc: true
+    toc_float: true
 ---
 
 ```{r setup, include=FALSE}
@@ -101,32 +104,32 @@ counties_base <- ggplot(data = counties, mapping = aes(x = long, y = lat, group 
 
 map_county <- counties_base + theme_nothing() + 
   geom_polygon(data = county_2, aes(fill= epest_high_kg), color = "white") + geom_polygon(color = "black", fill = NA) +
-      theme_void() + labs(title= "All Pesticides, All Years, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5))
+      theme_void() + labs(title= "All Pesticides, All Years, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
 
 
 CHLORPYRIFOS_map <- counties_base + theme_nothing() + 
   geom_polygon(data = CHLORPYRIFOS, aes(fill= epest_high_kg), color = "white") + geom_polygon(color = "black", fill = NA) +
-      theme_void() + labs(title= "Chlorpyrifos, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + facet_grid(~year)
+      theme_void() + labs(title= "Chlorpyrifos, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + facet_grid(~year) + scale_fill_gradient(low = "white", high = "red")
 
 CLOTHIANIDIN_map <- counties_base + theme_nothing() + 
   geom_polygon(data = CLOTHIANIDIN, aes(fill= epest_high_kg), color = "white") + geom_polygon(color = "black", fill = NA) +
-      theme_void() + labs(title= "Clothianidin, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + facet_grid(~year)
+      theme_void() + labs(title= "Clothianidin, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + facet_grid(~year) + scale_fill_gradient(low = "white", high = "red")
 
 IMIDACLOPRID_map <- counties_base + theme_nothing() + 
   geom_polygon(data = IMIDACLOPRID, aes(fill= epest_high_kg), color = "white") + geom_polygon(color = "black", fill = NA) +
-      theme_void() + labs(title= "Imidacloprid, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + facet_grid(~year)
+      theme_void() + labs(title= "Imidacloprid, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + facet_grid(~year) + scale_fill_gradient(low = "white", high = "red")
 
 CHLOROTHALONIL_map <- counties_base + theme_nothing() + 
   geom_polygon(data = CHLOROTHALONIL, aes(fill= epest_high_kg), color = "white") + geom_polygon(color = "black", fill = NA) +
-      theme_void() + labs(title= "Chlorothalonil, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + facet_grid(~year)
+      theme_void() + labs(title= "Chlorothalonil, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + facet_grid(~year) + scale_fill_gradient(low = "white", high = "red")
 
 FIPRONIL_map <- counties_base + theme_nothing() + 
   geom_polygon(data = FIPRONIL, aes(fill= epest_high_kg), color = "white") + geom_polygon(color = "black", fill = NA) +
-      theme_void() + labs(title= "Fipronil, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + facet_grid(~year)
+      theme_void() + labs(title= "Fipronil, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + facet_grid(~year) + scale_fill_gradient(low = "white", high = "red")
 
 THIACLOPRID_map <- counties_base + theme_nothing() + 
   geom_polygon(data = THIACLOPRID, aes(fill= epest_high_kg), color = "white") + geom_polygon(color = "black", fill = NA) +
-      theme_void() + labs(title= "Thiacloprid, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + facet_grid(~year)
+      theme_void() + labs(title= "Thiacloprid, County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + facet_grid(~year) + scale_fill_gradient(low = "white", high = "red")
 ```
 
 
@@ -147,7 +150,7 @@ THIACLOPRID_map
 ```{r, include = FALSE}
 map_county_bees <- counties_base + theme_nothing() + 
   geom_polygon(data = county_2, aes(fill= colony_count), color = "white") + geom_polygon(color = "black", fill = NA) +
-      theme_void() + labs(title= "All Bees, All Years, County Level Data", fill = "Number of Bee Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + facet_grid(~year)
+      theme_void() + labs(title= "All Bees, County Level Data", fill = "Number of Bee Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + facet_grid(~year) + scale_fill_gradient(low = "white", high = "red")
 ```
 
 ```{r}
