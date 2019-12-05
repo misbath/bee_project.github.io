@@ -56,3 +56,19 @@ The map below shows the correlations for pesticide use across the country.
 <center>
 ![Pesticide Use in the US by Year](Rplot01.png)
 
+```{r}
+merged_state_data = read.csv("./data/merged_state_data.csv")
+
+merged_state_data %>%
+  lm(honey_producing_colonies ~ high, data = .) %>%
+  broom::tidy() %>%
+  knitr::kable(digits = 2)
+
+merged_state_data %>%
+  lm(honey_producing_colonies ~ high + compound + state, data = .) %>%
+  broom::tidy() %>%
+  knitr::kable(digits = 2)
+
+```
+
+
