@@ -76,7 +76,7 @@ corrplot(matrix_state_2, order = "hclust", type = "full")
 
 
 
-```{r, echo=FALSE, message=FALSE}
+```{r, echo=FALSE, message=FALSE, fig.align= "center"}
 merged_county_data = read_csv("./data/merged_county_data.csv") %>%
   janitor::clean_names() %>%
   rename(year = year_x) %>%
@@ -105,15 +105,11 @@ map_county_bees <- counties_base + theme_nothing() +
 
 map_county_bees
 ```
-
-
+Figure 2: Map of All Bee Population Across the US
 
 <br>
 
-<center>
-Figure 2: Honey Bee Colony Count in the US
-
-```{r,  echo=FALSE, message=FALSE, include=FALSE}
+```{r,  echo=FALSE, message=FALSE, fig.align= "center"}
 clean_bee_data = read_csv("./data/clean_bee_data.csv")
 
 # honey bee population for country by year
@@ -157,6 +153,8 @@ all_bee_year =
 
 <br>
 
+Figure 3: Change in Bee Population Across the US
+
 <left>
 Similarly, the graphs above illustrate changes in bee population over time, for honey bees and all bees  respectively. The honey bee population decreased in 2007-2008 while the growth rate of all bee populations slowed at this same time point.  
 
@@ -196,7 +194,7 @@ honey_bee_colony_map
 
 ```
 <center>
-Figure 4: Honey Producing Colonies across the US
+Figure 6: Honey Producing Colonies across the US
 
 <br>
 
@@ -225,7 +223,7 @@ all_pest_map =
 all_pest_map
 ```
 <center>
-Figure 5: Pesticide Use across the US
+Figure 7: Pesticide Use across the US
 
 <br>
 
@@ -241,7 +239,7 @@ The maps above show that a few states stand out in terms of having a higher hone
 <left>
 In addition to the temporal and regional analyses, we also assessed correlation between the pesticides to avoid any collinarity issues. 
 
-**Table 1: Pearson Correlation Coefficients for mean persticide use across states**
+Table 1: Pearson Correlation Coefficients for mean persticide use across states
 
 ```{r,echo=FALSE, message=FALSE}
 
