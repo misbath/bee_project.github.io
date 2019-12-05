@@ -304,9 +304,6 @@ $(document).ready(function () {
     <li>
       <a href="report.html">Discussion</a>
     </li>
-    <li>
-      <a href="selected_maps.html">Selected Maps</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -350,14 +347,73 @@ $(document).ready(function () {
 <p><br></p>
 <p><br></p>
 <center>
-<div class="figure">
-<img src="Analysis-and-visualization_files/figure-html/unnamed-chunk-1-1.gif" alt="Figure 2: Honey Bee Colony Count in the US" />
-<p class="caption">Figure 2: Honey Bee Colony Count in the US</p>
-</div>
-<div class="figure">
-<img src="Analysis-and-visualization_files/figure-html/unnamed-chunk-2-1.gif" alt="Figure 3: Bee Colony Count in the US" />
-<p class="caption">Figure 3: Bee Colony Count in the US</p>
-</div>
+<p>Figure 2: Honey Bee Colony Count in the US</p>
+<pre class="r"><code>clean_bee_data = read_csv(&quot;./data/clean_bee_data.csv&quot;)</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   X1 = col_double(),
+##   year = col_double(),
+##   state = col_character(),
+##   honey_producing_colonies = col_double(),
+##   yield_per_colony = col_double(),
+##   production = col_double(),
+##   stocks = col_double(),
+##   price_per_pound = col_double(),
+##   production_value = col_double()
+## )</code></pre>
+<pre class="r"><code># honey bee population for country by year
+honey_bee_year = 
+  clean_bee_data %&gt;%
+   mutate(year = as.numeric(year)) %&gt;%
+   group_by(year) %&gt;%
+   summarise(n = sum(honey_producing_colonies)) %&gt;%
+   ggplot(aes(x = year, y = n)) + 
+   geom_point() +
+   geom_smooth(se = FALSE) +
+   theme(axis.text.x = element_text(angle = 90)) +
+   labs(
+     title = &quot;Honey Bee Colony Count in the US&quot;,
+     x = &quot;Year&quot;,
+     y = &quot;Honey Bee Colonies Across the US&quot;) +
+   scale_x_continuous(
+      breaks = c(2002, 2007, 2012, 2017))
+
+bee_county = read_csv(&quot;./data/bee_county.csv&quot;)</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   X1 = col_double(),
+##   year = col_double(),
+##   state = col_character(),
+##   state_ansi = col_character(),
+##   ag_district = col_character(),
+##   ag_district_code = col_double(),
+##   county = col_character(),
+##   county_ansi = col_character(),
+##   colony_count = col_number(),
+##   cv_percent = col_character(),
+##   state_county_fips = col_character()
+## )</code></pre>
+<pre class="r"><code>all_bee_year = 
+  bee_county %&gt;%
+   mutate(colony_count = as.numeric(colony_count)) %&gt;%
+   drop_na(colony_count) %&gt;%
+   group_by(year) %&gt;%
+   summarise(n = sum(colony_count)) %&gt;%
+   ggplot(aes(x = year, y = n)) + 
+   geom_point() + 
+   geom_smooth() +
+     theme(axis.text.x = element_text(angle = 90)) +
+   labs(
+     title = &quot;Bee Colony Count in the US&quot;,
+      x = &quot;Year&quot;,
+     y = &quot;Bee Colonies Across the US&quot;) + 
+   scale_x_continuous(
+      breaks = c(2002, 2007, 2012))
+
+(honey_bee_year + all_bee_year)</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="exploring_files/figure-html/unnamed-chunk-3-1.png" width="90%" /></p>
 <p><br></p>
 <p><left> Similarly, the graphs above illustrate changes in bee population over time, for honey bees and all bees respectively. Both honey bee and all bee populations decreased or plateaued in 2007-2008.</p>
 <p><br></p>
@@ -366,11 +422,11 @@ $(document).ready(function () {
 <h1>Spatial Analysis</h1>
 <p><br></p>
 <p><left> To supplement our time-dependent analysis, we aimed to understand how pesticide use and bee colonies varied across states during the same timeframe.</p>
-<img src="exploring_files/figure-html/unnamed-chunk-3-1.png" width="90%" />
+<img src="exploring_files/figure-html/unnamed-chunk-4-1.png" width="90%" />
 <center>
 <p>Figure 4: Honey Producing Colonies across the US</p>
 <p><br></p>
-<img src="exploring_files/figure-html/unnamed-chunk-4-1.png" width="90%" />
+<img src="exploring_files/figure-html/unnamed-chunk-5-1.png" width="90%" />
 <center>
 <p>Figure 5: Pesticide Use across the US</p>
 <p><br></p>
