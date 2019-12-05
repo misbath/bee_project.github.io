@@ -58,6 +58,7 @@ The map below shows the correlations for pesticide use across the country.
 <center>
 ![Figure 7: Pesticide Use in the US by Year](Rplot01.png)
 
+
 ```{r}
 merged_state_data = read.csv("./data/merged_state_data.csv")
 
