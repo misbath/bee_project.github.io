@@ -8,6 +8,7 @@ title: "**Pesticide Use and Bee Population in the United States**"
 
 [Tessa Bloomquist](https://github.com/tessbloomquist), [Misbath Daouda](https://github.com/misbath), [Lizbeth Gomez](https://github.com/LizbethGomez), [Sarah McLarnan](https://github.com/smm2316) and [Maya Spaur](https://github.com/mayaspaur)
  
+[*Github Repository*](https://github.com/misbath/bee_project.github.io) 
  
 
 
@@ -15,6 +16,7 @@ title: "**Pesticide Use and Bee Population in the United States**"
 ![FigName](images/logo.png)
 </center>
 
+[Github Repository](https://github.com/misbath/bee_project.github.io) 
 
 
 
