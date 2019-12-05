@@ -139,8 +139,8 @@ THIACLOPRID_map
 
 ```{r, include = FALSE}
 map_county_bees <- counties_base + theme_nothing() + 
-  geom_polygon(data = county_2, aes(fill= colony_count), color = "white") + geom_polygon(color = "black", fill = NA) +
-      theme_void() + labs(title= "All Bees, County Level Data", fill = "Number of Bee Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + facet_grid(~year) + scale_fill_gradient(low = "white", high = "red")
+  geom_polygon(data = county_2, aes(fill= colony_count), color = "white") + geom_polygon(color = "gray", fill = NA) +
+      theme_void() + labs(title= "All Bees, County Level Data", fill = "Number of Bee Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + facet_grid(~year) + scale_fill_gradient(low = "blue", high = "red")
 ```
 
 ```{r}
