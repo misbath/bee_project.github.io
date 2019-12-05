@@ -50,12 +50,12 @@ edit_state_corr %>%
   theme(axis.text.x = element_text(angle = 90)) +
   geom_hline(yintercept = 0, col = "red")
 ```
-</center>
+
 Figure 7: Correlation of Pesticide Use and Bee Population
 
 <br>
 
-</left>
+
 The map below shows the correlations for pesticide use across the country.
 <center>
 ![Figure 8: Pesticide Use in the US by Year](Rplot01.png)
