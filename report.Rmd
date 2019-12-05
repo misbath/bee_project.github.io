@@ -3,11 +3,13 @@ title: "**Discussion**"
 
 ---
 
-The main goal of our analysis was to investigate the potential relationship between pesticide use and bee populations. We found that there is a small, but measurable, effect from pesticides on the bee population. This relationship, as evident by the Pearson correlation coefficient plot within our [Additional Analysis](https://misbath.github.io/bee_project.github.io/add_analysis.html) is quite variable across States.
+The main goal of our analysis was to investigate the potential relationship between pesticide use and bee populations. We found that there is a small, but measurable, effect from pesticides on the bee population. This relationship, as evident by the Pearson correlation coefficient plot within our [Additional Analysis](https://misbath.github.io/bee_project.github.io/add_analysis.html) is quite variable across States. In States like Maryland, where the correltion between pesticide use and bee decline is quite strong, the government is [publishing information](https://dnr.maryland.gov/wildlife/Pages/habitat/wabees.aspx) on bees and conservation efforts, stating that bee decline can be attributed to loss of native plants and pesticides. 
 
 The [Exploratory Analyses](https://misbath.github.io/bee_project.github.io/exploring.html) yielded information on pesticide use and bee population change over time. 
 
-**will add more
+**need to add more 
+
+Future analysis could examine the effects of weather on bee population. This could range from looking at changes in temperature over time to the effect of precipitation. Linear models adjusting for all of these variables could be built as well as non-linear models such as segmented regression or generalized additive models to best test a threshold for bee colony decline.
 
 
 <br>
