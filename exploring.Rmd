@@ -98,8 +98,6 @@ Similarly, the graphs above illustrate changes in bee population over time, for 
 <left>
 To supplement our time-dependent analysis, we aimed to understand how pesticide use and bee colonies varied across states during the same timeframe. 
 
- 
-**Figure 4: Honey Producing Colonies across the US**
 
 ```{r, echo=FALSE, message=FALSE}
 
@@ -125,11 +123,10 @@ honey_bee_colony_map =
 honey_bee_colony_map
 
 ```
-
+<center>
+Figure 4: Honey Producing Colonies across the US
 
 <br>
-
-**Figure 5: Pesticide Use across the US**
 
 ```{r, echo=FALSE, message=FALSE}
 
@@ -155,11 +152,13 @@ all_pest_map =
 
 all_pest_map
 ```
+<center>
+Figure 5: Pesticide Use across the US
 
 <br>
 
 <left>
-The maps above show that a few states stand out in terms of having a lower honey bee colony count (ie, California, North Dakota, South Dakota, Florida) and/or a higher level of pesticide use (ie, Georgia, Florida, Texas, California) relative to other states. 
+The maps above show that a few states stand out in terms of having a higher honey bee colony count (ie, California, North Dakota, South Dakota, Florida) and/or a higher level of pesticide use (ie, Georgia, Florida, Texas, California) relative to other states. 
 
 <br>
 
