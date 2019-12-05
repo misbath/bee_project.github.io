@@ -83,6 +83,8 @@ corrplot(matrix_state_2, order = "hclust", type = "full")
 
 ![Figure 3: Bee Colony Count in the US](Analysis-and-visualization_files/figure-html/unnamed-chunk-2-1.gif) 
 
+<br>
+
 <left>
 Similarly, the graphs above illustrate changes in bee population over time, for honey bees and all bees  respectively. Both honey bee and all bee populations decreased or plateaued in 2007-2008. 
 

@@ -193,3 +193,32 @@ chlorpyrifos_map =
 
 chlorpyrifos_map
 ```
+
+
+** Linear Regression Models **
+
+
+```{r, echo=FALSE, message=FALSE}
+merged_state_data = read.csv("./data/merged_state_data.csv")
+
+merged_state_data %>%
+  lm(honey_producing_colonies ~ high, data = .) %>%
+  broom::tidy() %>%
+  knitr::kable(digits = 2)
+```
+
+# Do we want to include a linear model like below? For every increase in kg pesticide, bee colony population is expected to vary by x amount?
+```{r, echo=FALSE, message=FALSE}
+state_data_lm =
+merged_state_data %>%
+   filter(year.x == 2007 | year.x == 2008) %>%
+   group_by(state) %>%
+   mutate(total_pest = sum(high))
+
+state_data_lm %>%
+  lm(honey_producing_colonies ~ total_pest + state, data = .) %>%
+  broom::tidy() %>%
+  knitr::kable(digits = 2)
+
+```
+
