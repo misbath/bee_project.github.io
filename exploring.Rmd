@@ -6,17 +6,16 @@ title: "**Exploratory Analysis**"
 The goal of this first analysis was to identify time-dependent trends and regional changes in pesticide use and bee populations in the United States since the early 2000's. 
 
 # Temporal Analysis
+<br>
+
+<left>
+
+The graph below shows the variations in use of the six most common pesticides in the United States from 2004 to 2016. Two of these compounds, Chlorpyfiros and Chlorothalonil, appear to be used to a much greater extent than the others. These two compounds are known to be insecticides that can potentially lead to nervous function loss in bees, as well as bee population loss.
 
 <center>
 ![Figure1: Pesticide Use in the US by Year](add_analysis_files/figure-html/unnamed-chunk-1-1.gif)
 
 <br>
-
-<left>
-The graph above shows the variations in use of the six most common pesticides in the United States from 2004 to 2016. Two of these compounds, Chlorpyfiros and Chlorothalonil, appear to be used to a much greater extent than the others. These two compounds are known to be insecticides that can potentially lead to nervous fucntion loss in bees, as well as bee population loss.
-
-<br>
-
 
 ```{r, echo=FALSE, message=FALSE}
 library(tidyverse)
@@ -49,7 +48,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 <br>
 
-```{r, echo=FALSE, message=FALSE, include=FALSE}
+```{r, echo=FALSE, message=FALSE, include=FALSE, fig.align= "center"}
 corr_state = read_csv("./data/top_pesticides.csv") %>% 
   group_by(compound, state_fips) %>%
   summarise(mean_pest_high = mean(epest_high_kg, na.rm = TRUE)) %>% 
@@ -75,18 +74,87 @@ corrplot(matrix_state_2, order = "hclust", type = "full")
 ```
 
 
+```{r, echo=FALSE, message=FALSE, fig.align= "center"}
+merged_county_data = read_csv("./data/merged_county_data.csv") %>%
+  janitor::clean_names() %>%
+  rename(year = year_x) %>%
+  mutate(
+    county = str_to_lower(county)
+  )
+
+counties <- map_data("county")
+
+merged_county_data_for_join =
+  merged_county_data %>%
+  rename(subregion = county)
+
+county_2 <- merged_county_data_for_join %>%
+  left_join(counties, "subregion")
+
+
+counties_base <- ggplot(data = counties, mapping = aes(x = long, y = lat, group = group)) + 
+  coord_fixed(1.3) + 
+  geom_polygon(color = "black", fill = "gray")
+
+
+map_county_bees <- counties_base + theme_nothing() + 
+  geom_polygon(data = county_2, aes(fill= colony_count), color = "white") + geom_polygon(color = "gray", fill = NA) +
+      theme_void() + labs(title= "All Bees", fill = "Number of Bee Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "blue", high = "red")
+
+map_county_bees
+```
+Figure 2: Map of All Bee Population Across the US
+
 <br>
 
-<center>
-![Figure 2: Honey Bee Colony Count in the US](Analysis-and-visualization_files/figure-html/unnamed-chunk-1-1.gif)
+```{r,  echo=FALSE, message=FALSE, fig.align= "center"}
+clean_bee_data = read_csv("./data/clean_bee_data.csv")
 
+# honey bee population for country by year
+honey_bee_year = 
+  clean_bee_data %>%
+   mutate(year = as.numeric(year)) %>%
+   group_by(year) %>%
+   summarise(n = sum(honey_producing_colonies)) %>%
+   ggplot(aes(x = year, y = n)) + 
+   geom_point() +
+   geom_smooth(se = FALSE) +
+   theme(axis.text.x = element_text(angle = 90)) +
+   labs(
+     title = "Honey Bee Colony Count in the US",
+     x = "Year",
+     y = "Honey Bee Colonies Across the US") +
+   scale_x_continuous(
+      breaks = c(2002, 2007, 2012, 2017))
 
-![Figure 3: Bee Colony Count in the US](Analysis-and-visualization_files/figure-html/unnamed-chunk-2-1.gif) 
+bee_county = read_csv("./data/bee_county.csv")
+
+all_bee_year = 
+  bee_county %>%
+   mutate(colony_count = as.numeric(colony_count)) %>%
+   drop_na(colony_count) %>%
+   group_by(year) %>%
+   summarise(n = sum(colony_count)) %>%
+   ggplot(aes(x = year, y = n)) + 
+   geom_point() + 
+   geom_smooth() +
+     theme(axis.text.x = element_text(angle = 90)) +
+   labs(
+     title = "Bee Colony Count in the US",
+      x = "Year",
+     y = "Bee Colonies Across the US") + 
+   scale_x_continuous(
+      breaks = c(2002, 2007, 2012))
+
+(honey_bee_year + all_bee_year)
+```
 
 <br>
+
+Figure 3: Change in Bee Population Across the US
 
 <left>
-Similarly, the graphs above illustrate changes in bee population over time, for honey bees and all bees  respectively. Both honey bee and all bee populations decreased or plateaued in 2007-2008. 
+Similarly, the graphs above illustrate changes in bee population over time, for honey bees and all bees  respectively. The honey bee population decreased in 2007-2008 while the growth rate of all bee populations slowed at this same time point.  
 
 <br>
 
@@ -124,7 +192,7 @@ honey_bee_colony_map
 
 ```
 <center>
-Figure 4: Honey Producing Colonies across the US
+Figure 6: Honey Producing Colonies across the US
 
 <br>
 
@@ -153,7 +221,7 @@ all_pest_map =
 all_pest_map
 ```
 <center>
-Figure 5: Pesticide Use across the US
+Figure 7: Pesticide Use across the US
 
 <br>
 
@@ -169,7 +237,7 @@ The maps above show that a few states stand out in terms of having a higher hone
 <left>
 In addition to the temporal and regional analyses, we also assessed correlation between the pesticides to avoid any collinarity issues. 
 
-**Table 1: Pearson Correlation Coefficients for mean persticide use across states**
+Table 1: Pearson Correlation Coefficients for mean persticide use across states
 
 ```{r,echo=FALSE, message=FALSE}
 
