@@ -8,7 +8,7 @@ The goal of this first analysis was to identify time-dependent trends and region
 # Temporal Analysis
 
 <center>
-![Pesticide Use in the US by Year](add_analysis_files/figure-html/unnamed-chunk-1-1.gif)
+![Figure1: Pesticide Use in the US by Year](add_analysis_files/figure-html/unnamed-chunk-1-1.gif)
 
 <br>
 
@@ -78,10 +78,10 @@ corrplot(matrix_state_2, order = "hclust", type = "full")
 <br>
 
 <center>
-![Honey Bee Colony Count in the US](Analysis-and-visualization_files/figure-html/unnamed-chunk-1-1.gif)
+![Figure 2: Honey Bee Colony Count in the US](Analysis-and-visualization_files/figure-html/unnamed-chunk-1-1.gif)
 
 
-![Bee Colony Count in the US](Analysis-and-visualization_files/figure-html/unnamed-chunk-2-1.gif) 
+![Figure 3: Bee Colony Count in the US](Analysis-and-visualization_files/figure-html/unnamed-chunk-2-1.gif) 
 
 <left>
 Similarly, the graphs above illustrate changes in bee population over time, for honey bees and all bees  respectively. Both honey bee and all bee populations decreased or plateaued in 2007-2008. 
@@ -97,7 +97,7 @@ Similarly, the graphs above illustrate changes in bee population over time, for 
 To supplement our time-dependent analysis, we aimed to understand how pesticide use and bee colonies varied across states during the same timeframe. 
 
  
-**Honey Producing Colonies across the US**
+**Figure 3: Honey Producing Colonies across the US**
 
 ```{r, echo=FALSE, message=FALSE}
 
@@ -132,7 +132,7 @@ honey_bee_colony_map
 
 <br>
 
-**Pesticide Use across the US**
+**Figure 4: Pesticide Use across the US**
 
 ```{r, echo=FALSE, message=FALSE}
 
@@ -173,7 +173,7 @@ The maps above show that a few states stand out in terms of having a lower honey
 <left>
 In addition to the temporal and regional analyses, we also assessed correlation between the pesticides to avoid any collinarity issues. 
 
-**Pearson Correlation Coefficients for mean persticide use across states**
+**Table 1: Pearson Correlation Coefficients for mean persticide use across states**
 
 ```{r,echo=FALSE, message=FALSE}
 
