@@ -2,8 +2,9 @@
 title: "**Project Details**" 
 ---
 
+
 <center>
-![FigName](images/Bumble_Bee_pic.jpg)
+![FigName](images/Bumble_Bee_pic_resize.jpg)
 </center>
 
 <br>
@@ -77,6 +78,11 @@ Pesticide data was obtained from [USGS](https://water.usgs.gov/nawqa/pnsp/usage/
 <br>
 
 In order to merge the data on pesticide use and bee data sets we required a vector common to both data sets but unique to each geographic area and year of data. To create this field we merged the bee data by state/county with a file of FIPS codes. We then merged the unique FIPS for each county with the year to generate a unique number identifying data from each county/state in each year (e.g. 200201001 uniquely identifies the 2002 data from Atauga County, Alabama). This value was then used to merge the pesticide data to both the county and state level bee data. 
+
+*Correlation Analysis*
+<br>
+
+To evaluate the impact of pesticide use on bee population we ran a correlation for bee population and pesticide use for all years available in each state. This data is displayed both graphicaly and in map form. We ran an additionally analysis restricted to states that had more than 10 years of complete data (of 13 total years) as a comparison to demonstrate the effect of missing data on analysis. 
 
 *Mapping*
 <br>

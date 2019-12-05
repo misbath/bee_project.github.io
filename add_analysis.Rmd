@@ -53,6 +53,8 @@ edit_state_corr %>%
 
 Figure 7: Correlation of Pesticide Use and Bee Population
 
+
+![Figure 8: Identification of States Lacking Data](correlation_state_select.jpg)
 <br>
 
 
@@ -155,8 +157,8 @@ state.map <- map_data("state")
 counties <- map_data("county")
 
 merged_county_data_for_join =
-  merged_county_data %>%
-  rename(subregion = county)
+ pesticide_county_data %>%
+rename(subregion = county, year = year.x)
 
 county_2 <- merged_county_data_for_join %>%
   left_join(counties, "subregion")
