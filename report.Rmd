@@ -16,9 +16,10 @@ Lastly during our exploratory analysis, we wanted to look at the correlation amo
 
 <br>
 
-The [Additional Analysis](https://misbath.github.io/bee_project.github.io/add_analysis.html) shows this correlation is quite variable across States, evident by the Pearson correlation coefficient plot. In States like Maryland, where the correlation between pesticide use and bee decline is quite strong, the government is publishing information on bees and conservation efforts, stating that bee decline can be attributed to loss of native plants and pesticides.
+The [Additional Analysis](https://misbath.github.io/bee_project.github.io/add_analysis.html) shows this correlation is quite variable across States, evident by the Pearson correlation coefficient plot. As shown in Figure 6, states like Maryland and South Carolina, where the correlation between pesticide use and bee decline is quite strong, the government is [publishing information](https://dnr.maryland.gov/wildlife/Pages/habitat/wabees.aspx) on bees and conservation efforts, stating that bee decline can be attributed to loss of native plants and pesticides.
 
 <br>
+
 Future analysis could examine the effects of weather on bee population. This could range from looking at changes in temperature over time to the effect of precipitation. Linear models adjusting for all of these variables could be built as well as non-linear models such as segmented regression or generalized additive models to best test a threshold for bee colony decline.
 
 While this analysis does not demonstrate a very strong effect of pesticides on bee population, please consider taking the following precautions to conserve the bee ecosystem!
