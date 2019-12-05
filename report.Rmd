@@ -9,11 +9,11 @@ As seen on figures 1 and 2, the increase in pesticide corresponds almost perfect
 
 <br>
 
-Additionally we wanted to visually represent the use of pesticides and colonies across spatially by state. Figures 4 and 5 show number of colonies and cummulative pesticide use by state. As seen in these maps, California has a high number of honey producing colonies and a moderate use of cummulative pesticides. However, states like Georgia, which use quite a large amount of pesticides has a small number of honey producing colonies. States along central United States do not show a clear relationship between the exposure and outcome. We presume other environmental factors, such as climate are at play here.
+Additionally we wanted to visually represent the use of pesticides and colonies across spatially by state. Figures 4 and 5 show number of colonies and cumulative pesticide use by state. As seen in these maps, California has a high number of honey producing colonies and a moderate use of cumulative pesticides. However, states like Georgia, which use quite a large amount of pesticides has a small number of honey producing colonies. States along central United States do not show a clear relationship between the exposure and outcome. We presume other environmental factors, such as climate are at play here.
 
 <br>
 
-Lastly during our exploratory analysis, we wanted to look at the correlation among the selected six compunds. Table 1 shows the correlation coefficients; specifically we oberved a highly possitive correlation between Chlorpyfiros, Imidacloprid and Chlorothalonil use, which is confirmed by the plotted use in Figure 1.
+Lastly during our exploratory analysis, we wanted to look at the correlation among the selected six compounds. Table 1 shows the correlation coefficients; specifically we oberved a highly positive correlation between Chlorpyfiros, Imidacloprid and Chlorothalonil use, which is confirmed by the plotted use in Figure 1.
 
 <br>
 
