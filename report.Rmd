@@ -8,7 +8,11 @@ The main goal of our analysis was to investigate the potential relationship betw
 
 <br>
 
-We examined the pesticide and bee data with a number of different analyses before investigating the correlations. As seen in figures 1 and 2, the increase in pesticide corresponds almost perfectly to the drops in honey bee and bee populations plotted. 
+The analyses performed for this project might not have been localized enough to see these trends. Unfortunately, there was a lot of missing data on the county level and variability in which compounds were reported. Ideally, as the importance of tracking pesticides and bee populations increases, a standardized method of data collection will produce more reliable results that will be more informative in years to come. 
+
+<br>
+
+We examined the pesticide and bee data with a number of different analyses before investigating correlations. Interestingly, as seen in figures 1 and 2, the increase in pesticide corresponds almost perfectly to the drop in honey bee and bee populations plotted. 
 
 <br>
 Additionally, we wanted to visually represent the use of pesticides and colonies spatially by state. Figures 4 and 5 show number of colonies and cumulative pesticide use by state. As seen in these maps, California has a high number of honey producing colonies and a moderate use of cumulative pesticides. However, states like Georgia, which use quite a large amount of pesticides has a small number of honey producing colonies. States in the central United States do not show a clear relationship between the exposure and outcome. We presume other environmental factors, such as climate are at play here. Another factor that may have contributed to this trend is the high proprtion of missing data on pesticide use. Visual map assessment of pesticide use data at the county level reveal the widespread lack of available data on even the top two pesticides across the conterminous U.S.
