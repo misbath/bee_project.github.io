@@ -19,8 +19,6 @@ navbar:
           href: add_analysis.html
         - text: "Discussion"
           href: report.html
-        - text: "Selected Maps"
-          href: selected_maps.html
     - icon: fa-envelope fa-lg
       href: mailto:<lg2982@columbia.edu>
     - icon: fa-github fa-lg
