@@ -50,14 +50,15 @@ edit_state_corr %>%
   theme(axis.text.x = element_text(angle = 90)) +
   geom_hline(yintercept = 0, col = "red")
 ```
-<center>
-*Figure 6: Correlation of Pesticide Use and Bee Population*
+</center>
+Figure 7: Correlation of Pesticide Use and Bee Population
 
 <br>
 
+</left>
 The map below shows the correlations for pesticide use across the country.
 <center>
-![Figure 7: Pesticide Use in the US by Year](Rplot01.png)
+![Figure 8: Pesticide Use in the US by Year](Rplot01.png)
 
 Maryland clearly has the highest correlation with a coefficient close to 1. It is important to note that this does not indicate that between the years 2004 - 2016 bee population steadily decreased. Maryland only reported data from years 2004 and 2005. For all of the very high state correlation values (> 0.7), it is missing data driving the strong correlation instead of a trend over the years. 
 
@@ -66,9 +67,9 @@ The State with the most negative correlation as well as complete pesticide and b
 ```{r,echo=FALSE, message=FALSE}
 merged_state_data = read.csv("./data/merged_state_data.csv")
 
-Missouri_pest = 
+vermont_pest = 
   merged_state_data %>%
-  filter(state == "Missouri") %>%
+  filter(state == "Vermont") %>%
   group_by(year.x) %>%
   summarise(n = sum(high)) %>%
    ggplot(aes(x = year.x, y = n)) + 
@@ -76,15 +77,15 @@ Missouri_pest =
    geom_smooth(se = FALSE) +
       theme(axis.text.x = element_text(angle = 90)) +
    labs(
-     title = "Pesticides in Missouri",
+     title = "Pesticides in Vermont",
      x = "Year",
-     y = "Missouri Pesticide Use (kg)") +
+     y = "Vermont Pesticide Use (kg)") +
    scale_x_continuous(
       breaks = c(2002, 2007, 2012, 2017))
 
-Missouri_bee = 
+vermont_bee = 
 merged_state_data %>%
-  filter(state == "Missouri") %>%
+  filter(state == "Vermont") %>%
   group_by(year.x) %>%
   summarise(n = sum(honey_producing_colonies)) %>%
    ggplot(aes(x = year.x, y = n)) + 
@@ -92,19 +93,19 @@ merged_state_data %>%
    geom_smooth(se = FALSE) +
     theme(axis.text.x = element_text(angle = 90)) +
    labs(
-     title = "Honey Bee Colony Count in Missouri",
+     title = "Honey Bee Colony Count in Vermont",
      x = "Year",
-     y = "Missouri Honey Bee Colonies") +
+     y = "Vermont Honey Bee Colonies") +
    scale_x_continuous(
       breaks = c(2002, 2007, 2012, 2017))
 
-(Missouri_pest + Missouri_bee)
+(vermont_pest + vermont_bee)
 ```
 
-*Figure 8: Missouri Bee Population and Pesticide Use*
+*Figure 9: Vermont Bee Population and Pesticide Use*
 <br>
 
-The increase in bee population in the state tends to steadily decrease until 2014 while pesticide use is the inverse. The negative correlation observed in the correlation plots above is justified. 
+The increase in bee population in the state tends to steadily decrease until 2014 while pesticide use is the inverse. The negative correlation is observed in the correlation plots above. 
 
 <br>
 
