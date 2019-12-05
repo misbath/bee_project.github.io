@@ -10,22 +10,23 @@ As seen on figures 1 and 2, the increase in pesticide corresponds almost perfect
 
 Additionally we wanted to visually represent the use of pesticides and colonies across spatially by state. Figures 4 and 5 show number of colonies and cummulative pesticide use by state. As seen in these maps, California has a high number of honey producing colonies and a moderate use of cummulative pesticides. However, states like Georgia, which use quite a large amount of pesticides has a small number of honey producing colonies. States along central United States do not show a clear relationship between the exposure and outcome. We presume other environmental factors, such as climate are at play here.
 
-
+<br>
 
 Lastly during our exploratory analysis, we wanted to look at the correlation among the selected six compunds. Table 1 shows the correlation coefficients; specifically we oberved a highly possitive correlation between Chlorpyfiros, Imidacloprid and Chlorothalonil use, which is confirmed by the plotted use in Figure 1.
 
 <br>
 
-The [Additional Analysis](https://misbath.github.io/bee_project.github.io/add_analysis.html) is quite variable across States.
+The [Additional Analysis](https://misbath.github.io/bee_project.github.io/add_analysis.html) shows this correlation is quite variable across States, evident by the Pearson correlation coefficient plot. In States like Maryland, where the correlation between pesticide use and bee decline is quite strong, the government is publishing information on bees and conservation efforts, stating that bee decline can be attributed to loss of native plants and pesticides.
 
+<br>
 Future analysis could examine the effects of weather on bee population. This could range from looking at changes in temperature over time to the effect of precipitation. Linear models adjusting for all of these variables could be built as well as non-linear models such as segmented regression or generalized additive models to best test a threshold for bee colony decline.
 
 While this analysis does not demonstrate a very strong effect of pesticides on bee population, please consider taking the following precautions to conserve the bee ecosystem!
 
-Plant a pollinator garden
-Avoid pesticide use in the yard
-Conserve bee nesting habitats
-Educate others!
+* Plant a pollinator garden
+* Avoid pesticide use in the yard
+* Conserve bee nesting habitats
+*Educate others!
 
 
 <br>
