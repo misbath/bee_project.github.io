@@ -51,7 +51,7 @@ edit_state_corr %>%
   geom_hline(yintercept = 0, col = "red")
 ```
 
-Figure 7: Correlation of Pesticide Use and Bee Population
+![Figure 7: Correlation of Pesticide Use and Bee Population](bee_pest_correlation_plot.png)
 
 
 ![Figure 8: Identification of States Lacking Data](correlation_state_select.jpg)
@@ -59,6 +59,7 @@ Figure 7: Correlation of Pesticide Use and Bee Population
 
 
 The map below shows the correlations for pesticide use across the country.
+
 <center>
 ![Figure 8: Pesticide Use in the US by Year](Rplot01.png)
 
@@ -138,7 +139,7 @@ theme_set(theme_bw() + theme(legend.position = "bottom"))
 
 
 ```{r read in data,include=FALSE}
-merged_county_data = read_csv("./data/merged_county_data.csv") %>%
+merged_county_data = read_csv("./data/pesticide_county_data.csv") %>%
   janitor::clean_names() %>%
   rename(year = year_x) %>%
   mutate(
@@ -157,8 +158,8 @@ state.map <- map_data("state")
 counties <- map_data("county")
 
 merged_county_data_for_join =
- pesticide_county_data %>%
-rename(subregion = county, year = year.x)
+ merged_county_data %>%
+rename(subregion = county)
 
 county_2 <- merged_county_data_for_join %>%
   left_join(counties, "subregion")
@@ -211,7 +212,7 @@ CHLORPYRIFOS_map_2012 <- counties_base + theme_nothing() +
 
 
 CHLOROTHALONIL_map_2007 <- counties_base + theme_nothing() + 
-  geom_polygon(data = CHLOROTHALONIL_2007, aes(fill= epest_high_kg), color = "white") + geom_polygon(color = "gray", fill = NA) +
+  geom_polygon(data = CHLOROTHALONIL_2007, aes(fill= epest_high_kg), color = "white") + geom_polygon(color = "gray", fill = NA, size = 0.5) +
       theme_void() + labs(title= "Chlorothalonil, 2007 County Level Data", fill = "Estimated Pesticide Use (Kg)") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "blue", high = "red")
 
 CHLOROTHALONIL_map_2012 <- counties_base + theme_nothing() + 
@@ -246,7 +247,7 @@ map_county_bees_2007 <- counties_base + theme_nothing() +
       theme_void() + labs(title= "All Bees 2007", fill = "Number of Bee Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "blue", high = "red")
 
 map_county_bees_2012 <- counties_base + theme_nothing() + 
-  geom_polygon(data = county_2_2012, aes(fill= colony_count), color = "white") + geom_polygon(color = "gray", fill = NA) +
+  geom_polygon(data = county_2_2012, aes(fill= colony_count), color = "white") + geom_polygon(fill = NA) +
       theme_void() + labs(title= "All Bees 2012", fill = "Number of Bee Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "blue", high = "red")
 
 ```
