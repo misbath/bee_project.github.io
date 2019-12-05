@@ -215,8 +215,8 @@ merged_state_data %>%
    group_by(state) %>%
    mutate(total_pest = sum(high))
 
-state_data_lm %>%
-  lm(honey_producing_colonies ~ total_pest + state, data = .) %>%
+merged_state_data %>%
+  lm(honey_producing_colonies ~ high + state, data = .) %>%
   broom::tidy() %>%
   knitr::kable(digits = 2)
 
