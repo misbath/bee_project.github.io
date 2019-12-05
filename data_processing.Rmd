@@ -957,6 +957,52 @@ correlations = map_dfc(.x = nested_state_data, ~correlation_function(.x))
 
 ```
 
+```{r}
+merged_state_data %>%
+  drop_na() %>%
+  group_by(state) %>%
+  summarize(n.years = n_distinct(year.x)) %>%
+  view()
+
+  
+```
+
+
+```{r}
+state_correlations_limited = rbind(cor1, cor3, cor5, cor6, cor9, cor10,  cor12, cor13, cor14, cor15, cor16, cor17, cor18, cor19, cor22, cor23, cor27, cor30, cor31, cor32, cor33, cor35, cor37, cor38, cor42, cor43, cor44, cor45, cor46, cor47, cor48, cor49, cor50)
+
+state_correlations_limited %>%
+  mutate(state = fct_reorder(state, cor)) %>%
+  ggplot(aes(x = state, y = cor)) +
+  geom_point() +
+  labs(x = "State", y = "Correlation", title= "Correlation of Pesticide Use and Bee Population 2004-2016") + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  geom_hline(yintercept = 0, col = "red")
+```
+
+```{r}
+edit_state_corr_limited = read_csv("./data/working_cor_data.csv") %>%
+  filter(state != "Maryland", state != "Oklahoma", state != "South Carolina", state != "Arkansas", state != "Mississippi", state != "North Dakota", state != "South Dakota", state != "Montana", state != "Nevada", state != "Missouri")
+
+edit_state_corr_limited %>%
+  mutate(state = fct_reorder(state, cor)) %>%
+  ggplot(aes(x = state, y = cor)) +
+  geom_point() +
+  labs(x = "State", y = "Correlation", title= "Correlation of Pesticide Use and Bee Population 2004-2016") + 
+  theme(axis.text.x = element_text(angle = 90)) +
+  geom_hline(yintercept = 0, col = "red")
+
+correlations_map_limited =
+  ggplot(edit_state_corr_limited, aes(long, lat, group = group, fill = cor)) + geom_polygon(color = "black") + theme_void() + labs(title = "Correlations between Pesticide Use and Bee Population 2004-2016", fill = "Correlation Coefficient") +  coord_map(projection = "bonne", lat0 = 50) + scale_fill_gradient2(low = "red", mid = "white",high = "blue", midpoint = 0, space = "Lab",
+  na.value = "grey50", guide = "colourbar", aesthetics = "fill") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+correlations_map_limited
+
+```
+
+
+
 nested_state_data %>%
   filter(state == "Alabama") %>%
   unnest() %>%
