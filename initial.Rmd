@@ -1,31 +1,16 @@
 ---
-title: "**Project Details**" 
+title: "**Initial Questions**" 
 ---
-<center>
-![FigName](images/Bumble_Bee_pic.jpg)
-</center>
 
 <br>
 
-# **Background and Related Work**
-
-Exposure to insecticides can make bees more susceptible to pathogens as pesticides suppress their immune systems; studies suggest that this pesticide-pathogen interaction may be driving bees’ widespread collapse in the U.S. over recent decades (Sánchez-Bayo et al. 2016).
-
-Nosema ceranae, a gut microsporidian that can infect bees and has contributed to widespread bee decline, was first found in the U.S. around the same time that neonicotinoids were introduced (Sánchez-Bayo et al. 2016). When bees infected with Nosema are exposed to imidacloprid, a neonicotinoid, they cannot sterilize the colony so the pathogen spreads within the colony (Sánchez-Bayo et al. 2016). Additionally, bees infected with N. ceranae that are exposed to another neonicotinoid, thiacloprid, or the phenyl-pyrazole, fripronil, have higher mortality than non-exposed bees (Sánchez-Bayo et al. 2016). Fipronil and imidacloprid suppress immunity-related genes in honey bees, leading to higher mortality rates for hives infected with Nosema (Sánchez-Bayo et al. 2016). There is a known mechanism of action for immune suppression for neonicotinoids, specifically clothianidin and imidacloprid (Di Prisco et al., 2013).
-
-A survey of pesticides applied to agricultural areas in southern U.S. row crops reported neonicotinoid seed treatments using clothianidin, imidacloprid, and thiacloprid in the high agriculture survey area, in 2014 and 2015 growing seasons (Zawislak et al. 2019). The distribution of foliar applied pesticides in the high-agriculture survey area included chlorpyrifos and clothianidin, among others. Pesticide residues detected in hive products include chlorothalonil and chlorpyrifos (Zawislak et al. 2019). A migratory beekeeper study from Florida to Maine was collected after the colony collapse disorder erupted in 2007, with colonies sampled after each stop along the route (Frazier et al. 2011). The study found the fungicide chlorothalonil and the insecticides chlorpyrifos and imidacloprid in bee-collected pollen (Frazier et al. 2011).
-
-<br>
-
-# **Initial Questions**
-
-In this report we examine county level data on pesticide use and county level data on bee colonies to see if there are any trends between certain chemical compounds and bee colony decline. We include information on the relationship between bee population over time as well as pesticide use over time controlling for seasonality. Additionally, we  examine bee population in the counties with the highest and lowest pesticide use. Based on these trends, we investigated pesticides that have stronger associations with bee colony population over time. We aim to identify pesticides that are associated with changes in bee populations, specifically those that might contribute to the recent decline in bee populations nationally.
+Here we examine county level data on pesticide use and county level data on bee colonies to see if there are any trends between certain chemical compounds and bee colony decline. We include information on the relationship between bee population over time as well as pesticide use over time controlling for seasonality. Additionally, we  examine bee population in the counties with the highest and lowest pesticide use. Based on these trends, we investigated pesticides that have stronger associations with bee colony population over time. We aim to identify pesticides that are associated with changes in bee populations, specifically those that might contribute to the recent decline in bee populations nationally.
 
 Initially we wanted to look a all the pesticides used accross the US, but the number of compunds exceded the thousands; thus we decided to narrow this number to the most commonly used. 
 
 In this report we present:  
 
-* Bee population variability from 2002 - 2019  by state and county  
+* Bee population variability from 2002 - 2012  by state and county  
 * Pesticide use accross from 2002 - 2016 by state and county  
 * Correlations for bee population and pesticide use over time within states and counties  
 
@@ -37,12 +22,16 @@ In this report we present:
 
 * County-level and State-level bee colony data obtained from the [USDA](https://data.world/finley/bee-colony-statistical-data-from-1987-2017) 
 
+  * County-level dataset can be accessed [here](https://query.data.world/s/266nsnl3bnmozsl2xld7komsiyzp22). Cleaning involved using `select` and `mutate` from the `Tidyverse` package. Additionally, this dataset is very messy, with many missing values, thus we worked on managing these without loosing important information. Lastly, this dataset was intended to be merged by state using `state_county_fips` variables which had to be transformed into the right type and length. 
+  
+
+
 Based on the literature, the following pesticides were selected for analysis in this project:    
 
 * Neonicotinoids:
 Imidacloprid, Thiacloprid, Clothianidin   
-* Organophosphate:
-Chlorpyrifos 
+* Organophosphates:
+Chlorpyrifos, Methyl parathion  
 * Fungicide:
 Chlorothalonil  
 * Other insecticide:
@@ -50,6 +39,7 @@ Fipronil
 
 <br>
 
+<<<<<<< HEAD
 # **Methods**
 
 
@@ -72,10 +62,13 @@ In order to merge the data on pesticide use and bee data sets we required a vect
 
 *State Maps*
 <br>
-Maps of state level bee populations and pesticide production were generated through use of the`choroplethrMaps` package and ggplot. The `states.map` dataframe in the `choroplethrMaps` package provided the underlying map which the state level data was merged with using state name. All maps were modified to the void theme with a bonne projection for asthetic purposes. 
-<br>
+=======
+Merging Datasets
 
-*County Maps*
-<br>
-Maps of county level pesticide use and bee colony counts were created using the merged files of pesticide use data and county colony count (for all bee populations) data. The base county map was built using the 'county' map provided by the `maps` package, for the conterminious United States. The `ggplot2` package was used to map county level pesticide use data and county level bee colony county data on top of the base county map.
+In order to merge the data on pesticide use and bee data sets we required a vector common to both data sets but unique to each geographic area and year of data. To create this field we merged the bee data by state/county with a file of FIPS codes. We then merged the unique FIPS for each county with the year to generate a unique number identifying data from each county/state in each year (e.g. 200201001 uniquely identifies the 2002 data from Atauga County, Alabama). This value was then used to merge the pesticide data to both the county and state level bee data. 
+
+State Maps
+
+>>>>>>> d66e18ff5dc3f0c76068c261e7daae93eea40683
+Maps of state level bee populations and pesticide production were generated through use of the`choroplethrMaps` package and ggplot. The `states.map` dataframe in the `choroplethrMaps` package provided the underlying map which the state level data was merged with using state name. All maps were modified to the void theme with a bonne projection for asthetic purposes. 
 

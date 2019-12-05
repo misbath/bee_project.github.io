@@ -304,6 +304,9 @@ $(document).ready(function () {
     <li>
       <a href="report.html">Discussion</a>
     </li>
+    <li>
+      <a href="selected_maps.html">Selected Maps</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -361,7 +364,7 @@ clean_bee_data %&gt;%
    scale_x_continuous(
       breaks = c(2002, 2007, 2012, 2017))+
    gganimate::transition_reveal(year)</code></pre>
-<p><img src="Analysis-and-Visualization_files/figure-html/unnamed-chunk-1-1.gif" width="90%" /></p>
+<pre><code>## NULL</code></pre>
 <pre class="r"><code>bee_county = read_csv(&quot;./data/bee_county.csv&quot;)</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
@@ -393,7 +396,7 @@ clean_bee_data %&gt;%
    scale_x_continuous(
       breaks = c(2002, 2007, 2012)) +
    gganimate::transition_reveal(year)</code></pre>
-<p><img src="Analysis-and-Visualization_files/figure-html/unnamed-chunk-2-1.gif" width="90%" /></p>
+<pre><code>## NULL</code></pre>
 <pre class="r"><code>top_pesticides = read_csv(&quot;./data/top_pesticides.csv&quot;)</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
@@ -511,6 +514,358 @@ chlorpyrifos_map =
 
 chlorpyrifos_map</code></pre>
 <p><img src="Analysis-and-Visualization_files/figure-html/state%20chlorpyrifos%20use-1.png" width="90%" /></p>
+<p>** Linear Regression Models **</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">term</th>
+<th align="right">estimate</th>
+<th align="right">std.error</th>
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">50.63</td>
+<td align="right">1.91</td>
+<td align="right">26.56</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">high</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">14.22</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="do-we-want-to-include-a-linear-model-like-below-for-every-increase-in-kg-pesticide-bee-colony-population-is-expected-to-vary-by-x-amount" class="section level1">
+<h1>Do we want to include a linear model like below? For every increase in kg pesticide, bee colony population is expected to vary by x amount?</h1>
+<table>
+<thead>
+<tr class="header">
+<th align="left">term</th>
+<th align="right">estimate</th>
+<th align="right">std.error</th>
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">9.48</td>
+<td align="right">1.92</td>
+<td align="right">4.94</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">high</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">2.56</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">stateArizona</td>
+<td align="right">18.75</td>
+<td align="right">2.74</td>
+<td align="right">6.84</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">stateArkansas</td>
+<td align="right">20.65</td>
+<td align="right">2.69</td>
+<td align="right">7.68</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">stateCalifornia</td>
+<td align="right">363.25</td>
+<td align="right">2.66</td>
+<td align="right">136.66</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">stateColorado</td>
+<td align="right">18.42</td>
+<td align="right">2.59</td>
+<td align="right">7.11</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">stateFlorida</td>
+<td align="right">179.40</td>
+<td align="right">2.63</td>
+<td align="right">68.32</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">stateGeorgia</td>
+<td align="right">49.46</td>
+<td align="right">2.64</td>
+<td align="right">18.74</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">stateIdaho</td>
+<td align="right">84.96</td>
+<td align="right">2.51</td>
+<td align="right">33.86</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">stateIllinois</td>
+<td align="right">-1.99</td>
+<td align="right">2.59</td>
+<td align="right">-0.77</td>
+<td align="right">0.44</td>
+</tr>
+<tr class="odd">
+<td align="left">stateIndiana</td>
+<td align="right">-2.48</td>
+<td align="right">2.52</td>
+<td align="right">-0.98</td>
+<td align="right">0.33</td>
+</tr>
+<tr class="even">
+<td align="left">stateIowa</td>
+<td align="right">19.84</td>
+<td align="right">2.62</td>
+<td align="right">7.58</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">stateKansas</td>
+<td align="right">1.68</td>
+<td align="right">2.59</td>
+<td align="right">0.65</td>
+<td align="right">0.52</td>
+</tr>
+<tr class="even">
+<td align="left">stateKentucky</td>
+<td align="right">-4.93</td>
+<td align="right">2.60</td>
+<td align="right">-1.89</td>
+<td align="right">0.06</td>
+</tr>
+<tr class="odd">
+<td align="left">stateLouisiana</td>
+<td align="right">27.29</td>
+<td align="right">2.72</td>
+<td align="right">10.05</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">stateMaine</td>
+<td align="right">-2.49</td>
+<td align="right">2.74</td>
+<td align="right">-0.91</td>
+<td align="right">0.36</td>
+</tr>
+<tr class="odd">
+<td align="left">stateMaryland</td>
+<td align="right">-6.98</td>
+<td align="right">4.60</td>
+<td align="right">-1.52</td>
+<td align="right">0.13</td>
+</tr>
+<tr class="even">
+<td align="left">stateMichigan</td>
+<td align="right">61.70</td>
+<td align="right">2.52</td>
+<td align="right">24.48</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">stateMinnesota</td>
+<td align="right">114.85</td>
+<td align="right">2.60</td>
+<td align="right">44.22</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">stateMississippi</td>
+<td align="right">7.34</td>
+<td align="right">2.69</td>
+<td align="right">2.73</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">stateMissouri</td>
+<td align="right">3.41</td>
+<td align="right">2.60</td>
+<td align="right">1.31</td>
+<td align="right">0.19</td>
+</tr>
+<tr class="even">
+<td align="left">stateMontana</td>
+<td align="right">133.22</td>
+<td align="right">2.59</td>
+<td align="right">51.39</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">stateNebraska</td>
+<td align="right">34.35</td>
+<td align="right">2.59</td>
+<td align="right">13.27</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">stateNevada</td>
+<td align="right">0.48</td>
+<td align="right">3.15</td>
+<td align="right">0.15</td>
+<td align="right">0.88</td>
+</tr>
+<tr class="odd">
+<td align="left">stateNew Jersey</td>
+<td align="right">1.49</td>
+<td align="right">2.55</td>
+<td align="right">0.58</td>
+<td align="right">0.56</td>
+</tr>
+<tr class="even">
+<td align="left">stateNew Mexico</td>
+<td align="right">-2.50</td>
+<td align="right">2.73</td>
+<td align="right">-0.92</td>
+<td align="right">0.36</td>
+</tr>
+<tr class="odd">
+<td align="left">stateNew York</td>
+<td align="right">45.64</td>
+<td align="right">2.54</td>
+<td align="right">17.98</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">stateNorth Carolina</td>
+<td align="right">1.95</td>
+<td align="right">2.51</td>
+<td align="right">0.78</td>
+<td align="right">0.44</td>
+</tr>
+<tr class="odd">
+<td align="left">stateNorth Dakota</td>
+<td align="right">404.43</td>
+<td align="right">2.62</td>
+<td align="right">154.48</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">stateOhio</td>
+<td align="right">5.64</td>
+<td align="right">2.52</td>
+<td align="right">2.24</td>
+<td align="right">0.03</td>
+</tr>
+<tr class="odd">
+<td align="left">stateOklahoma</td>
+<td align="right">-6.68</td>
+<td align="right">4.79</td>
+<td align="right">-1.40</td>
+<td align="right">0.16</td>
+</tr>
+<tr class="even">
+<td align="left">stateOregon</td>
+<td align="right">42.88</td>
+<td align="right">2.50</td>
+<td align="right">17.13</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">statePennsylvania</td>
+<td align="right">14.27</td>
+<td align="right">2.52</td>
+<td align="right">5.65</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">stateSouth Carolina</td>
+<td align="right">-3.79</td>
+<td align="right">4.30</td>
+<td align="right">-0.88</td>
+<td align="right">0.38</td>
+</tr>
+<tr class="odd">
+<td align="left">stateSouth Dakota</td>
+<td align="right">231.34</td>
+<td align="right">2.64</td>
+<td align="right">87.64</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">stateTennessee</td>
+<td align="right">-2.62</td>
+<td align="right">2.56</td>
+<td align="right">-1.02</td>
+<td align="right">0.31</td>
+</tr>
+<tr class="odd">
+<td align="left">stateTexas</td>
+<td align="right">89.89</td>
+<td align="right">2.65</td>
+<td align="right">33.93</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">stateUtah</td>
+<td align="right">15.92</td>
+<td align="right">2.65</td>
+<td align="right">6.02</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">stateVermont</td>
+<td align="right">-4.41</td>
+<td align="right">2.58</td>
+<td align="right">-1.71</td>
+<td align="right">0.09</td>
+</tr>
+<tr class="even">
+<td align="left">stateVirginia</td>
+<td align="right">-3.61</td>
+<td align="right">2.55</td>
+<td align="right">-1.41</td>
+<td align="right">0.16</td>
+</tr>
+<tr class="odd">
+<td align="left">stateWashington</td>
+<td align="right">49.19</td>
+<td align="right">2.51</td>
+<td align="right">19.63</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">stateWest Virginia</td>
+<td align="right">-3.08</td>
+<td align="right">2.60</td>
+<td align="right">-1.19</td>
+<td align="right">0.24</td>
+</tr>
+<tr class="odd">
+<td align="left">stateWisconsin</td>
+<td align="right">53.08</td>
+<td align="right">2.61</td>
+<td align="right">20.36</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">stateWyoming</td>
+<td align="right">30.46</td>
+<td align="right">2.62</td>
+<td align="right">11.61</td>
+<td align="right">0.00</td>
+</tr>
+</tbody>
+</table>
 </div>
 
 

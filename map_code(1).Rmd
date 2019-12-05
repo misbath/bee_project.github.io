@@ -1,6 +1,10 @@
 ---
 title: "Map Code"
 output: html_document
+output: 
+  html_document:
+    toc: true
+    toc_float: true
 ---
 
 ```{r setup, include=FALSE}
@@ -140,12 +144,16 @@ toggle: year, pesticide
 
 I think the issue of missing data will be less so once we separate by years. I'm honestly not fully clear the difference between dark and light grey. 
 
-##Bees
+*Bees*
 
 ```{r}
 map_county_bees <- counties_base + theme_nothing() + 
   geom_polygon(data = county_2, aes(fill= colony_count), color = "white") + geom_polygon(color = "black", fill = NA) +
+<<<<<<< HEAD
+      theme_void() + labs(title= "All Bees, All Years, County Level Data", fill = "Number of Bee Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) 
+=======
       theme_void() + labs(title= "All Bees, All Years, County Level Data", fill = "Number of Bee Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + facet_grid(~year)
+>>>>>>> 3a5ba63b943fc0c917fa3e79132f59ce95e2e1ec
 
 map_county_bees
 
@@ -174,6 +182,8 @@ state_map_data = left_join(state.map, merged_state_data_map, by = "region")
 
 honey_bee_colony_map = 
   ggplot(state_map_data, aes(long, lat, group = group, fill = honey_producing_colonies)) + geom_polygon(color = "black") + theme_void() + labs(title = "Honey Producing Colonies", fill = "Honey Producing Colonies") + coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
+
+honey_bee_colony_map
 
 ```
 
@@ -1466,4 +1476,42 @@ clothianidin_map_2016 =
   ggplot(state_map_chlorpyrifos, aes(long, lat, group = group, fill = high)) + geom_polygon(color = "black") + theme_void() + labs(title = "Clothianidin Use 2016", fill = "Estimated Pesticide Use (Kg)") +  coord_map(projection = "bonne", lat0 = 50) + theme(plot.title = element_text(hjust = 0.5)) + scale_fill_gradient(low = "white", high = "red")
 
 ```
+
+```{r}
+
+edit_state_corr = read_csv("./data/working_cor_data.csv")
+
+edit_state_corr =
+  edit_state_corr %>%
+  mutate(state = str_to_lower(state)) %>%
+  rename(region = state) 
+
+state_map_correlations = left_join(state.map, edit_state_corr, by = "region") 
+
+correlations_map =
+  ggplot(state_map_correlations, aes(long, lat, group = group, fill = cor)) + geom_polygon(color = "black") + theme_void() + labs(title = "Correlations between Pesticide Use and Bee Population 2004-2016", fill = "Correlation Coefficient") +  coord_map(projection = "bonne", lat0 = 50) + scale_fill_gradient2(low = "red", mid = "white",high = "blue", midpoint = 0, space = "Lab",
+  na.value = "grey50", guide = "colourbar", aesthetics = "fill") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+correlations_map
+```
+
+```{r}
+
+clothianidin_map_2004
+clothianidin_map_2005
+clothianidin_map_2006
+clothianidin_map_2007
+clothianidin_map_2008
+clothianidin_map_2009
+clothianidin_map_2010
+clothianidin_map_2011
+clothianidin_map_2012
+clothianidin_map_2013
+clothianidin_map_2014
+clothianidin_map_2015
+clothianidin_map_2016
+```
+
+
 
