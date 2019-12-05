@@ -89,6 +89,8 @@ THIACLOPRID =
 
 # **County Level Maps**
 
+<br>
+
 *Pesticides*
 
 ```{r building base and pesticide maps, include = FALSE}
@@ -151,6 +153,8 @@ map_county_bees
 <br>
 
 # **State level maps**
+
+<br> 
 
 *Pesticides*
 
