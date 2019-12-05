@@ -18,13 +18,14 @@ Lastly during our exploratory analysis, we wanted to look at the correlation amo
 
 The [Additional Analysis](https://misbath.github.io/bee_project.github.io/add_analysis.html) is quite variable across States.
 
+Future analysis could examine the effects of weather on bee population. This could range from looking at changes in temperature over time to the effect of precipitation. Linear models adjusting for all of these variables could be built as well as non-linear models such as segmented regression or generalized additive models to best test a threshold for bee colony decline.
 
+While this analysis does not demonstrate a very strong effect of pesticides on bee population, please consider taking the following precautions to conserve the bee ecosystem!
 
-
-
-
-
-**will add more
+Plant a pollinator garden
+Avoid pesticide use in the yard
+Conserve bee nesting habitats
+Educate others!
 
 
 <br>
