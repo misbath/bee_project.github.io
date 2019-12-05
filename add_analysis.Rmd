@@ -30,7 +30,7 @@ theme_set(theme_bw() + theme(legend.position = "bottom"))
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-**Pearson Correlation Coefficients for Total Pesticide Use and Bee Population by State**
+# Pearson Correlation Coefficients for Total Pesticide Use and Bee Population by State
 
 To understand the effect of the pesticide use trends in the United States and the potential effect on bee population for each state, we calculated the Pearson Correlation for the time period of 2004-2016.
 
@@ -59,12 +59,14 @@ The increase in bee population in the state tends to steadily decrease until 201
 
 <br>
 
-**Selected maps**
 
-Maps for the pesticides with the highest total use, Chlorpyrifos and Chlorthalonil, are displayed here. Data is displayed for 2007 and 2012, as those were the years with available county level data.
+# Selected Maps
 
+Maps for state and county levels bee populations are presented for 2007 and 2012. The pesticides with the highest total use, Chlorpyrifos and Chlorthalonil, are displayed at the state level. 
 
-**County Level Maps**
+<br>
+
+## County Level Maps
 
 ![Figure 10: All Bee Population 2007](images/county_bees_2007.png)
 
@@ -74,7 +76,7 @@ Maps for the pesticides with the highest total use, Chlorpyrifos and Chlorthalon
 
 <br>
 
-**State Level Maps**
+## State Level Maps
 
 <br> 
 
