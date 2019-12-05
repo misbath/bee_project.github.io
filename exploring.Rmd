@@ -17,7 +17,6 @@ The graph below shows the variations in use of the six most common pesticides in
 
 <br>
 
-
 ```{r, echo=FALSE, message=FALSE}
 library(tidyverse)
 library(viridis)
@@ -73,7 +72,6 @@ matrix_state_2
 corrplot(matrix_state_2, order = "hclust", type = "full")
 
 ```
-
 
 
 ```{r, echo=FALSE, message=FALSE, fig.align= "center"}
