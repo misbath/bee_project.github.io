@@ -12,7 +12,7 @@ The analyses performed for this project might not have been localized enough to 
 
 <br>
 
-We examined the pesticide and bee data with a number of different analyses before investigating correlations. Interestingly, as seen in figures 1 and 2, the increase in pesticide corresponds almost perfectly to the drop in honey bee and bee populations plotted. 
+We examined the pesticide and bee data with a number of different analyses before investigating correlations. Interestingly, as seen in Figures 1 and 2, the increase in pesticide corresponds almost perfectly to the drop in honey bee and bee populations plotted. 
 
 <br>
 Additionally, we wanted to visually represent the use of pesticides and colonies spatially by state. Figures 4 and 5 show number of colonies and cumulative pesticide use by state. As seen in these maps, California has a high number of honey producing colonies and a moderate use of cumulative pesticides. However, states like Georgia, which use quite a large amount of pesticides has a small number of honey producing colonies. States in the central United States do not show a clear relationship between the exposure and outcome. We presume other environmental factors, such as climate are at play here. Another factor that may have contributed to this trend is the high proportion of missing colony level data on bee colonies. Due to limitations in depicting maps of pesticides on the county level, in which states with known high levels of pesticide use (CA) were depicted as missing on the county map using the maps package with a base county map, only the state level pesticide use maps are informative.
@@ -20,7 +20,11 @@ Additionally, we wanted to visually represent the use of pesticides and colonies
 
 <br>
 
-This relationship between pesticides themselves can be exampined with the Pearson correlation coefficient plot within our [Exploratory Analyses](https://misbath.github.io/bee_project.github.io/exploring.html). This correlation yielded information on pesticide use and bee population change over time. Table 1 shows the correlation coefficients. Specifically we oberved a highly positive correlation between Chlorpyfiros, Imidacloprid and Chlorothalonil use. We found that compunds Chlorpyrifos and Chlorothalonil specifically are used in much higher quantities across all years. These two compunds have formualations and solvents that are known to be highly orally toxic to bee larvae [Zhu et. al](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0077547).
+This relationship between pesticides themselves can be exampined with the Pearson Correlation coefficient plot within our [Exploratory Analyses](https://misbath.github.io/bee_project.github.io/exploring.html). This correlation yielded information on pesticide use and bee population change over time. Table 1 shows the correlation coefficients. Specifically, we oberved a highly positive correlation between Chlorpyfiros, Imidacloprid and Chlorothalonil use. We found that compunds Chlorpyrifos and Chlorothalonil specifically are used in much higher quantities across all years. These two compunds have formualations and solvents that are known to be highly orally toxic to bee larvae [Zhu et. al](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0077547).
+
+<br>
+
+This analysis was limited by the availability and quality of data available. Figures 10 and 11 demonstrate the lack of data at the county level. This is especially important given the local impact of pesticides. Without county specific data it is difficult to draw conclusions between pesticide use and bee populations at the state level. In order to properly examine the effect of pesticide use on bee populations consistent and full data is necessary at local levels.  
 
 <br>
 
